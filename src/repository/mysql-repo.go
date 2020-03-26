@@ -7,11 +7,6 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-var (
-	cf = config.NewConfiguration()
-)
-
-
 type repo struct {
 	config *config.DatabaseConfigurations
 }
