@@ -2,6 +2,7 @@ package repository
 
 import (
 	"../config"
+	models "../model"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -30,4 +31,39 @@ func (r *repo) GetConnection() (*gorm.DB, error) {
 	//	fmt.Println("Hello world")
 	//}
 	return db, nil
+}
+
+func (r *repo) AutoMigration()  {
+	db, err := r.GetConnection()
+	if err != nil {
+		panic(err.Error())
+	}
+	defer db.Close()
+
+	user := models.User{}
+	role := models.Role{}
+	quiz := models.Quiz{}
+	lang := models.Language{}
+	cate := models.Category{}
+	timing := models.Timing{}
+	rating := models.Rating{}
+	historyDate := models.HistoryDate{}
+	history := models.History{}
+	question := models.Question{}
+	choice := models.Choice{}
+
+	db.AutoMigrate(user, role, quiz, lang, cate, timing,rating,historyDate,history,question,choice)
+	db.Model(quiz).AddForeignKey("created_by", "users(id)", "RESTRICT", "RESTRICT")
+	db.Model(quiz).AddForeignKey("language_id", "languages(id)", "RESTRICT", "RESTRICT")
+	db.Model(quiz).AddForeignKey("category_id", "categories(id)", "RESTRICT", "RESTRICT")
+	db.Model(quiz).AddForeignKey("timing_id", "timings(id)", "RESTRICT", "RESTRICT")
+	db.Model(rating).AddForeignKey("user_id", "users(id)", "RESTRICT", "RESTRICT")
+	db.Model(rating).AddForeignKey("quiz_id", "quizzes(id)", "RESTRICT", "RESTRICT")
+	db.Model(history).AddForeignKey("user_id", "users(id)", "RESTRICT", "RESTRICT")
+	db.Model(history).AddForeignKey("quiz_id", "quizzes(id)", "RESTRICT", "RESTRICT")
+	db.Model(history).AddForeignKey("history_date_id", "history_dates(id)", "RESTRICT", "RESTRICT")
+	db.Model(question).AddForeignKey("quiz_id", "quizzes(id)", "RESTRICT", "RESTRICT")
+	db.Model(choice).AddForeignKey("question_id", "questions(id)", "RESTRICT", "RESTRICT")
+	db.Table("user_roles").AddForeignKey("user_id","users(id)","RESTRICT", "RESTRICT")
+	db.Table("user_roles").AddForeignKey("role_id","roles(id)","RESTRICT", "RESTRICT")
 }

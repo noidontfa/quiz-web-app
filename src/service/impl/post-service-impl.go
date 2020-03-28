@@ -1,7 +1,7 @@
 package impl
 
 import (
-	"../../entity"
+	"../../model"
 	"../../repository"
 	"../../repository/impl"
 	"../../service"
@@ -19,10 +19,10 @@ func NewPostService() service.PostService {
 }
 
 
-func (s *serv) Create(post *entity.Post) (*entity.Post, error) {
+func (s *serv) Create(post *model.Post) (*model.Post, error) {
 	return s.repo.Save(post)
 }
 
-func (s *serv) FindAll() ([]entity.Post, error) {
+func (s *serv) FindAll() ([]model.Post, error) {
 	return s.repo.FindAll()
 }

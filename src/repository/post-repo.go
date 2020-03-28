@@ -1,11 +1,11 @@
 package repository
 
 import (
-	"../entity"
+	"../model"
 )
 
 type PostRepository interface {
-	Save(post *entity.Post) (*entity.Post,error)
-	FindAll() ([]entity.Post, error)
+	Save(post *model.Post) (*model.Post,error)
+	FindAll() ([]model.Post, error)
 }
 

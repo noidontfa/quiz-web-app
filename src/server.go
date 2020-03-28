@@ -27,7 +27,6 @@ package main
 import (
 	"./config"
 	"./repository"
-	"fmt"
 )
 
 var (
@@ -40,16 +39,7 @@ func main() {
 		panic(err.Error())
 	}
 	repo := repository.NewMySqlRepository(config)
-	db, err1 := repo.GetConnection()
-	if err1 != nil {
-		panic(err1.Error())
-	}
-	defer db.Close()
-	if err3 := db.DB().Ping(); err3 != nil {
-		panic(err3.Error())
-	} else {
-		fmt.Println("Hello world")
-	}
+	repo.AutoMigration()
 
 
 }

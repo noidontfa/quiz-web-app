@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"../entity"
+	"../model"
 	"../service"
 	"../service/impl"
 	"encoding/json"
@@ -41,7 +41,7 @@ func (*controller) GetPosts(resp http.ResponseWriter, req *http.Request) {
 
 func (*controller) AddPost(resp http.ResponseWriter, req *http.Request) {
 	resp.Header().Set("Content-type", "application/json")
-	var post entity.Post
+	var post model.Post
 	err := json.NewDecoder(req.Body).Decode(&post)
 	if err != nil {
 		resp.WriteHeader(http.StatusInternalServerError)

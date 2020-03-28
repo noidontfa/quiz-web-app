@@ -1,10 +1,10 @@
 package service
 
 import (
-	"../entity"
+	"../model"
 )
 
 type PostService interface {
-	Create(post *entity.Post ) (*entity.Post, error)
-	FindAll() ([]entity.Post, error)
+	Create(post *model.Post ) (*model.Post, error)
+	FindAll() ([]model.Post, error)
 }
