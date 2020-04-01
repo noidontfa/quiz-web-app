@@ -1,9 +1,14 @@
 package model
 
-import "github.com/jinzhu/gorm"
+import (
+	"time"
+)
 
 type Category struct {
-	gorm.Model
-	Name 		string `gorm:"not null"`
-	Quizzes		[]Quiz `gorm:"foreignkey:CategoryId`
+	ID        	uint `gorm:"primary_key" json:"id"`
+	CreatedAt 	time.Time `json:"createdAt"`
+	UpdatedAt 	time.Time `json:"updatedAt"`
+	DeletedAt 	*time.Time `sql:"index" json:"deleteAt"`
+	Name 		string `gorm:"not null" json:"name"`
+	Quizzes		[]Quiz `gorm:"foreignkey:CategoryId" json:"-"`
 }

@@ -5,6 +5,9 @@ import (
 )
 
 type CategoryService interface {
-	FindAll() []models.Category
-	Save(category models.Category) models.Category
+	FindAll() ([]models.Category, error)
+	FindById(id uint) (models.Category, error)
+	Save(category models.Category) (models.Category, error)
+	Update(category models.Category) (models.Category, error)
+	Delete(id uint) error
 }

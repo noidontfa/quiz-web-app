@@ -4,18 +4,12 @@ import (
 	models "../../model"
 	"../../repository"
 	"../../service"
-	"context"
-	"database/sql"
-	"fmt"
 	"log"
-	"time"
 )
 
 type Sevc struct {
 	db *repository.Repo
 }
-
-
 
 func NewCategoryService(db *repository.Repo) service.CategoryService {
 	return &Sevc{
@@ -23,36 +17,75 @@ func NewCategoryService(db *repository.Repo) service.CategoryService {
 	}
 }
 
-func (s *Sevc) FindAll() []models.Category {
-	fmt.Println("Category FindALl service")
-	return nil
-}
-
-func (s *Sevc) Save(category models.Category) models.Category {
+func (s *Sevc) FindAll() ([]models.Category, error) {
 	db, err := s.db.GetConnection()
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	defer db.DB().Close()
-	ctx := context.Background()
-	tx, err1 := db.DB().BeginTx(ctx,&sql.TxOptions{Isolation: sql.LevelDefault})
-	if err1 != nil {
-		log.Fatal(err1.Error())
+	defer db.Close()
+	var categories []models.Category
+	if dbs := db.Find(&categories).Error; dbs == nil {
+		return categories,nil
+	} else {
+		return []models.Category{}, dbs
 	}
-	sql := "INSERT INTO categories(name,created_at) VALUES (?, ?)"
-	res, execErr := tx.ExecContext(ctx,sql,category.Name,time.Now())
-	if execErr != nil {
-		if rollBackErr := tx.Rollback(); rollBackErr != nil {
-			log.Fatalf("%v\n%v",execErr,rollBackErr)
-		}
-	}
-	if err := tx.Commit(); err != nil {
+
+}
+
+func (s *Sevc) Save(category models.Category) (models.Category,error) {
+	db, err := s.db.GetConnection()
+	if err != nil {
 		log.Fatal(err.Error())
 	}
-	log.Println(res.LastInsertId())
-	var cate models.Category
-	//db.Where("id = ?", res.LastInsertId()).Find(&cate)
-	return cate
+	defer db.Close()
+	if dbs := db.Save(&category).Error; dbs == nil {
+		return category,nil
+	} else {
+		return models.Category{},dbs
+	}
 }
+
+
+func (s *Sevc) FindById(id uint) (models.Category, error) {
+	db, err := s.db.GetConnection()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	defer db.Close()
+	var category models.Category
+	if dbErr := db.Where("id = ?", id).Find(&category).Error; dbErr == nil {
+		return category,nil
+	} else {
+		return models.Category{},dbErr
+	}
+}
+
+
+func (s *Sevc) Update(category models.Category) (models.Category, error) {
+	db, err := s.db.GetConnection()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	defer db.Close()
+	if dbErr := db.Update(&category).Error; dbErr == nil {
+		return category,nil
+	} else {
+		return models.Category{}, dbErr
+	}
+}
+
+func (s *Sevc) Delete(id uint) error {
+	db, err := s.db.GetConnection()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	defer db.Close()
+	if dbErr := db.Where("id = ?", id).Delete(&models.Category{}).Error; dbErr == nil {
+		return nil
+	} else {
+		return dbErr
+	}
+}
+
 
 

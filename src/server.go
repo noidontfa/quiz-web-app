@@ -31,8 +31,11 @@ func main() {
 
 	api := router.Group("/api")
 	{
-		api.GET("/category",categoryController.GetCategories)
-		api.POST("/category",categoryController.PostCategories)
+		api.GET("/categories",categoryController.FindAllCategories)
+		api.GET("/categories/:id",categoryController.FindByIdCategory)
+		api.PUT("/categories/:id",categoryController.UpdateCategory)
+		api.DELETE("/categories/:id",categoryController.DeleteCategory)
+		api.POST("/categories",categoryController.SaveCategory)
 	}
 
 	log.Fatal(router.Run(fmt.Sprintf("%s:%s",config.HttpServerHost,config.Port)))
