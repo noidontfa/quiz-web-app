@@ -1,3 +1,5 @@
 dbname: "quiz-application"
 dbuser: "root"
 dbpassword: "123456"
+port: "8080"
+httpserverhost: "localhost"

@@ -4,7 +4,7 @@ import "github.com/jinzhu/gorm"
 
 type Choice struct {
 	gorm.Model
-	Name 		string
+	Name 		string `gorm:"not null"`
 	QuestionId	uint
-	IsRight		bool
+	IsRight		bool `gorm:"not null;default: false"`
 }

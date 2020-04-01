@@ -4,9 +4,9 @@ import "github.com/jinzhu/gorm"
 
 type Quiz struct {
 	gorm.Model
-	Name		string
+	Name		string `gorm:"not null"`
 	Description string
-	CreatedBy	uint
+	CreatedBy	uint `gorm:"not null"`
 	CategoryId	uint
 	LanguageId  uint
 	TimingId    uint

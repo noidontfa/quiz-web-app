@@ -1,32 +1,13 @@
 package main
 
-//import (
-//	"./controller"
-//	router "./http"
-//	"fmt"
-//	"net/http"
-//)
-//
-//var (
-//	postController = controller.NewPostController()
-//	httpRouter = router.NewMuxRouter()
-//)
-//
-//
-//func main() {
-//	const port string = ":8000"
-//	httpRouter.GET("/", func(resp http.ResponseWriter, req *http.Request) {
-//		fmt.Fprint(resp, "hello world")
-//	})
-//	//
-//	httpRouter.GET("/posts", postController.AddPost )
-//	httpRouter.POST("/posts", postController.GetPosts)
-//
-//	httpRouter.SERVE(port)
-//}
 import (
 	"./config"
+	"./controller"
 	"./repository"
+	service "./service/impl"
+	"fmt"
+	"github.com/gin-gonic/gin"
+	"log"
 )
 
 var (
@@ -41,5 +22,21 @@ func main() {
 	repo := repository.NewMySqlRepository(config)
 	repo.AutoMigration()
 
+	categoryService := service.NewCategoryService(repo)
+	categoryController := controller.NewCategoryController(categoryService)
+
+	router := gin.New()
+
+	router.Use(gin.Logger(), gin.Recovery())
+
+	api := router.Group("/api")
+	{
+		api.GET("/category",categoryController.GetCategories)
+		api.POST("/category",categoryController.PostCategories)
+	}
+
+	log.Fatal(router.Run(fmt.Sprintf("%s:%s",config.HttpServerHost,config.Port)))
+
 
 }
+

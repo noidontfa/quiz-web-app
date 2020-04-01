@@ -7,11 +7,11 @@ import (
 
 type User struct {
 	gorm.Model
-	Username 	string
-	Password 	string
-	FirstName	string
-	LastName	string
-	Email		string
+	Username 	string	`gorm:"not null;unique"`
+	Password 	string	`gorm:"not null"`
+	FirstName	string	`gorm:"not null"`
+	LastName	string	`gorm:"not null"`
+	Email		string	`gorm:"not null"`
 	DayOfBirth  time.Time
 	Roles		[]Role `gorm:"many2many:user_roles"`
 	Quizzes		[]Quiz `gorm:"foreignkey:CreatedBy"`

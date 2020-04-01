@@ -8,18 +8,18 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-type repo struct {
+type Repo struct {
 	config *config.DatabaseConfigurations
 }
 
 
-func NewMySqlRepository(cf *config.DatabaseConfigurations) *repo  {
-	return &repo{
+func NewMySqlRepository(cf *config.DatabaseConfigurations) *Repo  {
+	return &Repo{
 		config: cf,
 	}
 }
 
-func (r *repo) GetConnection() (*gorm.DB, error) {
+func (r *Repo) GetConnection() (*gorm.DB, error) {
 	connection := fmt.Sprintf("%s:%s@/%s?charset=utf8&parseTime=True&loc=Local",r.config.DBUser,r.config.DBPassword,r.config.DBName)
 	db, err := gorm.Open("mysql", connection)
 	if err != nil {
@@ -33,7 +33,7 @@ func (r *repo) GetConnection() (*gorm.DB, error) {
 	return db, nil
 }
 
-func (r *repo) AutoMigration()  {
+func (r *Repo) AutoMigration()  {
 	db, err := r.GetConnection()
 	if err != nil {
 		panic(err.Error())

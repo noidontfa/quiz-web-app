@@ -10,9 +10,11 @@ type config struct {
 }
 
 type DatabaseConfigurations struct {
-	DBName     string
-	DBUser     string
-	DBPassword string
+	DBName     		string
+	DBUser     		string
+	DBPassword 		string
+	Port	   		string
+	HttpServerHost 	string
 }
 
 func NewConfiguration() *config {
