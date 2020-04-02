@@ -32,21 +32,21 @@ func (s *Sevc) FindAll() ([]models.Category, error) {
 
 }
 
-func (s *Sevc) Save(category models.Category) (models.Category,error) {
+func (s *Sevc) Save(category *models.Category) (*models.Category,error) {
 	db, err := s.db.GetConnection()
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 	defer db.Close()
-	if dbs := db.Save(&category).Error; dbs == nil {
+	if dbs := db.Save(category).Error; dbs == nil {
 		return category,nil
 	} else {
-		return models.Category{},dbs
+		return &models.Category{},dbs
 	}
 }
 
 
-func (s *Sevc) FindById(id uint) (models.Category, error) {
+func (s *Sevc) FindById(id uint) (*models.Category, error) {
 	db, err := s.db.GetConnection()
 	if err != nil {
 		log.Fatal(err.Error())
@@ -54,23 +54,23 @@ func (s *Sevc) FindById(id uint) (models.Category, error) {
 	defer db.Close()
 	var category models.Category
 	if dbErr := db.Where("id = ?", id).Find(&category).Error; dbErr == nil {
-		return category,nil
+		return &category,nil
 	} else {
-		return models.Category{},dbErr
+		return &models.Category{},dbErr
 	}
 }
 
 
-func (s *Sevc) Update(category models.Category) (models.Category, error) {
+func (s *Sevc) Update(id uint,category *models.Category) (*models.Category, error) {
 	db, err := s.db.GetConnection()
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 	defer db.Close()
-	if dbErr := db.Update(&category).Error; dbErr == nil {
+	if dbErr := db.Model(models.Category{}).Where("id = ?", id).Update(category).Find(category).Error; dbErr == nil {
 		return category,nil
 	} else {
-		return models.Category{}, dbErr
+		return &models.Category{}, dbErr
 	}
 }
 
@@ -80,7 +80,7 @@ func (s *Sevc) Delete(id uint) error {
 		log.Fatal(err.Error())
 	}
 	defer db.Close()
-	if dbErr := db.Where("id = ?", id).Delete(&models.Category{}).Error; dbErr == nil {
+	if dbErr := db.Where("id = ?", id).Delete(models.Category{}).Error; dbErr == nil {
 		return nil
 	} else {
 		return dbErr

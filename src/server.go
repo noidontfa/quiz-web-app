@@ -22,8 +22,10 @@ func main() {
 	repo := repository.NewMySqlRepository(config)
 	repo.AutoMigration()
 
-	categoryService := service.NewCategoryService(repo)
-	categoryController := controller.NewCategoryController(categoryService)
+	categoryService 	:= service.NewCategoryService(repo)
+	quizService 		:= service.NewQuizService(repo)
+	categoryController 	:= controller.NewCategoryController(categoryService)
+	quizController		:= controller.NewQuizController(quizService)
 
 	router := gin.New()
 
@@ -36,6 +38,12 @@ func main() {
 		api.PUT("/categories/:id",categoryController.UpdateCategory)
 		api.DELETE("/categories/:id",categoryController.DeleteCategory)
 		api.POST("/categories",categoryController.SaveCategory)
+
+		api.GET("/quizzes",quizController.FindAllQuizzes)
+		api.GET("/quizzes/:id",quizController.FindByIdQuiz)
+		api.PUT("/quizzes/:id",quizController.UpdateQuiz)
+		api.DELETE("/quizzes/:id",quizController.DeleteQuiz)
+		api.POST("/quizzes",quizController.SaveQuiz)
 	}
 
 	log.Fatal(router.Run(fmt.Sprintf("%s:%s",config.HttpServerHost,config.Port)))
