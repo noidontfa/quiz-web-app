@@ -25,6 +25,12 @@ func (q *QuizSevc) FindAll() ([]models.Quiz, error) {
 	defer db.Close()
 	var quizzes []models.Quiz
 	if dbErr := db.Find(&quizzes).Error; dbErr == nil {
+		for i,_ := range quizzes {
+			db.Model(quizzes[i]).Related(&quizzes[i].CategoryRefer)
+			db.Model(quizzes[i]).Related(&quizzes[i].LanguageRefer)
+			db.Model(quizzes[i]).Related(&quizzes[i].TimingRefer)
+			db.Model(quizzes[i]).Related(&quizzes[i].UserRefer,"CreatedBy")
+		}
 		return quizzes,nil
 	} else {
 		return []models.Quiz{},dbErr
@@ -39,6 +45,10 @@ func (q *QuizSevc) FindById(id uint) (*models.Quiz, error) {
 	defer db.Close()
 	var quiz models.Quiz
 	if dbErr := db.Where("id = ?", id).Find(&quiz).Error; dbErr == nil {
+		db.Model(quiz).Related(&quiz.CategoryRefer)
+		db.Model(quiz).Related(&quiz.LanguageRefer)
+		db.Model(quiz).Related(&quiz.TimingRefer)
+		db.Model(quiz).Related(&quiz.UserRefer,"CreatedBy")
 		return &quiz,nil
 	} else {
 		return &quiz, dbErr

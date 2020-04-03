@@ -14,7 +14,7 @@ type User struct {
 	Email		string	`gorm:"not null"`
 	DayOfBirth  time.Time
 	Roles		[]Role `gorm:"many2many:user_roles"`
-	Quizzes		[]Quiz `gorm:"foreignkey:CreatedBy"`
+	Quizzes		[]Quiz `gorm:"foreignkey:CreatedBy;"`
 	Ratings		[]Rating `gorm:"foreignkey:UserId"`
 	Histories	[]History `gorm:"foreignkey:UserId"`
 }
