@@ -53,7 +53,15 @@ func (s *Sevc) FindById(id uint) (*models.Category, error) {
 	}
 	defer db.Close()
 	var category models.Category
-	if dbErr := db.Where("id = ?", id).Find(&category).Error; dbErr == nil {
+	if dbErr := db.Where("id = ?", id).Preload("Quizzes").Find(&category).Error; dbErr == nil {
+		//db.Debug().Model(category).Association("quizzes").Find(&category.Quizzes)
+		for i,_ := range category.Quizzes {
+			quiz := &category.Quizzes[i]
+			db.Model(quiz).Related(&quiz.CategoryRefer)
+			db.Model(quiz).Related(&quiz.TimingRefer)
+			db.Model(quiz).Related(&quiz.LanguageRefer)
+			db.Model(quiz).Related(&quiz.UserRefer,"createdBy")
+		}
 		return &category,nil
 	} else {
 		return &models.Category{},dbErr

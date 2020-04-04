@@ -75,6 +75,10 @@ func (q *QuizSevc) Update(id uint, quiz *models.Quiz) (*models.Quiz, error) {
 	}
 	defer db.Close()
 	if dbErr := db.Model(&models.Quiz{}).Where("id = ?", id).Update(quiz).Find(quiz).Error; dbErr == nil {
+		db.Model(quiz).Related(&quiz.CategoryRefer)
+		db.Model(quiz).Related(&quiz.LanguageRefer)
+		db.Model(quiz).Related(&quiz.TimingRefer)
+		db.Model(quiz).Related(&quiz.UserRefer,"CreatedBy")
 		return quiz, nil
 	} else {
 		return quiz, dbErr
