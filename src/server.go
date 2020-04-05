@@ -26,10 +26,12 @@ func main() {
 	quizService 		:= service.NewQuizService(repo)
 	languageService		:= service.NewLanguageService(repo)
 	timingService		:= service.NewTimingService(repo)
+	roleService			:= service.NewRoleService(repo)
 	categoryController 	:= controller.NewCategoryController(categoryService)
 	quizController		:= controller.NewQuizController(quizService)
 	languageController	:= controller.NewLanguageController(languageService)
 	timingController	:= controller.NewTimingController(timingService)
+	roleController		:= controller.NewRoleController(roleService)
 
 	router := gin.New()
 
@@ -60,6 +62,12 @@ func main() {
 		api.PUT("/timings/:id",timingController.UpdateTiming)
 		api.DELETE("/timings/:id",timingController.DeleteTiming)
 		api.POST("/timings",timingController.SaveTiming)
+
+		api.GET("/roles",roleController.FindAllRoles)
+		api.GET("/roles/:id",roleController.FindByIdRole)
+		api.PUT("/roles/:id",roleController.UpdateRole)
+		api.DELETE("/roles/:id",roleController.DeleteRole)
+		api.POST("/roles",roleController.SaveRole)
 	}
 
 	log.Fatal(router.Run(fmt.Sprintf("%s:%s",config.HttpServerHost,config.Port)))
