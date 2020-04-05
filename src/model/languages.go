@@ -1,9 +1,14 @@
 package model
 
-import "github.com/jinzhu/gorm"
+import (
+	"time"
+)
 
 type Language struct {
-	gorm.Model
-	Name	string `gorm:"not null"`
-	Quizzes []Quiz `gorm:"foreignkey:LanguageId`
+	ID        		uint 		`gorm:"primary_key" json:"id"`
+	CreatedAt 		time.Time 	`json:"-"`
+	UpdatedAt 		time.Time 	`json:"-"`
+	DeletedAt 		*time.Time 	`sql:"index" json:"-"`
+	Name			string 		`gorm:"not null" json:"name"`
+	Quizzes 		[]Quiz 		`gorm:"foreignkey:LanguageId" json:"quizzes"`
 }
