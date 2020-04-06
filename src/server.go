@@ -27,11 +27,13 @@ func main() {
 	languageService		:= service.NewLanguageService(repo)
 	timingService		:= service.NewTimingService(repo)
 	roleService			:= service.NewRoleService(repo)
+	userService			:= service.NewUserService(repo)
 	categoryController 	:= controller.NewCategoryController(categoryService)
 	quizController		:= controller.NewQuizController(quizService)
 	languageController	:= controller.NewLanguageController(languageService)
 	timingController	:= controller.NewTimingController(timingService)
 	roleController		:= controller.NewRoleController(roleService)
+	userController		:= controller.NewUserController(userService)
 
 	router := gin.New()
 
@@ -68,6 +70,12 @@ func main() {
 		api.PUT("/roles/:id",roleController.UpdateRole)
 		api.DELETE("/roles/:id",roleController.DeleteRole)
 		api.POST("/roles",roleController.SaveRole)
+
+		api.GET("/users",userController.FindAllUsers)
+		api.GET("/users/:id",userController.FindByIdUser)
+		api.PUT("/users/:id",userController.UpdateUser)
+		api.DELETE("/users/:id",userController.DeleteUser)
+		api.POST("/users",userController.SaveUser)
 	}
 
 	log.Fatal(router.Run(fmt.Sprintf("%s:%s",config.HttpServerHost,config.Port)))
