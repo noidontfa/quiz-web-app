@@ -5,7 +5,7 @@ import (
 )
 
 type User struct {
-	ID        	uint 		`gorm:"primary_key"`
+	ID        	uint 		`gorm:"primary_key" json:"id"`
 	CreatedAt 	time.Time	`json:"-"`
 	UpdatedAt 	time.Time	`json:"-"`
 	DeletedAt 	*time.Time 	`sql:"index" json:"-"`
@@ -14,7 +14,7 @@ type User struct {
 	FirstName	string		`gorm:"not null" json:"firstName"`
 	LastName	string		`gorm:"not null" json:"lastName"`
 	Email		string		`gorm:"not null" json:"email"`
-	DayOfBirth  time.Time	`json:"dayOfBirth" time_format:"2006-01-02"`
+	DayOfBirth  time.Time	`json:"dayOfBirth"`
 	RoleIds		[]uint		`gorm:"-" json:"roleIds"`
 	Roles		[]Role 		`gorm:"many2many:user_roles" json:"roles"`
 	Quizzes		[]Quiz 		`gorm:"foreignkey:CreatedBy;" json:"quizzes"`

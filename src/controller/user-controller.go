@@ -5,6 +5,7 @@ import (
 	"../service"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 type UserControl struct {
@@ -33,15 +34,49 @@ func (u *UserControl) FindAllUsers(ctx *gin.Context) {
 }
 
 func (u *UserControl) FindByIdUser(ctx *gin.Context) {
-	panic("implement me")
+	id, err1 := strconv.ParseInt(ctx.Param("id"),0,0)
+	if err1 != nil {
+		ctx.String(http.StatusInternalServerError, err1.Error())
+		return
+	}
+	user, err := u.UserService.FindById(uint(id))
+	if err != nil {
+		ctx.String(http.StatusInternalServerError,err.Error())
+		return
+	}
+	ctx.JSON(http.StatusOK,user)
 }
 
 func (u *UserControl) UpdateUser(ctx *gin.Context) {
-	panic("implement me")
+	id, err1 := strconv.ParseInt(ctx.Param("id"),0,0)
+	if err1 != nil {
+		ctx.String(http.StatusInternalServerError, err1.Error())
+		return
+	}
+	var user models.User
+	if err := ctx.ShouldBindJSON(&user); err != nil {
+		ctx.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+	userResult, err := u.UserService.Update(uint(id),&user)
+	if err != nil {
+		ctx.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+	ctx.JSON(http.StatusOK, userResult)
 }
 
 func (u *UserControl) DeleteUser(ctx *gin.Context) {
-	panic("implement me")
+	id, err1 := strconv.ParseInt(ctx.Param("id"),0,0)
+	if err1 != nil {
+		ctx.String(http.StatusInternalServerError, err1.Error())
+		return
+	}
+	if err := u.UserService.Delete(uint(id)); err != nil {
+		ctx.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+	ctx.String(http.StatusOK, "Deleted")
 }
 
 func (u *UserControl) SaveUser(ctx *gin.Context) {
