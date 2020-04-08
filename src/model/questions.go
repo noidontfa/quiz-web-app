@@ -1,10 +1,13 @@
 package model
 
-import "github.com/jinzhu/gorm"
+import "time"
 
 type Question struct {
-	gorm.Model
-	Name 		string `gorm:"not null"`
-	QuizId		uint
-	Choices		[]Choice `gorm:"foreignkey:QuestionId`
+	ID        	uint 		`gorm:"primary_key" json:"id"`
+	CreatedAt 	time.Time 	`json:"-"`
+	UpdatedAt 	time.Time 	`json:"-"`
+	DeletedAt 	*time.Time 	`sql:"index" json:"-"`
+	Name 		string 		`gorm:"not null" json:"name" sql:"not null"`
+	QuizId		uint 		`json:"quizId"`
+	Choices		[]Choice 	`gorm:"foreignkey:QuestionId" json:"choices"`
 }

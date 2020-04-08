@@ -1,10 +1,15 @@
 package model
 
-import "github.com/jinzhu/gorm"
+import (
+	"time"
+)
 
 type Choice struct {
-	gorm.Model
-	Name 		string `gorm:"not null"`
-	QuestionId	uint
-	IsRight		bool `gorm:"not null;default: false"`
+	ID        	uint 		`gorm:"primary_key" json:"id"`
+	CreatedAt 	time.Time	`json:"-"`
+	UpdatedAt 	time.Time	`json:"-"`
+	DeletedAt 	*time.Time 	`sql:"index" json:"-"`
+	Name 		string 		`json:"name" sql:"not null"`
+	QuestionId	uint		`json:"questionId"`
+	IsRight		bool 		`gorm:"default: false" json:"isRight"`
 }
