@@ -1,10 +1,13 @@
 package model
 
-import "github.com/jinzhu/gorm"
+import "time"
 
 type Rating struct {
-	gorm.Model
-	UserId	uint
-	QuizId 	uint
-	Star 	uint8
+	ID        	uint 		`gorm:"primary_key" json:"id"`
+	CreatedAt 	time.Time 	`json:"-"`
+	UpdatedAt 	time.Time 	`json:"-"`
+	DeletedAt 	*time.Time 	`sql:"index" json:"-"`
+	UserId		uint 		`json:"userId"`
+	QuizId 		uint 		`json:"quizId"`
+	Star 		uint8 		`json:"star"`
 }

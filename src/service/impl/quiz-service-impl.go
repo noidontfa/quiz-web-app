@@ -30,7 +30,9 @@ func (q *QuizSevc) FindAll() ([]models.Quiz, error) {
 			db.Model(quizzes[i]).Related(&quizzes[i].LanguageRefer)
 			db.Model(quizzes[i]).Related(&quizzes[i].TimingRefer)
 			db.Model(quizzes[i]).Related(&quizzes[i].UserRefer,"CreatedBy")
+			db.Model(quizzes[i]).Association("Ratings").Find(&quizzes[i].Ratings)
 		}
+
 		return quizzes,nil
 	} else {
 		return []models.Quiz{},dbErr
@@ -56,6 +58,7 @@ func (q *QuizSevc) FindById(id uint) (*models.Quiz, error) {
 				db.Model(question).Association("Choices").Find(&question.Choices)
 			}
 		}
+		db.Model(quiz).Association("Ratings").Find(&quiz.Ratings)
 	}
 	return &quiz, dbErr
 }

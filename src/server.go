@@ -29,6 +29,7 @@ func main() {
 	roleService			:= service.NewRoleService(repo)
 	userService			:= service.NewUserService(repo)
 	questionService		:= service.NewQuestionService(repo)
+	ratingService		:= service.NewRatingService(repo)
 	categoryController 	:= controller.NewCategoryController(categoryService)
 	quizController		:= controller.NewQuizController(quizService)
 	languageController	:= controller.NewLanguageController(languageService)
@@ -36,6 +37,7 @@ func main() {
 	roleController		:= controller.NewRoleController(roleService)
 	userController		:= controller.NewUserController(userService)
 	questionController	:= controller.NewQuestionController(questionService)
+	ratingController	:= controller.NewRatingController(ratingService)
 
 	router := gin.New()
 
@@ -80,6 +82,8 @@ func main() {
 		api.POST("/users",userController.SaveUser)
 
 		api.POST("/questions/:id",questionController.SaveQuestions)
+
+		api.POST("/ratings/",ratingController.SaveRating)
 	}
 
 	log.Fatal(router.Run(fmt.Sprintf("%s:%s",config.HttpServerHost,config.Port)))
