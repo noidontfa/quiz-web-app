@@ -1,12 +1,16 @@
 package model
 
-import "github.com/jinzhu/gorm"
+import "time"
 
 type History struct {
-	gorm.Model
-	NumberRightAnswers int8 `gorm:"not null"`
-	Score uint 				`gorm:"not null"`
-	HistoryDateId uint
-	QuizId uint
-	UserId uint
+	ID        			uint 		`gorm:"primary_key" json:"id"`
+	CreatedAt 			time.Time	`json:"createdAt"`
+	UpdatedAt 			time.Time 	`json:"-"`
+	DeletedAt 			*time.Time 	`sql:"index" json:"-"`
+	NumberRightAnswers 	int8 		`gorm:"not null" json:"numberRightAnswers"`
+	Score 				uint 		`gorm:"not null" json:"score"`
+	QuizId 				uint		`json:"quizId"`
+	UserId 				uint		`json:"userId"`
+	QuizRefer			Quiz		`json:"quizRefer"`
+	UserRefer			User		`json:"userRefer"`
 }

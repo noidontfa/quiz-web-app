@@ -30,6 +30,7 @@ func main() {
 	userService			:= service.NewUserService(repo)
 	questionService		:= service.NewQuestionService(repo)
 	ratingService		:= service.NewRatingService(repo)
+	historyService		:= service.NewHistoryService(repo)
 	categoryController 	:= controller.NewCategoryController(categoryService)
 	quizController		:= controller.NewQuizController(quizService)
 	languageController	:= controller.NewLanguageController(languageService)
@@ -38,6 +39,7 @@ func main() {
 	userController		:= controller.NewUserController(userService)
 	questionController	:= controller.NewQuestionController(questionService)
 	ratingController	:= controller.NewRatingController(ratingService)
+	historyController	:= controller.NewHistoryController(historyService)
 
 	router := gin.New()
 
@@ -84,6 +86,9 @@ func main() {
 		api.POST("/questions/:id",questionController.SaveQuestions)
 
 		api.POST("/ratings/",ratingController.SaveRating)
+
+		api.GET("/histories/",historyController.FindByIdHistory)
+		api.POST("/histories/",historyController.SaveHistory)
 	}
 
 	log.Fatal(router.Run(fmt.Sprintf("%s:%s",config.HttpServerHost,config.Port)))
