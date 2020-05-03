@@ -14,7 +14,7 @@ body {
 	position: fixed;
 	top: 0;
 	left: 0;
-
+	z-index: 99;
 	.my-logo {
 		float: left;
 		display: flex;
@@ -31,7 +31,7 @@ body {
 			text-decoration: none;
 			i {
 				color: #848484;
-				margin-right: 10px;
+				margin-right: 30px;
 				font-size: 16px;
 			}
 			&:hover {
@@ -56,16 +56,22 @@ body {
 	padding-left: 16px;
 	padding-right: 16px;
 }
+.my-sidebar {
+	height: 30vh;
+	width: 180px;
+	background-color: red;
+	float: right;
+}
 
 .my-main-content {
 	padding-top: 78px;
-
+	position: relative;
 	.my-section {
 		max-width: 827px;
 		margin-right: 54px;
 		float: left;
 		width: 100%;
-
+		margin-left: 26px;
 		.my-card {
 			width: 100%;
 			background: transparent;

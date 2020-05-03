@@ -18,6 +18,21 @@
 		/>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+		<script
+			src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+			crossorigin="anonymous"
+		></script>
 		<title>Document</title>
 	</head>
 	<body>
@@ -211,8 +226,155 @@
 							</div>
 						</div>
 					</div>
+
+					<div class="my-card">
+						<div class="my-medium-card-img">
+							<img
+								src="https://picsum.photos/253/180"
+								alt="img big card"
+								style="height: 100%;"
+							/>
+						</div>
+						<div class="my-medium-card-content">
+							<div class="row">
+								<div class="col-sm-12 my-medium-card-content-header">
+									Let's Find Out With BTS Member You're Most Like Based On Your
+									Favorite TV Shows
+								</div>
+								<div class="col-sm-12 my-medium-card-content-description">
+									Some quick example text to build on the card title and make up
+									the bulk of the card's content.
+								</div>
+								<div class="col-sm-12 my-medium-card-content-author">
+									<div class="d-flex align-items-center">
+										<img
+											src="./assets/cat.jpg"
+											class="my-user-icon"
+											alt="author"
+											style="margin-right: 10px;"
+										/>
+										Ngo Tran Gia thinh
+									</div>
+									<div class="d-flex align-items-center">
+										<span style="color: #348009;">
+											15
+										</span>
+										<i class="icon-book-open" style="color: #348009;"></i>
+										<span style="color: #f7d66d;">
+											4.3
+										</span>
+										<i class="icon-star" style="color: #f7d66d;"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="my-card">
+						<div class="my-medium-card-img">
+							<img
+								src="https://picsum.photos/253/180"
+								alt="img big card"
+								style="height: 100%;"
+							/>
+						</div>
+						<div class="my-medium-card-content">
+							<div class="row">
+								<div class="col-sm-12 my-medium-card-content-header">
+									Let's Find Out With BTS Member You're Most Like Based On Your
+									Favorite TV Shows
+								</div>
+								<div class="col-sm-12 my-medium-card-content-description">
+									Some quick example text to build on the card title and make up
+									the bulk of the card's content.
+								</div>
+								<div class="col-sm-12 my-medium-card-content-author">
+									<div class="d-flex align-items-center">
+										<img
+											src="./assets/cat.jpg"
+											class="my-user-icon"
+											alt="author"
+											style="margin-right: 10px;"
+										/>
+										Ngo Tran Gia thinh
+									</div>
+									<div class="d-flex align-items-center">
+										<span style="color: #348009;">
+											15
+										</span>
+										<i class="icon-book-open" style="color: #348009;"></i>
+										<span style="color: #f7d66d;">
+											4.3
+										</span>
+										<i class="icon-star" style="color: #f7d66d;"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="my-card">
+						<div class="my-medium-card-img">
+							<img
+								src="https://picsum.photos/253/180"
+								alt="img big card"
+								style="height: 100%;"
+							/>
+						</div>
+						<div class="my-medium-card-content">
+							<div class="row">
+								<div class="col-sm-12 my-medium-card-content-header">
+									Let's Find Out With BTS Member You're Most Like Based On Your
+									Favorite TV Shows
+								</div>
+								<div class="col-sm-12 my-medium-card-content-description">
+									Some quick example text to build on the card title and make up
+									the bulk of the card's content.
+								</div>
+								<div class="col-sm-12 my-medium-card-content-author">
+									<div class="d-flex align-items-center">
+										<img
+											src="./assets/cat.jpg"
+											class="my-user-icon"
+											alt="author"
+											style="margin-right: 10px;"
+										/>
+										Ngo Tran Gia thinh
+									</div>
+									<div class="d-flex align-items-center">
+										<span style="color: #348009;">
+											15
+										</span>
+										<i class="icon-book-open" style="color: #348009;"></i>
+										<span style="color: #f7d66d;">
+											4.3
+										</span>
+										<i class="icon-star" style="color: #f7d66d;"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
+
+				<div class="my-sidebar" style="right: 496px;"></div>
 			</div>
 		</main>
+
+		<script>
+			var offset = $(".my-sidebar").offset();
+			var topPadding = 78;
+
+			$(window).scroll(function () {
+				if ($(window).scrollTop() > offset.top - topPadding - 1) {
+					$(".my-sidebar").css(
+						"margin-top",
+						$(window).scrollTop() - offset.top + topPadding
+					);
+				} else {
+					$(".my-sidebar").css("margin-top", 0);
+				}
+			});
+		</script>
 	</body>
 </html>

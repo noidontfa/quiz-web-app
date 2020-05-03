@@ -15,6 +15,7 @@ body {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 99;
 }
 
 .my-navbar .my-logo {
@@ -46,7 +47,7 @@ body {
 
 .my-navbar .my-icons a i {
   color: #848484;
-  margin-right: 10px;
+  margin-right: 30px;
   font-size: 16px;
 }
 
@@ -70,8 +71,16 @@ body {
   padding-right: 16px;
 }
 
+.my-sidebar {
+  height: 30vh;
+  width: 180px;
+  background-color: red;
+  float: right;
+}
+
 .my-main-content {
   padding-top: 78px;
+  position: relative;
 }
 
 .my-main-content .my-section {
@@ -79,6 +88,7 @@ body {
   margin-right: 54px;
   float: left;
   width: 100%;
+  margin-left: 26px;
 }
 
 .my-main-content .my-section .my-card {
