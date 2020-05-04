@@ -357,16 +357,99 @@
 					</div>
 				</div>
 
-				<div class="my-sidebar" style="right: 496px;"></div>
+				<div class="my-sidebar">
+					<div class="user-info">
+						<div class="my-user-icon" style="height: 32px; width: 32px;">
+							<img
+								src="./assets/cat.jpg"
+								class="my-user-icon"
+								alt="author"
+								style="margin-right: 10px;"
+							/>
+						</div>
+						<div class="my-user-name">
+							<div class="username">thinhntg</div>
+							<div class="fullname">Ngo Tran Gia Thinh</div>
+						</div>
+					</div>
+
+					<button class="btn-create">
+						<i class="icon-rocket"></i>
+						<span>Create quiz</span>
+					</button>
+
+					<a class="side-link active" href="#">
+						<i class="icon-home"></i>
+						<span>
+							Home
+						</span>
+					</a>
+
+					<div class="seprator"></div>
+
+					<div class="content-header">User interface</div>
+
+					<a class="side-link" href="#">
+						<i class="icon-puzzle"></i>
+						<span>
+							My quiz
+						</span>
+					</a>
+					<a class="side-link" href="#">
+						<i class="icon-cup"></i>
+						<span>
+							Reports
+						</span>
+					</a>
+					<a class="side-link" href="#">
+						<i class="icon-settings"></i>
+						<span>
+							Settings
+						</span>
+					</a>
+					<a class="side-link" href="#">
+						<i class="icon-share"></i>
+						<span>
+							Log out
+						</span>
+					</a>
+
+					<div class="seprator"></div>
+
+					<div class="content-header">Quizzes</div>
+
+					<a class="side-link" href="#">
+						<i class="icon-star"></i>
+						<span>
+							Ratings
+						</span>
+					</a>
+
+					<a class="side-link" href="#">
+						<i class="icon-layers"></i>
+						<span>
+							Categories
+						</span>
+					</a>
+					<a class="side-link" href="#">
+						<i class="icon-phone"></i>
+						<span>
+							Languages
+						</span>
+					</a>
+
+					<footer class="my-footer">
+						Ngo Tran Gia Thinh © 2020 Copyright
+					</footer>
+				</div>
 			</div>
 		</main>
 
 		<script>
 			var offset = $(".my-sidebar").offset();
 			var topPadding = 78;
-
 			$(window).scroll(function () {
-				if ($(window).scrollTop() > offset.top - topPadding - 1) {
+				if ($(window).scrollTop() > offset.top - topPadding) {
 					$(".my-sidebar").css(
 						"margin-top",
 						$(window).scrollTop() - offset.top + topPadding

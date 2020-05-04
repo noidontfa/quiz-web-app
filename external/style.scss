@@ -59,19 +59,134 @@ body {
 .my-sidebar {
 	height: 30vh;
 	width: 180px;
-	background-color: red;
 	float: right;
+
+	.user-info {
+		display: flex;
+		margin-bottom: 20px;
+		align-items: center;
+		.my-user-icon {
+			width: 32px;
+			height: 32px;
+			border-radius: 50%;
+		}
+		.my-user-name {
+			padding-left: 10px;
+			.username {
+				font-size: 13px;
+				font-family: "Lato";
+
+				color: rgba(0, 0, 0, 0.88);
+			}
+			.fullname {
+				font-size: 12px;
+				font-family: "Lato";
+				font-stretch: normal;
+				font-style: normal;
+				line-height: 2.18;
+				letter-spacing: normal;
+				color: rgba(124, 118, 118, 0.88);
+			}
+		}
+	}
+
+	.side-link {
+		padding: 9px 10px;
+		max-width: 137px;
+		width: 100%;
+		text-decoration: none;
+		color: rgba(124, 118, 118, 0.88);
+		display: flex;
+		align-items: center;
+
+		i {
+			margin-right: 10px;
+			font-size: 16px;
+		}
+		span {
+			font-family: Lato;
+			font-size: 11px;
+			font-stretch: normal;
+			font-style: normal;
+			line-height: 1.36;
+		}
+	}
+	.side-link.active {
+		border-left: 2px solid #5b88e2;
+		color: #5b88e2;
+	}
+
+	.seprator {
+		width: 100%;
+		height: 2px;
+		background-color: #5b88e2;
+		margin: 10px 0;
+	}
+	.content-header {
+		font-family: Lato;
+		padding: 0 10px;
+		font-size: 14px;
+		font-weight: normal;
+		font-stretch: normal;
+		font-style: normal;
+		line-height: 1.14;
+		letter-spacing: normal;
+		color: #5b88e2;
+	}
+	.my-footer {
+		padding-left: 10px;
+		padding-top: 10px;
+		opacity: 0.8;
+		font-size: 13px;
+		font-weight: normal;
+		font-stretch: normal;
+		font-style: normal;
+		line-height: 1.31;
+		letter-spacing: normal;
+		text-align: left;
+		color: var(--warm-grey);
+	}
+}
+.btn-create {
+	border-radius: 4px;
+	border: solid 1px #5b88e2;
+	padding: 9px 14px;
+	max-width: 135px;
+	width: 100%;
+	background-color: transparent;
+	display: flex;
+	align-items: center;
+	color: #5b88e2;
+	margin-bottom: 20px;
+
+	i {
+		margin-right: 10px;
+		font-size: 16px;
+	}
+	span {
+		font-size: 11px;
+		font-family: Lato;
+		font-size: 11px;
+		font-weight: bold;
+		font-stretch: normal;
+		font-style: normal;
+		line-height: 1.36;
+	}
+	&:hover {
+		background-color: #5b88e2;
+		color: rgba(0, 0, 0, 0.88);
+	}
 }
 
 .my-main-content {
 	padding-top: 78px;
-	position: relative;
+
 	.my-section {
 		max-width: 827px;
 		margin-right: 54px;
 		float: left;
 		width: 100%;
-		margin-left: 26px;
+
 		.my-card {
 			width: 100%;
 			background: transparent;
