@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="style.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Lato&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		/>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+		<script
+			src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+			crossorigin="anonymous"
+		></script>
+		<title>Document</title>
+	</head>
+	<body>
+		<header class="my-navbar">
+			<div class="my-container">
+				<div class="my-logo">
+					<img src="assets/Group 622.png" alt="logo" />
+				</div>
+				<div class="my-icons">
+					<a href="#">
+						<i class="icon-home"></i>
+					</a>
+					<a href="#">
+						<i class="icon-puzzle active"></i>
+					</a>
+					<a href="#">
+						<i class="icon-cup"></i>
+					</a>
+					<img class="my-user-icon" src="./assets/cat.jpg" alt="user-avartar" />
+				</div>
+			</div>
+		</header>
+
+		<main class="my-main-content">
+			<div class="my-container">
+				<div class="row">
+					<div class="col-xl-2">
+						<img
+							class="user-interface-avatar"
+							src="./assets/cat.jpg"
+							alt="user-avartar"
+						/>
+					</div>
+					<div class="col-xl-10">
+						<div class="row">
+							<div class="col-xl-12">
+								<div class="user-interface-header">
+									<span class="user-header">
+										User Interface
+									</span>
+									<i class="icon-settings user-setting"></i>
+								</div>
+							</div>
+						</div>
+						<div class="row d-flex align-items-center">
+							<div class="col-xl-2">
+								<span class="label">Firstname:</span>
+							</div>
+							<div class="col-xl-2">
+								<span class="field">Gia Thinh</span>
+							</div>
+							<div class="col-xl-2">
+								<span class="label">Lastname:</span>
+							</div>
+							<div class="col-xl-6">
+								<span class="field">Ngo Tran</span>
+							</div>
+							<div class="col-xl-2">
+								<span class="label">Fullname:</span>
+							</div>
+							<div class="col-xl-2">
+								<span class="field">Ngo Tran Gia Thinh</span>
+							</div>
+							<div class="col-xl-2">
+								<span class="label">Birthday:</span>
+							</div>
+							<div class="col-xl-6">
+								<span class="field">19/11/1998</span>
+							</div>
+							<div class="col-xl-2">
+								<span class="label">Username:</span>
+							</div>
+							<div class="col-xl-2">
+								<span class="field">thinhntg</span>
+							</div>
+							<div class="col-xl-2">
+								<span class="label">Join Date:</span>
+							</div>
+							<div class="col-xl-6">
+								<span class="field">19/11/1998</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xl-12" style="margin: 40px 0 20px 0;">
+						<div class="seprator"></div>
+					</div>
+
+					<div class="col-xl-12">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb my-breadcrumb">
+								<li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item"><a href="#">Library</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Data</li>
+							</ol>
+						</nav>
+					</div>
+
+					<div class="col-xl-12">
+						<div class="d-flex justify-content-between">
+							<button class="btn-create">
+								<i class="icon-rocket"></i>
+								<span>Create quiz</span>
+							</button>
+							<div class="my-search-form">
+								<input
+									class="search-input"
+									type="text"
+									placeholder="Search by name"
+									aria-label="Search"
+								/>
+								<i class="icon-magnifier search-icon"></i>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xl-12">
+						<table class="table my-table">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Name</th>
+									<th scope="col">Description</th>
+									<th scope="col">Create Date</th>
+									<th scope="col">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">1</th>
+									<td>Mark</td>
+									<td>Otto</td>
+									<td>@mdo</td>
+								</tr>
+								<tr>
+									<th scope="row">2</th>
+									<td>Jacob</td>
+									<td>Thornton</td>
+									<td>@fat</td>
+								</tr>
+								<tr>
+									<th scope="row">3</th>
+									<td>Larry</td>
+									<td>the Bird</td>
+									<td>@twitter</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>
