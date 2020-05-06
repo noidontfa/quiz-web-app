@@ -125,120 +125,109 @@
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb my-breadcrumb">
 								<li class="breadcrumb-item"><a href="#">Home</a></li>
-								<li class="breadcrumb-item"><a href="#">Library</a></li>
-								<li class="breadcrumb-item active" aria-current="page">Data</li>
+								<li class="breadcrumb-item"><a href="#">My quizzes</a></li>
+								<li class="breadcrumb-item active" aria-current="page">
+									Create quiz
+								</li>
 							</ol>
 						</nav>
 					</div>
 
-					<div class="col-xl-12">
-						<div class="d-flex justify-content-between">
-							<button class="btn-create">
-								<i class="icon-rocket"></i>
-								<span>Create quiz</span>
-							</button>
-							<div class="my-search-form">
-								<input
-									class="search-input"
-									type="text"
-									placeholder="Search by name"
-									aria-label="Search"
-								/>
-								<i class="icon-magnifier search-icon"></i>
-							</div>
-						</div>
-					</div>
+					<div class="col-xl-12" style="margin-top: 40px;">
+						<form>
+							<div class="row justify-content-center">
+								<div class="col-xl-8">
+									<div class="my-form-group">
+										<label class="label-requried" for="name">Quiz name</label>
+										<input
+											type="text"
+											class="my-form-control"
+											id="name"
+											name="name"
+											placeholder="Quiz name"
+										/>
+									</div>
+								</div>
+								<div class="col-xl-8">
+									<div class="my-form-group">
+										<label for="name">Description</label>
+										<textarea
+											class="my-form-control"
+											rows="4"
+											name="description"
+											placeholder="Description"
+										></textarea>
+									</div>
+								</div>
 
-					<div class="col-xl-12">
-						<table class="table my-table">
-							<thead>
-								<tr>
-									<th scope="col" row-data="index">#</th>
-									<th scope="col" row-data="name">Name</th>
-									<th scope="col" row-data="description">Description</th>
-									<th scope="col" row-data="createDate">Create Date</th>
-									<th scope="col" row-data="actions">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th scope="row">1</th>
-									<td>
-										Let's Find Out With BTS Member You're Most Like Based On
-										Your Favorite TV Shows
-									</td>
-									<td>
-										Some quick example text to build on the card title and make
-										up the bulk of the card's cont.
-									</td>
-									<td>19/11/2020</td>
-									<td>
-										<div class="my-table-icon d-flex align-items-center">
-											<i class="icon-eye"></i>
-											<i class="icon-note"></i>
-											<i class="icon-trash"></i>
+								<div class="col-xl-8">
+									<div class="row">
+										<div class="col-xl-4">
+											<div class="my-form-group">
+												<label for="category">Category</label>
+												<select
+													class="my-form-control"
+													id="category"
+													name="category"
+												>
+													<option>Select dropdown item</option>
+													<option>Category 1</option>
+													<option>Category 2</option>
+													<option>Category 3</option>
+													<option>Category 4</option>
+												</select>
+											</div>
 										</div>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row">2</th>
-									<td>
-										Let's Find Out With BTS Member You're Most Like Based On
-										Your Favorite TV Shows
-									</td>
-									<td>
-										Some quick example text to build on the card title and make
-										up the bulk of the card's cont.
-									</td>
-									<td>19/11/2020</td>
-									<td>
-										<div class="my-table-icon d-flex align-items-center">
-											<i class="icon-eye"></i>
-											<i class="icon-note"></i>
-											<i class="icon-trash"></i>
+										<div class="col-xl-4">
+											<div class="my-form-group">
+												<label for="timing">Timing</label>
+												<select
+													class="my-form-control"
+													id="timing"
+													name="timing"
+												>
+													<option>Select dropdown item</option>
+													<option>Timing 1</option>
+													<option>Timing 2</option>
+													<option>Timing 3</option>
+												</select>
+											</div>
 										</div>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row">3</th>
-									<td>
-										Let's Find Out With BTS Member You're Most Like Based On
-										Your Favorite TV Shows
-									</td>
-									<td>
-										Some quick example text to build on the card title and make
-										up the bulk of the card's cont.
-									</td>
-									<td>19/11/2020</td>
-									<td>
-										<div class="my-table-icon d-flex align-items-center">
-											<i class="icon-eye"></i>
-											<i class="icon-note"></i>
-											<i class="icon-trash"></i>
+										<div class="col-xl-4">
+											<div class="my-form-group">
+												<label for="language">Language</label>
+												<select
+													class="my-form-control"
+													id="language"
+													name="language"
+												>
+													<option>Select dropdown item</option>
+													<option>Language 1</option>
+													<option>Language 2</option>
+													<option>Language 3</option>
+												</select>
+											</div>
 										</div>
-									</td>
-								</tr>
-								<tr>
-									<th scope="row">4</th>
-									<td>
-										Let's Find Out With BTS Member You're Most Like Based On
-										Your Favorite TV Shows
-									</td>
-									<td>
-										Some quick example text to build on the card title and make
-										up the bulk of the card's cont.
-									</td>
-									<td>19/11/2020</td>
-									<td>
-										<div class="my-table-icon d-flex align-items-center">
-											<i class="icon-eye"></i>
-											<i class="icon-note"></i>
-											<i class="icon-trash"></i>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+									</div>
+								</div>
+								<div class="col-xl-8">
+									<div class="d-flex justify-content-end">
+										<button
+											type="submit"
+											class="btn-cancel d-flex justify-content-center"
+											style="margin-right: 30px;"
+										>
+											<i class="icon-close"></i>
+											<span>Cancel</span>
+										</button>
+										<button type="submit" class="btn-create">
+											<i class="icon-rocket"></i>
+											<span>Create quiz</span>
+										</button>
+									</div>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
