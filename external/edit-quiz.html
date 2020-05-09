@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="style.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Lato&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		/>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+		<script
+			src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+			crossorigin="anonymous"
+		></script>
+		<title>Document</title>
+	</head>
+	<body>
+		<header class="my-navbar">
+			<div class="my-container">
+				<div class="my-logo">
+					<img src="assets/Group 622.png" alt="logo" />
+				</div>
+				<div class="my-icons">
+					<a href="#">
+						<i class="icon-home"></i>
+					</a>
+					<a href="#">
+						<i class="icon-puzzle active"></i>
+					</a>
+					<a href="#">
+						<i class="icon-cup"></i>
+					</a>
+					<img class="my-user-icon" src="./assets/cat.jpg" alt="user-avartar" />
+				</div>
+			</div>
+		</header>
+
+		<main class="my-main-content">
+			<div class="my-container">
+				<div class="row">
+					<div class="col-xl-2">
+						<img
+							class="user-interface-avatar"
+							src="./assets/cat.jpg"
+							alt="user-avartar"
+						/>
+					</div>
+					<div class="col-xl-10">
+						<div class="row">
+							<div class="col-xl-12">
+								<div class="user-interface-header">
+									<span class="user-header">
+										User Interface
+									</span>
+									<i class="icon-settings user-setting"></i>
+								</div>
+							</div>
+						</div>
+						<div class="row d-flex align-items-center">
+							<div class="col-xl-2">
+								<span class="label">Firstname:</span>
+							</div>
+							<div class="col-xl-2">
+								<span class="field">Gia Thinh</span>
+							</div>
+							<div class="col-xl-2">
+								<span class="label">Lastname:</span>
+							</div>
+							<div class="col-xl-6">
+								<span class="field">Ngo Tran</span>
+							</div>
+							<div class="col-xl-2">
+								<span class="label">Fullname:</span>
+							</div>
+							<div class="col-xl-2">
+								<span class="field">Ngo Tran Gia Thinh</span>
+							</div>
+							<div class="col-xl-2">
+								<span class="label">Birthday:</span>
+							</div>
+							<div class="col-xl-6">
+								<span class="field">19/11/1998</span>
+							</div>
+							<div class="col-xl-2">
+								<span class="label">Username:</span>
+							</div>
+							<div class="col-xl-2">
+								<span class="field">thinhntg</span>
+							</div>
+							<div class="col-xl-2">
+								<span class="label">Join Date:</span>
+							</div>
+							<div class="col-xl-6">
+								<span class="field">19/11/1998</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xl-12" style="margin: 40px 0 20px 0;">
+						<div class="seprator"></div>
+					</div>
+
+					<div class="col-xl-12">
+						<div class="row">
+							<div class="col-xl-6 d-flex align-items-center">
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb my-breadcrumb">
+										<li class="breadcrumb-item"><a href="#">Home</a></li>
+										<li class="breadcrumb-item"><a href="#">My quizzes</a></li>
+										<li class="breadcrumb-item active" aria-current="page">
+											Create quiz
+										</li>
+									</ol>
+								</nav>
+							</div>
+							<div class="col-xl-6 nav-edit-quiz">
+								<div class="my-form-group">
+									<label for="language">State</label>
+									<select class="my-form-control" id="language" name="language">
+										<option>Temporary</option>
+										<option>Public</option>
+										<option>Private</option>
+									</select>
+								</div>
+								<button class="quiz-detail active">
+									Quiz detail
+								</button>
+
+								<button class="questions">
+									Questions
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xl-12" style="margin-top: 40px;">
+						<div class="row">
+							<div class="col-xl-8">
+								<div class="row">
+									<div class="col-xl-12">
+										<img
+											class="edit-quiz-image"
+											src="./assets/cat.jpg"
+											alt="user-avartar"
+										/>
+									</div>
+									<div class="col-xl-12">
+										<div class="my-form-group">
+											<label class="label-requried" for="name">Quiz name</label>
+											<input
+												type="text"
+												class="my-form-control"
+												id="name"
+												name="name"
+												placeholder="Quiz name"
+											/>
+										</div>
+									</div>
+
+									<div class="col-xl-12">
+										<div class="my-form-group">
+											<label for="name">Description</label>
+											<textarea
+												class="my-form-control"
+												rows="4"
+												name="description"
+												placeholder="Description"
+											>
+Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora earum aperiam fugit cum deserunt accusantium temporibus dicta labore magnam dolores, soluta expedita quasi quidem in ipsam harum cumque minima voluptatem.
+											</textarea
+											>
+										</div>
+									</div>
+
+									<div class="col-xl-12">
+										<div class="row">
+											<div class="col-xl-4">
+												<div class="my-form-group">
+													<label for="category">Category</label>
+													<select
+														class="my-form-control"
+														id="category"
+														name="category"
+													>
+														<option>Select dropdown item</option>
+														<option>Category 1</option>
+														<option>Category 2</option>
+														<option>Category 3</option>
+														<option>Category 4</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-xl-4">
+												<div class="my-form-group">
+													<label for="timing">Timing</label>
+													<select
+														class="my-form-control"
+														id="timing"
+														name="timing"
+													>
+														<option>Select dropdown item</option>
+														<option>Timing 1</option>
+														<option>Timing 2</option>
+														<option>Timing 3</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-xl-4">
+												<div class="my-form-group">
+													<label for="language">Language</label>
+													<select
+														class="my-form-control"
+														id="language"
+														name="language"
+													>
+														<option>Select dropdown item</option>
+														<option>Language 1</option>
+														<option>Language 2</option>
+														<option>Language 3</option>
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-xl-12">
+										<div class="d-flex justify-content-end">
+											<button type="submit" class="btn-save-changes">
+												<i class="icon-folder"></i>
+												<span>Save quiz</span>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-4">
+								<div class="row">
+									<div class="col-xl-12 d-flex justify-content-center">
+										<button
+											type="submit"
+											class="btn-upload"
+											style="margin-bottom: 184px;"
+										>
+											<i class="icon-cloud-download"></i>
+											<span>Upload image</span>
+										</button>
+									</div>
+									<div class="col-xl-12 d-flex justify-content-center">
+										<button type="submit" class="btn-delete">
+											<i class="icon-trash"></i>
+											<span>Delete quiz</span>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>

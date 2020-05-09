@@ -204,6 +204,104 @@ body {
 		color: rgba(0, 0, 0, 0.88);
 	}
 }
+.btn-save-changes {
+	border-radius: 4px;
+	border: solid 1px #fe7308;
+	padding: 9px 14px;
+	max-width: 135px;
+	width: 100%;
+	background-color: transparent;
+	display: flex;
+	align-items: center;
+	color: #fe7308;
+	margin-bottom: 20px;
+	justify-content: center;
+
+	i {
+		margin-right: 10px;
+		font-size: 16px;
+	}
+	span {
+		font-size: 11px;
+		font-family: Lato;
+		font-size: 11px;
+		font-weight: bold;
+		font-stretch: normal;
+		font-style: normal;
+		line-height: 1.36;
+	}
+	&:hover {
+		background-color: #fe7308;
+		opacity: 0.8;
+		color: #fff;
+	}
+}
+.btn-upload {
+	border-radius: 5px;
+	border: solid 1px #348009;
+	padding: 9px 14px;
+	max-width: 135px;
+	width: 100%;
+	background-color: transparent;
+	display: flex;
+	align-items: center;
+	color: #348009;
+	margin-bottom: 20px;
+	justify-content: center;
+
+	i {
+		margin-right: 10px;
+		font-size: 16px;
+	}
+	span {
+		font-size: 11px;
+		font-family: Lato;
+		font-size: 11px;
+		font-weight: bold;
+		font-stretch: normal;
+		font-style: normal;
+		line-height: 1.36;
+	}
+	&:hover {
+		background-color: #348009;
+		opacity: 0.8;
+		color: #fff;
+	}
+}
+
+.btn-delete {
+	border-radius: 5px;
+	border: solid 1px #ff1818;
+	padding: 9px 14px;
+	max-width: 135px;
+	width: 100%;
+	background-color: transparent;
+	display: flex;
+	align-items: center;
+	color: #ff1818;
+	margin-bottom: 20px;
+	justify-content: center;
+
+	i {
+		margin-right: 10px;
+		font-size: 16px;
+	}
+	span {
+		font-size: 11px;
+		font-family: Lato;
+		font-size: 11px;
+		font-weight: bold;
+		font-stretch: normal;
+		font-style: normal;
+		line-height: 1.36;
+	}
+	&:hover {
+		background-color: #ff1818;
+		opacity: 0.8;
+		color: #fff;
+	}
+}
+
 .active {
 	color: #5b88e2 !important;
 }
@@ -371,6 +469,7 @@ body {
 	font-family: Lato, sans-serif;
 	background-color: transparent;
 	padding: 0;
+	margin: 0;
 	.breadcrumb-item {
 		font-size: 16px;
 		color: #2185d0;
@@ -461,6 +560,8 @@ body {
 
 .my-form-group {
 	margin-bottom: 30px;
+	position: relative;
+
 	label {
 		display: block;
 		margin-bottom: 5px;
@@ -469,7 +570,6 @@ body {
 		line-height: 1.33;
 		color: #5b88e2;
 		margin-left: 2px;
-		position: relative;
 	}
 	.label-requried {
 		&::after {
@@ -487,5 +587,59 @@ body {
 		padding: 9px 17px;
 		width: 100%;
 		font-size: 14px;
+	}
+}
+.edit-quiz-image {
+	width: 100%;
+	height: 180px;
+	border: solid 1px #5b88e2;
+	background-color: #dadadb;
+	object-fit: cover;
+	border-radius: 4px;
+	margin-bottom: 15px;
+}
+
+.nav-edit-quiz {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	.my-form-group {
+		display: flex;
+		align-items: center;
+		label {
+			margin: 0;
+			margin-right: 16px;
+			display: flex;
+			align-items: center;
+		}
+		margin: 0;
+		.my-form-control {
+			max-width: 119px;
+			height: 36px;
+			border: solid 1px #5b88e2;
+			margin-right: 20px;
+		}
+	}
+	.quiz-detail {
+		border-radius: 9px 0 0 9px;
+		border: solid 1px #5b88e2;
+		max-width: 129px;
+		width: 100%;
+		height: 36px;
+		color: #5b88e2;
+		background-color: transparent;
+	}
+	.questions {
+		border-radius: 0 9px 9px 0;
+		border: solid 1px #5b88e2;
+		max-width: 129px;
+		height: 36px;
+		width: 100%;
+		color: #5b88e2;
+		background-color: transparent;
+	}
+	button.active {
+		color: #fff !important;
+		background-color: #5b88e2;
 	}
 }
