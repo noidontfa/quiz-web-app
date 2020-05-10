@@ -556,6 +556,104 @@ body {
 	th[row-data="actions"] {
 		width: 9%;
 	}
+	th[row-data="questions-name"] {
+		width: 35%;
+	}
+	th[row-data="choices"] {
+		width: 47%;
+	}
+	th[row-data="is_right"] {
+		width: 5%;
+	}
+	.choice-content {
+		border-bottom: 1px solid #5b88e2;
+	}
+
+	.table-content {
+		position: relative;
+		display: flex;
+		padding-bottom: 10px;
+		margin-bottom: 10px;
+		align-items: center;
+		.text-table-content {
+			margin-right: 20px;
+			.table-action {
+				position: absolute;
+				left: 82%;
+				visibility: hidden;
+				i:not(:last-child) {
+					margin-right: 5px;
+					font-size: 16px;
+				}
+				i {
+					&:hover {
+						color: #5b88e2;
+						cursor: pointer;
+					}
+				}
+			}
+			&:hover {
+				border: 1px solid #5b88e2;
+				border-radius: 4px;
+				.table-action {
+					visibility: visible;
+					border: 1px solid #5b88e2;
+					border-radius: 0 0 4px 4px;
+					background-color: #fff;
+					z-index: 99;
+				}
+			}
+		}
+		&:not(:first-child) {
+			margin-top: 10px;
+		}
+
+		.table-checkbox {
+			width: 17px;
+			height: 17px;
+			border-radius: 4px;
+			border: solid 1px #5b88e2;
+			margin-right: 10px;
+		}
+	}
+	.table-creation {
+		color: #5b88e2;
+		position: relative;
+		cursor: pointer;
+		form {
+			width: 100%;
+		}
+		.create-form {
+			background-color: #fff;
+			padding: 10px 5px;
+			display: flex;
+			width: inherit;
+			position: absolute;
+			visibility: hidden;
+			top: 120%;
+			border-radius: 4px;
+			border: solid 1px #5b88e2;
+			z-index: 99;
+			.my-form-control {
+				height: 38px;
+				border-radius: 4px;
+				border: solid 1px #5b88e2;
+				flex-grow: 1;
+			}
+			.create-from-btn {
+				background-color: transparent;
+				border: none;
+				padding: 5px;
+				margin-left: 15px;
+				color: #5b88e2;
+			}
+		}
+	}
+	.table-creation.show {
+		.create-form {
+			visibility: visible;
+		}
+	}
 }
 
 .my-form-group {
