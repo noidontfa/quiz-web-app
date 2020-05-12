@@ -10,4 +10,5 @@ type Question struct {
 	Name 		string 		`gorm:"not null" json:"name" sql:"not null"`
 	QuizId		uint 		`json:"quizId"`
 	Choices		[]Choice 	`gorm:"foreignkey:QuestionId" json:"choices"`
+	Image			string		`json:"image"`
 }

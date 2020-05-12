@@ -12,4 +12,5 @@ type Choice struct {
 	Name 		string 		`json:"name" sql:"not null"`
 	QuestionId	uint		`json:"questionId"`
 	IsRight		bool 		`gorm:"default: false" json:"isRight"`
+	Image		string		`json:"image"`
 }

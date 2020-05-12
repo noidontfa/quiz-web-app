@@ -1,6 +1,8 @@
 package model
 
-import "time"
+import (
+	"time"
+)
 
 type Quiz struct {
 	ID        		uint 		`gorm:"primary_key" json:"id"`
@@ -20,4 +22,5 @@ type Quiz struct {
 	Questions		[]Question 	`gorm:"foreignkey:QuizId" json:"questions"`
 	Ratings			[]Rating 	`gorm:"foreignkey:QuizId" json:"ratings"`
 	Histories		[]History 	`gorm:"foreignkey:QuizId" json:"histories"`
+	Image			string		`json:"image" gorm:"type:text"`
 }

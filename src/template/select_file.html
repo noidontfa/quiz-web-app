@@ -2,9 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+<form id="formTest" enctype="multipart/form-data" method="POST">
+    <input type="file" name="file" accept="*" id="image"/>
+    <input type="text" value="Hello world" name="name">
+    <button type="submit">submit </button>
+</form>
+
+<img id="preview" style="width: 500px; height: 500px;">
+<script>
+    const form = document.getElementById("formTest");
+    const image = document.getElementById("image");
+    const preview = document.getElementById("preview");
+
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+
+
+    form.addEventListener('submit',async function (e) {
+        e.preventDefault();
+        const file = image.files[0];
+        preview.src = await toBase64(file);
+        console.log(file);
+        const data = {
+            filename: file.name,
+            dataBase64: (await toBase64(file)).split(',')[1]
+        };
+
+        fetch("/upload", {
+            method: "post",
+            body: JSON.stringify(data)
+        }).then(function (res) {
+            console.log(res);
+        }).catch(function (res) {
+            console.log(res);
+        })
+    })
+</script>
 </body>
 </html>

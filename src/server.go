@@ -14,6 +14,39 @@ var (
 	cf = config.NewConfiguration()
 )
 
+//func upload(c *gin.Context) {
+//	//file, err := c.FormFile("file")
+//	//if err != nil {
+//	//	log.Fatal(err)
+//	//}
+//	//err = c.SaveUploadedFile(file,"./src/public/" + file.Filename)
+//	//if err != nil {
+//	//	log.Fatal(err)
+//	//}
+//	//filepath := "http://localhost:8080/file/" + file.Filename
+//
+//	var image model.Image
+//	if err := c.BindJSON(&image); err != nil {
+//		log.Fatal(err)
+//	}
+//	dec, err := base64.StdEncoding.DecodeString(image.DataBase64)
+//	if err != nil {
+//		log.Fatal(err)
+//	}
+//	f, err := os.Create("./src/public/" + image.Filename)
+//	if err != nil {
+//		log.Fatal(err)
+//	}
+//	if _, err := f.Write(dec); err != nil {
+//		log.Fatal(err)
+//	}
+//	if err := f.Sync(); err != nil {
+//		log.Fatal(err)
+//	}
+//	c.JSON(http.StatusOK, gin.H{"filepath": "Test"})
+//
+//}
+
 func main() {
 	config, err := cf.GetConfig()
 	if err != nil {
@@ -44,6 +77,13 @@ func main() {
 	router := gin.New()
 
 	router.Use(gin.Logger(), gin.Recovery())
+
+	//router.LoadHTMLGlob("./src/template/*")
+	//router.GET("/select", func(c *gin.Context) {
+	//	c.HTML(http.StatusOK, "select_file.html", gin.H{})
+	//})
+	//router.POST("/upload", upload)
+	//router.StaticFS("/file", http.Dir("./src/public"))
 
 	api := router.Group("/api")
 	{
