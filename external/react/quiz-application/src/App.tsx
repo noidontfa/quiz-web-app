@@ -1,32 +1,41 @@
 import React from "react";
 import "./style.css";
-import logo from "./assets/Group 622.png";
-import userIcon from "./assets/cat.jpg";
+import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
+
+import HomePage from "./features/homepage/HomePage";
 
 function App() {
-  return (
-    <>
-      <header className="my-navbar">
-        <div className="my-container">
-          <div className="my-logo">
-            <img src={logo} alt="logo" />
-          </div>
-          <div className="my-icons">
-            <a href="#">
-              <i className="icon-home"></i>
-            </a>
-            <a href="#">
-              <i className="icon-puzzle"></i>
-            </a>
-            <a href="#">
-              <i className="icon-cup"></i>
-            </a>
-            <img className="my-user-icon" src={userIcon} alt="user-avartar" />
-          </div>
-        </div>
-      </header>
-    </>
-  );
+  return  (
+      <BrowserRouter>
+          <Switch>
+              <Route exact path="/">
+                  <HomePage />
+              </Route>
+              <Route path="/about">
+                  <About />
+              </Route>
+              <Route path="/dashboard">
+                  <Dashboard />
+              </Route>
+          </Switch>
+      </BrowserRouter>
+  )
 }
+function About() {
+    return (
+        <div>
+            <h2>About</h2>
+        </div>
+    );
+}
+
+function Dashboard() {
+    return (
+        <div>
+            <h2>Dashboard</h2>
+        </div>
+    );
+}
+
 
 export default App;

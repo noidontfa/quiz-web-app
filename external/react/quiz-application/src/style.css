@@ -76,6 +76,8 @@ body {
   height: 30vh;
   width: 180px;
   float: right;
+  position: fixed;
+  left: 0;
 }
 
 .my-sidebar .user-info {
@@ -487,6 +489,13 @@ body {
   border-radius: 10px 0 0 10px;
   overflow: hidden;
   float: left;
+}
+
+.my-main-content
+.my-section
+.my-card
+.my-medium-card-content {
+  height: 180px;
 }
 
 .my-main-content
