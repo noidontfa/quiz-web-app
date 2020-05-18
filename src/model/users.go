@@ -21,3 +21,12 @@ type User struct {
 	Ratings		[]Rating 	`gorm:"foreignkey:UserId" json:"ratings"`
 	Histories	[]History 	`gorm:"foreignkey:UserId" json:"histories"`
 }
+
+type UserDTO struct {
+	ID        	uint 		`json:"id"`
+	Username 	string		`json:"username"`
+	FirstName	string		`json:"firstName"`
+	LastName	string		`json:"lastName"`
+	Email		string		`json:"email"`
+	DayOfBirth  time.Time	`json:"dayOfBirth"`
+}

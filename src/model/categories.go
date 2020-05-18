@@ -12,3 +12,8 @@ type Category struct {
 	Name 		string `gorm:"not null" json:"name"`
 	Quizzes		[]Quiz `gorm:"foreignkey:CategoryId" json:"quizzes"`
 }
+
+type CategoryDTO struct {
+	ID        	uint `json:"id"`
+	Name 		string `json:"name"`
+}

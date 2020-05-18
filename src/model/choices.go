@@ -14,3 +14,10 @@ type Choice struct {
 	IsRight		bool 		`gorm:"default: false" json:"isRight"`
 	Image		string		`json:"image"`
 }
+
+type ChoiceDTO struct {
+	ID        	uint 		`json:"id"`
+	Name 		string 		`json:"name"`
+	IsRight		bool 		`json:"isRight"`
+	Image		string		`json:"image"`
+}

@@ -5,9 +5,9 @@ import (
 )
 
 type QuizService interface {
-	FindAll() ([]models.Quiz, error)
-	FindById(id uint) (*models.Quiz, error)
-	Save(quiz *models.Quiz) (*models.Quiz, error)
-	Update(id uint,quiz *models.Quiz) (*models.Quiz, error)
+	FindAll() ([]models.QuizDTO, error)
+	FindById(id uint) (*models.QuizDTO, error)
+	Save(quiz *models.Quiz) (*models.QuizDTO, error)
+	Update(id uint,quiz *models.Quiz) (*models.QuizDTO, error)
 	Delete(id uint) error
 }

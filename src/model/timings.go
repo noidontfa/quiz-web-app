@@ -13,3 +13,11 @@ type Timing struct {
 	Sec 		uint8		`gorm:"not null" json:"sec"`
 	Quizzes		[]Quiz 		`gorm:"foreignkey:TimingId" json:"quizzes"`
 }
+
+
+type TimingDTO struct {
+	ID        	uint 		`json:"id"`
+	Name		string		`json:"name"`
+	Sec 		uint8		`json:"sec"`
+}
+

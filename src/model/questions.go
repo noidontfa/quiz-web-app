@@ -12,3 +12,11 @@ type Question struct {
 	Choices		[]Choice 	`gorm:"foreignkey:QuestionId" json:"choices"`
 	Image			string		`json:"image"`
 }
+
+type QuestionDTO struct {
+	ID        	uint 		`json:"id"`
+	Name 		string 		`json:"name"`
+	Choices		[]ChoiceDTO `json:"choices"`
+	Image		string		`json:"image"`
+}
+

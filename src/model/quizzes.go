@@ -24,3 +24,17 @@ type Quiz struct {
 	Histories		[]History 	`gorm:"foreignkey:QuizId" json:"histories"`
 	Image			string		`json:"image" gorm:"type:text"`
 }
+
+type QuizDTO struct {
+	ID        		uint 			`json:"id"`
+	CreatedAt 		time.Time 		`json:"createdAt"`
+	Name			string 			`json:"name"`
+	Description 	string 			`json:"description"`
+	CategoryRefer 	CategoryDTO 	`json:"categoryRefer"`
+	LanguageRefer 	LanguageDTO		`json:"languageRefer"`
+	TimingRefer		TimingDTO		`json:"timingRefer"`
+	UserRefer		UserDTO			`json:"userRefer"`
+	QuestionRefer	[]QuestionDTO 	`json:"questionRefer"`
+	Ratings			float64			`json:"ratings"`
+	Image			string			`json:"image"`
+}

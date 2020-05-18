@@ -12,3 +12,8 @@ type Language struct {
 	Name			string 		`gorm:"not null" json:"name"`
 	Quizzes 		[]Quiz 		`gorm:"foreignkey:LanguageId" json:"quizzes"`
 }
+
+type LanguageDTO struct {
+	ID        		uint 		`json:"id"`
+	Name			string 		`json:"name"`
+}
