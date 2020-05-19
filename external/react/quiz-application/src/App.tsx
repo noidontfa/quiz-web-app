@@ -3,6 +3,7 @@ import "./style.css";
 import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
 
 import HomePage from "./features/homepage/HomePage";
+import QuizDetail from "./features/quiz-detail/QuizDetail";
 
 function App() {
   return  (
@@ -16,6 +17,12 @@ function App() {
               </Route>
               <Route path="/dashboard">
                   <Dashboard />
+              </Route>
+              <Route  exact path="/quiz/:quizId">
+                  <QuizDetail/>
+              </Route>
+              <Route exact path="/quiz/play/:quizId">
+                  <PlayQuiz/>
               </Route>
           </Switch>
       </BrowserRouter>
@@ -37,5 +44,12 @@ function Dashboard() {
     );
 }
 
+function PlayQuiz() {
+    return (
+        <div>
+            <h2>PlayQuiz</h2>
+        </div>
+    );
+}
 
 export default App;

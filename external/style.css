@@ -474,6 +474,10 @@ body {
   float: left;
 }
 
+.my-main-content .my-section .my-card .my-medium-card-content {
+  height: 180px;
+}
+
 .my-main-content .my-section .my-card .my-medium-card-content .my-medium-card-content-header {
   font-size: 20px;
   font-weight: 500;

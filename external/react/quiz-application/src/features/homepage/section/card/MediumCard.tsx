@@ -1,13 +1,20 @@
 import React from "react";
 import userIcon from "../../../../assets/cat.jpg";
+import {useHistory} from "react-router-dom";
 
 interface P {
     quiz : QuizInterface
 }
 
 const MediumCard : React.FC<P> = ({quiz}) => {
+    const history = useHistory();
+    const quizDetail = () => {
+        const path = `/quiz/${quiz.id}`
+        history.push(path);
+    }
+
     return (
-        <div className="my-card">
+        <div className="my-card" onClick={quizDetail}>
             <div className="my-medium-card-img">
                 <img
                     src="https://picsum.photos/253/180"
