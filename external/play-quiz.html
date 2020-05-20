@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="style.css" />
+		<link
+			rel="stylesheet prefetch"
+			href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Lato&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		/>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+		<script
+			src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+			crossorigin="anonymous"
+		></script>
+		<title>Document</title>
+	</head>
+	<body>
+		<header class="play-quiz-navbar">
+			<div class="wrapper">
+				<div class="wrap-item">
+					<div
+						class="action-button pause"
+						id="btn_pause"
+						style="margin-right: 15px;"
+					>
+						<i class="icon-control-pause"></i>
+						<i class="icon-control-play"></i>
+					</div>
+					<div class="action-button">
+						<span>
+							1 / 15
+						</span>
+					</div>
+				</div>
+				<div class="wrap-item">
+					<div class="action-button">
+						<span>
+							500,13
+						</span>
+					</div>
+				</div>
+			</div>
+		</header>
+		<div class="timing-bar" id="timing-bar"></div>
+		<div class="quiz-content">
+			<div class="row">
+				<div class="content">
+					<div class="col-xl-12">
+						<div class="row d-flex justify-content-center">
+							<div class="col-xl-10">
+								<div class="question">
+									Let's Find Out With BTS Member You're Most Like Based On Your
+									Favorite TV Shows? Let's Find Out With BTS Member You're Most
+									Like Based On Your Favorite TV Shows? Let's Find Out With BTS
+									Member You're Most Like Based On Your Favorite TV Shows?
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="col-xl-12">
+							<div class="row d-flex justify-content-center">
+								<div class="col-xl-10" style="margin-top: 50px;">
+									<div class="question-img">
+										
+									</div>
+								</div>
+							</div>
+						</div> -->
+					<div class="col-xl-12" style="flex-grow: 1;">
+						<div class="row d-flex justify-content-center">
+							<div class="col-xl-3" style="margin-top: 30px;">
+								<div class="choice">
+									<div class="choice-title">
+										1
+									</div>
+									<div class="choice-content">
+										Day la cau tra loi a
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-3" style="margin-top: 30px;">
+								<div class="choice">
+									<div class="choice-title">
+										1
+									</div>
+									<div class="choice-content">
+										Day la cau tra loi a
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-3" style="margin-top: 30px;">
+								<div class="choice">
+									<div class="choice-title">
+										1
+									</div>
+									<div class="choice-content">
+										Day la cau tra loi a
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-3" style="margin-top: 30px;">
+								<div class="choice">
+									<div class="choice-title">
+										1
+									</div>
+									<div class="choice-content">
+										Day la cau tra loi a
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div
+						class="col-xl-12 d-flex justify-content-end align-items-center"
+						style="margin-top: 50px;"
+					>
+						<button class="btn-submit">Submit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			const btnPause = document.getElementById("btn_pause");
+			const timingBar = document.getElementById("timing-bar");
+			let sec = 16;
+			let isPause = true;
+
+			btnPause.addEventListener("click", function (e) {
+				btnPause.classList.toggle("pause");
+				count = 0;
+				if (btnPause.classList.contains("pause")) {
+					const computedStyle = window.getComputedStyle(timingBar);
+					const widthStyle = computedStyle.getPropertyValue("width");
+					timingBar.classList.remove("dec");
+					timingBar.style.width = widthStyle;
+					isPause = true;
+				} else {
+					timingBar.classList.add("dec");
+					isPause = false;
+				}
+			});
+
+			const timer = () => {
+				if (!isPause) {
+					sec--;
+					if (sec <= 0) {
+						alert("Timing out");
+						isPause = true;
+					}
+				}
+			};
+			window.setInterval(timer, 1000);
+		</script>
+	</body>
+</html>
