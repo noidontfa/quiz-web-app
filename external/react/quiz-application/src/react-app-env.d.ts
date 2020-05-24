@@ -7,6 +7,8 @@ interface QuizInterface {
     categoryRefer? : CategoryInterface;
     timingRefer? : TimingInterface;
     userRefer? : UserInterface;
+    questionRefer? : Array<QuestionInterface>;
+    totalQuestion? : number;
     ratings?: number;
     image? : string;
 
@@ -30,4 +32,18 @@ interface UserInterface {
     email? : string;
     dayOfBirth? : string;
     image? : string;
+}
+
+interface QuestionInterface {
+    id? : number;
+    name? : string;
+    choices? : Array<ChoiceInterface>;
+    image?: string;
+}
+
+interface ChoiceInterface {
+    id? : number;
+    name?: string;
+    isRight?: boolean;
+    image?: string;
 }

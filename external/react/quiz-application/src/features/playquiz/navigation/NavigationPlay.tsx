@@ -50,7 +50,7 @@ const NavigationPlay : React.FC<P>= ({question,totalQuestion,score,sec}) => {
                     </div>
                     <div className="action-button">
 						<span>
-							1 / 15
+                            {question + "/" + totalQuestion}
 						</span>
                     </div>
                 </div>

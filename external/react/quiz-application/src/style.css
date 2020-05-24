@@ -1134,6 +1134,7 @@ body {
   border: solid 1px #5b88e2;
   min-height: calc(100vh - 185px);
   height: 100%;
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
