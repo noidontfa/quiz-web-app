@@ -1,17 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 import {setInterval} from "timers";
 interface P {
     question: number;
     totalQuestion: number;
     score: number;
     sec: number;
-    callbackFunction?: () => {};
+    showChoices : boolean;
+    callbackFunction?: () => void;
 }
-const NavigationPlay : React.FC<P>= ({question,totalQuestion,score,sec}) => {
+const NavigationPlay : React.FC<P>= ({question,totalQuestion,score,sec,callbackFunction,showChoices}) => {
 
     const [togglePause,setTogglePause] = useState(true);
     const [widthStyle, setWidthStyle] = useState('100%');
-    const [timing,setTiming] = useState(sec);
+    const [timing,setTiming] = useState(() => {
+        return sec;
+    });
     const TimingTransition = `width ${timing}s ease-out`
 
     useEffect(()=> {
@@ -31,9 +34,18 @@ const NavigationPlay : React.FC<P>= ({question,totalQuestion,score,sec}) => {
         })
 
         timingBar!.addEventListener('transitionend', function (e) {
-            alert("End statment");
+            callbackFunction!();
+            timingBar!.style.removeProperty("width");
+            setTiming(sec => sec + timing);
+            setTogglePause( togglePause => !togglePause);
         })
+
     },[])
+    useEffect(() => {
+        setTimeout(() => {
+            setTogglePause(togglePause => !togglePause)
+        },300);
+    },[score])
 
 
     return <>
@@ -57,14 +69,15 @@ const NavigationPlay : React.FC<P>= ({question,totalQuestion,score,sec}) => {
                 <div className="wrap-item">
                     <div className="action-button">
 						<span>
-							500,13
+                            {score}
 						</span>
                     </div>
                 </div>
             </div>
         </header>
-        <div style={{ transition: TimingTransition}} className={togglePause ? "" :  "dec"} >
-            <div  id="timing-bar" className="timing-bar" style={{width: widthStyle}}></div>
+
+        <div  style={{ transition: TimingTransition}} className={togglePause ? "no-transition" :  "dec"} >
+            <div  id="timing-bar" className="timing-bar" style={{width: !showChoices ? widthStyle : "0" }}></div>
         </div>
     </>
 

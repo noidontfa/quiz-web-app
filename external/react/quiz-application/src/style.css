@@ -1114,6 +1114,10 @@ body {
     width: 0 !important;
 }
 
+.no-transition > * {
+  transition: none !important;
+}
+
 .quiz-content {
   width: 100%;
   display: -webkit-box;

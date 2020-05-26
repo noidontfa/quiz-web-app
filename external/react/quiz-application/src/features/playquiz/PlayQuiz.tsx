@@ -15,26 +15,37 @@ const PlayQuiz : React.FC<P> = ({quiz}) => {
 
 
     const [questionIndex,setQuestionIndex] = useState(0);
-
+    const [score, setScore] = useState(100);
+    const [showChoices, setShowChoices] = useState(false);
     const onNextQuestion = () => {
-        if (questionIndex + 1 > quiz.totalQuestion!) {
-            alert("Finished");
-        } else {
-            setQuestionIndex(questionIndex + 1);
-        }
+        //call back show right question => setitme setstate;
+        setShowChoices(showChoices => !showChoices);
+        setTimeout(() => {
+            setShowChoices(showChoices => !showChoices);
+            setQuestionIndex(questionIndex => questionIndex + 1);
+            setScore(score => score + 100)
+        },2000);
     };
 
+    function OnRender() : JSX.Element {
+        if(questionIndex !== (quiz.totalQuestion! + 1)) {
+            return (
+                <NavigationPlay  showChoices={showChoices} question={questionIndex} score={score} sec={5} totalQuestion={quiz.totalQuestion!} callbackFunction={onNextQuestion}/>
+            )
+        }
+        return <h1>Finished</h1>;
+    }
 
     return (
                 <>
-                    <NavigationPlay question={questionIndex} score={500} sec={15} totalQuestion={quiz.totalQuestion!}/>
-                    {
-                        quiz.questionRefer?.map((q,index) => {
+                    <OnRender/>
+                    { quiz.questionRefer?.map((q,index) => {
                             if(index === questionIndex) {
-                                return (<QuestionItem question={q} callBackFunction={onNextQuestion}/>);
+                                return (<QuestionItem showChoices={showChoices} question={q} callBackFunction={onNextQuestion}/>);
                             }
                         })
                     }
+
                 </>
     )
 }

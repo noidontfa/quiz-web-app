@@ -4,9 +4,10 @@ import ChoiceItem from "../choice-item/ChoiceItem";
 interface P {
     question : QuestionInterface;
     callBackFunction: () => void;
+    showChoices : boolean;
 }
 
-const QuestionItem : React.FC<P> = ({question,callBackFunction}) => {
+const QuestionItem : React.FC<P> = ({question,callBackFunction,showChoices}) => {
 
     const onChooseChoice = (id : number) => {
         alert("My Id: " + id);
@@ -41,7 +42,7 @@ const QuestionItem : React.FC<P> = ({question,callBackFunction}) => {
                     <div className="col-xl-12" style={{flexGrow : 1}}>
                         <div className="row d-flex justify-content-center">
                             {question.choices?.map((choice,index) =>
-                                <ChoiceItem index={index} choice={choice} callBackFunction={onChooseChoice}/>
+                                <ChoiceItem showChoices={showChoices} index={index} choice={choice} callBackFunction={onChooseChoice}/>
                             )}
                         </div>
                     </div>
