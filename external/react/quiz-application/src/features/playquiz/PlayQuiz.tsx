@@ -19,11 +19,33 @@ const PlayQuiz : React.FC<P> = ({quiz}) => {
     const [showChoices, setShowChoices] = useState(false);
     const onNextQuestion = () => {
         //call back show right question => setitme setstate;
+        const selection = document.getElementsByClassName("choice active");
+        let choices : Array<Number> = [];
+        for(let i = 0; i < selection.length; i++) {
+           choices.push(Number(selection.item(i)!.getAttribute("data-id")));
+        }
+        let currentScore = score;
+        if(choices.length) {
+            const question = quiz.questionRefer?.filter((value,index) => {
+                return index === questionIndex;
+            })
+
+            question?.forEach(q => {
+                const result = q.choices?.filter((e) => {
+                    return choices.includes(e.id!) && e.isRight
+                })
+                if(result!.length === choices.length) {
+                    currentScore += 100;
+                }
+            })
+        }
+
+
         setShowChoices(showChoices => !showChoices);
         setTimeout(() => {
             setShowChoices(showChoices => !showChoices);
             setQuestionIndex(questionIndex => questionIndex + 1);
-            setScore(score => score + 100)
+            setScore(() => currentScore);
         },2000);
     };
 

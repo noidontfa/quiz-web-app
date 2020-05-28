@@ -1164,7 +1164,15 @@ body {
   height: 332px;
   border-radius: 15px;
   position: relative;
+  opacity: 1;
 }
+.quiz-content .content .choice:hover {
+  opacity: 0.8;
+}
+.quiz-content .content .choice.active {
+  background-color: #5b88e2;
+}
+
 
 .quiz-content .content .choice .choice-title {
   position: absolute;

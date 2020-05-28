@@ -10,7 +10,12 @@ interface P {
 const QuestionItem : React.FC<P> = ({question,callBackFunction,showChoices}) => {
 
     const onChooseChoice = (id : number) => {
-        alert("My Id: " + id);
+        document.querySelector(`div[data-id='${id}']`)!.classList.toggle("active");
+        if(document.getElementsByClassName("choice active").length) {
+            document.getElementById("btn-submit")!.style.pointerEvents = "all"
+        } else {
+            document.getElementById("btn-submit")!.style.pointerEvents = "none"
+        }
     }
 
     const onSubmit = () => {
@@ -50,7 +55,7 @@ const QuestionItem : React.FC<P> = ({question,callBackFunction,showChoices}) => 
                         className="col-xl-12 d-flex justify-content-end align-items-center"
                         style={{marginTop: '50px'}}
                     >
-                        <button className="btn-submit" onClick={onSubmit}>Submit</button>
+                        <button className="btn-submit" id="btn-submit" onClick={onSubmit} style={{pointerEvents: "none"}}>Submit</button>
                     </div>
                 </div>
             </div>

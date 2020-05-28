@@ -29,7 +29,7 @@ const ChoiceItem : React.FC<P> = ({choice,index,callBackFunction,showChoices}) =
                     display: item ? (choice.isRight ? "block" : "none") : "block"
                 }} onClick={onClickFunction}>
                     <animated.div key={key} style={props} >
-                            <div className="choice">
+                            <div className="choice" data-id={choice.id}>
                                 <div className="choice-title">
                                     {index}
                                 </div>
