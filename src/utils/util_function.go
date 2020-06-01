@@ -5,12 +5,12 @@ import (
 )
 
 func ParseQuizToQuizDTO(quiz  *models.Quiz) models.QuizDTO {
-	var totalRating float64 = 0
+	var totalRating float32 = 0
 	for _, e := range quiz.Ratings {
-		totalRating += float64(e.Star)
+		totalRating += e.Star
 	}
 	if len(quiz.Ratings) != 0 {
-		totalRating = totalRating / float64(len(quiz.Ratings))
+		totalRating = totalRating / float32(len(quiz.Ratings))
 	}
 
 	var questions []models.QuestionDTO
@@ -27,6 +27,7 @@ func ParseQuizToQuizDTO(quiz  *models.Quiz) models.QuizDTO {
 		LanguageRefer: ParseLanguageToLanguageDTO(&quiz.LanguageRefer),
 		TimingRefer:   ParseTimingToTimingDTO(&quiz.TimingRefer),
 		UserRefer:     ParseUserToUserDTO(&quiz.UserRefer),
+		TotalQuestions: len(questions),
 		QuestionRefer: questions,
 		Ratings:       totalRating,
 		Image:         quiz.Image,

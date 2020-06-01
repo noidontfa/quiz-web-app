@@ -14,3 +14,11 @@ type History struct {
 	QuizRefer			Quiz		`json:"quizRefer"`
 	UserRefer			User		`json:"userRefer"`
 }
+
+type HistoryDTO struct {
+	ID	uint `json:"id"`
+	NumberRightAnswers int8 `json:"numberRightAnswers"`
+	Score	uint	`json:"score"`
+	QuizRefer			Quiz		`json:"quizRefer"`
+	UserRefer			User		`json:"userRefer"`
+}

@@ -33,8 +33,8 @@ func (q *QuizSevc) FindAll() ([]models.QuizDTO, error) {
 			db.Model(quizzes[i]).Related(&quizzes[i].UserRefer,"CreatedBy")
 			db.Model(quizzes[i]).Association("Ratings").Find(&quizzes[i].Ratings)
 			if dbErr := db.Model(quizzes[i]).Association("Questions").Find(&quizzes[i].Questions).Error; dbErr == nil {
-				for i,_ := range quizzes[i].Questions {
-					question := &quizzes[i].Questions[i]
+				for j,_ := range quizzes[i].Questions {
+					question := &quizzes[i].Questions[j]
 					db.Model(question).Association("Choices").Find(&question.Choices)
 				}
 			}

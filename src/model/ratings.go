@@ -9,5 +9,5 @@ type Rating struct {
 	DeletedAt 	*time.Time 	`sql:"index" json:"-"`
 	UserId		uint 		`json:"userId"`
 	QuizId 		uint 		`json:"quizId"`
-	Star 		uint8 		`json:"star"`
+	Star 		float32 	`json:"star"`
 }

@@ -38,9 +38,9 @@ const QuestionItem : React.FC<P> = ({question,callBackFunction,showChoices}) => 
     };
 
     const transitions = useTransition(showChoices, null ,{
-        from: { transform: 'translate3d(0,-40px,0)'},
-        enter: { transform: 'translate3d(0,0px,0)'},
-        leave: { transform: 'translate3d(0,0px,0)' },
+        from: { transform: 'translate3d(0,-40px,0)', opacity: 0},
+        enter: { transform: 'translate3d(0,0px,0)', opacity: 1},
+        leave: { display: 'none', opacity: 0 },
     });
 
 
@@ -91,7 +91,7 @@ const QuestionItem : React.FC<P> = ({question,callBackFunction,showChoices}) => 
                         className="col-xl-12 d-flex justify-content-end align-items-center"
                         style={{marginTop: '50px'}}
                     >
-                        <button className="btn-submit" id="btn-submit" onClick={onSubmit} style={{pointerEvents: "none"}}>Submit</button>
+                        <button className="btn-submit" id="btn-submit" onClick={onSubmit} style={{pointerEvents: showChoices ?  "none" : "all"}}>Submit</button>
                     </div>
                 </div>
             </div>

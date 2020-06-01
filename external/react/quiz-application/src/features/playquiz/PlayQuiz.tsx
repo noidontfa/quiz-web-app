@@ -3,6 +3,7 @@ import {CSSTransition} from "react-transition-group";
 import NavigationPlay from "./navigation/NavigationPlay";
 import ChoiceItem from "./choice-item/ChoiceItem";
 import QuestionItem from "./question-item/QuestionItem";
+import FinishPage from "./FinishPage";
 interface P {
     quiz : QuizInterface
 }
@@ -16,6 +17,7 @@ const PlayQuiz : React.FC<P> = ({quiz}) => {
 
     const [questionIndex,setQuestionIndex] = useState(0);
     const [score, setScore] = useState(100);
+    const [rightChoices,setRightChoices] = useState(0);
     const [showChoices, setShowChoices] = useState(false);
     const onNextQuestion = () => {
         //call back show right question => setitme setstate;
@@ -38,6 +40,7 @@ const PlayQuiz : React.FC<P> = ({quiz}) => {
                 const isRight = choices.some(e => result?.includes(e))
                 if(isRight && result?.length === choices.length) {
                     currentScore += 100;
+                    setRightChoices(rightChoices => rightChoices + 1);
                 }
             })
         }
@@ -57,7 +60,7 @@ const PlayQuiz : React.FC<P> = ({quiz}) => {
                 <NavigationPlay showChoices={showChoices} question={questionIndex + 1} score={score} sec={quiz.timingRefer?.sec!} totalQuestion={quiz.totalQuestions!} callbackFunction={onNextQuestion}/>
             )
         }
-        return <h1>Finished</h1>;
+        return <FinishPage quiz={quiz} rightChoices={rightChoices} score={score}/>
     }
 
     return (

@@ -34,7 +34,8 @@ type QuizDTO struct {
 	LanguageRefer 	LanguageDTO		`json:"languageRefer"`
 	TimingRefer		TimingDTO		`json:"timingRefer"`
 	UserRefer		UserDTO			`json:"userRefer"`
+	TotalQuestions	int				`json:"totalQuestions"`
 	QuestionRefer	[]QuestionDTO 	`json:"questionRefer"`
-	Ratings			float64			`json:"ratings"`
+	Ratings			float32			`json:"ratings"`
 	Image			string			`json:"image"`
 }
