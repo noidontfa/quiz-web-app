@@ -1,5 +1,12 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ChoiceItem from "../choice-item/ChoiceItem";
+import {ButtonBaseActions} from "@material-ui/core";
+import {animated, useTransition} from "react-spring";
+import Navigation from "../../navbar/Navigation";
+import Breadcrumbs from "../../breadcrumb/Breadcrumbs";
+import LinkBreadcrumbs from "../../breadcrumb/LinkBreadcrumbs";
+import QuizInfo from "../../quiz-detail/quiz-info/QuizInfo";
+import HistoryTable from "../../quiz-detail/history-table/HistoryTable";
 
 interface P {
     question : QuestionInterface;
@@ -21,6 +28,28 @@ const QuestionItem : React.FC<P> = ({question,callBackFunction,showChoices}) => 
     const onSubmit = () => {
         callBackFunction();
     }
+    const onKey = (ev : KeyboardEvent) => {
+        if(ev.keyCode === 13) {
+            const ob = document.getElementById("btn-submit")!.style.pointerEvents;
+            if(ob === "all") {
+                callBackFunction();
+            }
+        }
+    };
+
+    const transitions = useTransition(showChoices, null ,{
+        from: { transform: 'translate3d(0,-40px,0)'},
+        enter: { transform: 'translate3d(0,0px,0)'},
+        leave: { transform: 'translate3d(0,0px,0)' },
+    });
+
+
+    useEffect(() => {
+        document.addEventListener("keyup", onKey )
+        return () => {
+            document.removeEventListener("keyup",onKey);
+        }
+    },[])
 
     return (
         <div className="quiz-content">
@@ -30,7 +59,14 @@ const QuestionItem : React.FC<P> = ({question,callBackFunction,showChoices}) => 
                         <div className="row d-flex justify-content-center">
                             <div className="col-xl-10">
                                 <div className="question">
-                                    {question.name}
+
+                                    {
+                                        transitions.map(({item,key,props}) =>
+                                            <animated.div key={key} style={props} >
+                                                {question.name}
+                                            </animated.div>
+                                        )
+                                    }
                                 </div>
                             </div>
                         </div>

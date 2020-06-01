@@ -20,10 +20,11 @@ const PlayQuiz : React.FC<P> = ({quiz}) => {
     const onNextQuestion = () => {
         //call back show right question => setitme setstate;
         const selection = document.getElementsByClassName("choice active");
-        let choices : Array<Number> = [];
+        let choices : Array<number> = [];
         for(let i = 0; i < selection.length; i++) {
            choices.push(Number(selection.item(i)!.getAttribute("data-id")));
         }
+        console.log(choices);
         let currentScore = score;
         if(choices.length) {
             const question = quiz.questionRefer?.filter((value,index) => {
@@ -31,10 +32,11 @@ const PlayQuiz : React.FC<P> = ({quiz}) => {
             })
 
             question?.forEach(q => {
-                const result = q.choices?.filter((e) => {
-                    return choices.includes(e.id!) && e.isRight
-                })
-                if(result!.length === choices.length) {
+                const result = q.choices?.filter((e) => e.isRight).map(e => e.id);
+                console.log(result);
+                console.log(choices);
+                const isRight = choices.some(e => result?.includes(e))
+                if(isRight && result?.length === choices.length) {
                     currentScore += 100;
                 }
             })
@@ -50,9 +52,9 @@ const PlayQuiz : React.FC<P> = ({quiz}) => {
     };
 
     function OnRender() : JSX.Element {
-        if(questionIndex !== (quiz.totalQuestion! + 1)) {
+        if(questionIndex !== (quiz.totalQuestions!)) {
             return (
-                <NavigationPlay  showChoices={showChoices} question={questionIndex} score={score} sec={5} totalQuestion={quiz.totalQuestion!} callbackFunction={onNextQuestion}/>
+                <NavigationPlay showChoices={showChoices} question={questionIndex + 1} score={score} sec={quiz.timingRefer?.sec!} totalQuestion={quiz.totalQuestions!} callbackFunction={onNextQuestion}/>
             )
         }
         return <h1>Finished</h1>;

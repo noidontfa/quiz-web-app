@@ -8,7 +8,7 @@ interface QuizInterface {
     timingRefer? : TimingInterface;
     userRefer? : UserInterface;
     questionRefer? : Array<QuestionInterface>;
-    totalQuestion? : number;
+    totalQuestions? : number;
     ratings?: number;
     image? : string;
 

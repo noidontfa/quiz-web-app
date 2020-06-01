@@ -16,9 +16,9 @@ const ChoiceItem : React.FC<P> = ({choice,index,callBackFunction,showChoices}) =
         }
     }
     const transitions = useTransition(showChoices, null ,{
-        from: { transform: 'translate3d(0,-40px,0)' },
-        enter: { transform: 'translate3d(0,0px,0)' },
-        leave: { transform: 'translate3d(0,-40px,0)' , display: 'none'},
+        from: { transform: 'translate3d(0,-40px,0)'},
+        enter: { transform: 'translate3d(0,0px,0)'},
+        leave: { transform: 'translate3d(0,0px,0)' },
     });
 
     return   <>
@@ -26,7 +26,7 @@ const ChoiceItem : React.FC<P> = ({choice,index,callBackFunction,showChoices}) =
             transitions.map(({ item, key, props}) =>
                 <div className="col-xl-3" style={{
                     marginTop: '30px',
-                    display: item ? (choice.isRight ? "block" : "none") : "block"
+                    opacity: item ? (choice.isRight ? "1" : "0") : "1"
                 }} onClick={onClickFunction}>
                     <animated.div key={key} style={props} >
                             <div className="choice" data-id={choice.id}>
@@ -39,8 +39,6 @@ const ChoiceItem : React.FC<P> = ({choice,index,callBackFunction,showChoices}) =
                             </div>
                     </animated.div>
                 </div>
-
-
             )
         }
     </>

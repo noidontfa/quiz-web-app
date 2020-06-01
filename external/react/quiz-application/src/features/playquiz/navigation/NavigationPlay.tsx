@@ -1,5 +1,6 @@
 import React, {useEffect, useLayoutEffect, useState} from "react";
 import {setInterval} from "timers";
+import {animated, useTransition} from "react-spring";
 interface P {
     question: number;
     totalQuestion: number;
@@ -47,6 +48,12 @@ const NavigationPlay : React.FC<P>= ({question,totalQuestion,score,sec,callbackF
         },300);
     },[score])
 
+    const transitions = useTransition(score, null, {
+        from: { opacity: showChoices ? 1 : 0},
+        enter: { opacity: 1 },
+        leave: { display: "none" },
+    })
+
 
     return <>
         <header className="play-quiz-navbar ">
@@ -66,13 +73,21 @@ const NavigationPlay : React.FC<P>= ({question,totalQuestion,score,sec,callbackF
 						</span>
                     </div>
                 </div>
-                <div className="wrap-item">
-                    <div className="action-button">
-						<span>
-                            {score}
-						</span>
-                    </div>
-                </div>
+
+                            {
+                                transitions.map(({item,key,props}) =>
+                                   score &&  <div className="wrap-item">
+                                        <div className="action-button">
+						                    <span>
+                                                <animated.div key={key} style={props} >
+                                                    {score}
+                                                </animated.div>
+                                            </span>
+                                        </div>
+                                    </div>
+                                )
+                            }
+
             </div>
         </header>
 

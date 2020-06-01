@@ -13,83 +13,83 @@ import {useTransition, animated} from "react-spring";
 
 
 
-const quizTest : QuizInterface = {
-    id: 42,
-    name: "Quiz 1",
-    totalQuestion: 2,
-    questionRefer: [
-        {
-            id: 45,
-            name: "Question 1",
-            choices: [
-                {
-                    id: 92,
-                    name: "Choice 1",
-                    isRight: true,
-                    image: ""
-                },
-                {
-                    id: 93,
-                    name: "Choice 2",
-                    isRight: false,
-                    image: ""
-                }
-            ],
-            image: ""
-        },
-        {
-            id: 46,
-            name: "Question 2",
-            choices: [
-                {
-                    id: 94,
-                    name: "Choice 1",
-                    isRight: true,
-                    image: ""
-                },
-                {
-                    id: 95,
-                    name: "Choice 2",
-                    isRight: false,
-                    image: ""
-                }
-            ],
-            image: ""
-        },
-        {
-            id: 46,
-            name: "Question 2",
-            choices: [
-                {
-                    id: 96,
-                    name: "Choice 1",
-                    isRight: true,
-                    image: ""
-                },
-                {
-                    id: 97,
-                    name: "Choice 2",
-                    isRight: false,
-                    image: ""
-                },
-                {
-                    id: 98,
-                    name: "Choice 2",
-                    isRight: false,
-                    image: ""
-                },
-                {
-                    id: 99,
-                    name: "Choice 2",
-                    isRight: false,
-                    image: ""
-                }
-            ],
-            image: ""
-        },
-
-    ],
-}
+// const quizTest : QuizInterface = {
+//     id: 42,
+//     name: "Quiz 1",
+//     totalQuestion: 2,
+//     questionRefer: [
+//         {
+//             id: 45,
+//             name: "Question 1",
+//             choices: [
+//                 {
+//                     id: 92,
+//                     name: "Choice 1",
+//                     isRight: true,
+//                     image: ""
+//                 },
+//                 {
+//                     id: 93,
+//                     name: "Choice 2",
+//                     isRight: true,
+//                     image: ""
+//                 }
+//             ],
+//             image: ""
+//         },
+//         {
+//             id: 46,
+//             name: "Question 2",
+//             choices: [
+//                 {
+//                     id: 94,
+//                     name: "Choice 1",
+//                     isRight: true,
+//                     image: ""
+//                 },
+//                 {
+//                     id: 95,
+//                     name: "Choice 2",
+//                     isRight: false,
+//                     image: ""
+//                 }
+//             ],
+//             image: ""
+//         },
+//         {
+//             id: 46,
+//             name: "Question 2",
+//             choices: [
+//                 {
+//                     id: 96,
+//                     name: "Choice 1",
+//                     isRight: true,
+//                     image: ""
+//                 },
+//                 {
+//                     id: 97,
+//                     name: "Choice 2",
+//                     isRight: false,
+//                     image: ""
+//                 },
+//                 {
+//                     id: 98,
+//                     name: "Choice 3",
+//                     isRight: true,
+//                     image: ""
+//                 },
+//                 {
+//                     id: 99,
+//                     name: "Choice 4",
+//                     isRight: false,
+//                     image: ""
+//                 }
+//             ],
+//             image: ""
+//         },
+//
+//     ],
+// }
 
 
 export function QuizDetail(){
@@ -99,10 +99,11 @@ export function QuizDetail(){
     const doStuff =  async () => {
         console.log(quiz);
         try {
-            // const response = await axios.get(`http:/api/quizzes/${quizId}`);
-            // console.log(response.data);
-            // setQuiz(response.data);
-            setQuiz(quizTest);
+            const response = await axios.get(`http:/api/quizzes/${quizId}`);
+            console.log(response.data);
+            setQuiz(response.data);
+            // setQuiz(quizTest);
+            console.log(response.data);
         } catch (e) {
             console.log(e);
         }
