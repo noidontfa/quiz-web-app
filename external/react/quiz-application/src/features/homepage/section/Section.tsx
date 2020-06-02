@@ -28,7 +28,7 @@ const Section = () => {
             {
                 quizData
                     .filter((e,i) => i === 0)
-                    .map(e => (<BigCard quiz={e}/>))
+                    .map(e => (<BigCard key={e.id} quiz={e}/>))
             }
             {
 

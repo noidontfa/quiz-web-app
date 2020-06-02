@@ -57,10 +57,10 @@ const PlayQuiz : React.FC<P> = ({quiz}) => {
     function OnRender() : JSX.Element {
         if(questionIndex !== (quiz.totalQuestions!)) {
             return (
-                <NavigationPlay showChoices={showChoices} question={questionIndex + 1} score={score} sec={quiz.timingRefer?.sec!} totalQuestion={quiz.totalQuestions!} callbackFunction={onNextQuestion}/>
+                <NavigationPlay key={quiz.id} showChoices={showChoices} question={questionIndex + 1} score={score} sec={quiz.timingRefer?.sec!} totalQuestion={quiz.totalQuestions!} callbackFunction={onNextQuestion}/>
             )
         }
-        return <FinishPage quiz={quiz} rightChoices={rightChoices} score={score}/>
+        return <FinishPage key={quiz.id} quiz={quiz} rightChoices={rightChoices} score={score}/>
     }
 
     return (
@@ -68,7 +68,7 @@ const PlayQuiz : React.FC<P> = ({quiz}) => {
                     <OnRender/>
                     { quiz.questionRefer?.map((q,index) => {
                             if(index === questionIndex) {
-                                return (<QuestionItem showChoices={showChoices} question={q} callBackFunction={onNextQuestion}/>);
+                                return (<QuestionItem key={q.id} showChoices={showChoices} question={q} callBackFunction={onNextQuestion}/>);
                             }
                         })
                     }

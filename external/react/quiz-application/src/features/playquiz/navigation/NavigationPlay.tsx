@@ -56,7 +56,7 @@ const NavigationPlay : React.FC<P>= ({question,totalQuestion,score,sec,callbackF
 
 
     return <>
-        <header className="play-quiz-navbar ">
+        <header className="play-quiz-navbar">
             <div className="wrapper">
                 <div className="wrap-item">
                     <div

@@ -47,3 +47,12 @@ interface ChoiceInterface {
     isRight?: boolean;
     image?: string;
 }
+
+interface HistoryInterface {
+    id? : number;
+    numberRightAnswers? : number;
+    score? : number;
+    quizRefer? : QuizInterface;
+    userRefer? : UserInterface;
+    createAt? : string;
+}

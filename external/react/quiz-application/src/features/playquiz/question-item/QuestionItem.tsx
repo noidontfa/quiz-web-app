@@ -83,7 +83,7 @@ const QuestionItem : React.FC<P> = ({question,callBackFunction,showChoices}) => 
                     <div className="col-xl-12" style={{flexGrow : 1}}>
                         <div className="row d-flex justify-content-center">
                             {question.choices?.map((choice,index) =>
-                                <ChoiceItem showChoices={showChoices} index={index} choice={choice} callBackFunction={onChooseChoice}/>
+                                <ChoiceItem key={choice.id} showChoices={showChoices} index={index} choice={choice} callBackFunction={onChooseChoice}/>
                             )}
                         </div>
                     </div>

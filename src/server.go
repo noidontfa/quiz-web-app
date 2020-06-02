@@ -128,6 +128,7 @@ func main() {
 		api.POST("/ratings/",ratingController.SaveRating)
 
 		api.GET("/histories/",historyController.FindByIdHistory)
+		api.GET("/histories/d/",historyController.FindByDateHistory)
 		api.POST("/histories/",historyController.SaveHistory)
 	}
 

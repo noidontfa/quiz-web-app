@@ -17,6 +17,7 @@ const quizTest : QuizInterface = {
     id: 42,
     name: "Quiz 1",
     totalQuestions: 3,
+    ratings: 3.5,
     timingRefer: {
         id: 2,
         name:"",
@@ -107,7 +108,7 @@ export function QuizDetail(){
             // const response = await axios.get(`http:/api/quizzes/${quizId}`);
             // console.log(response.data);
             // setQuiz(response.data);
-            setQuiz(quizTest);
+            setQuiz(() => quizTest);
             // console.log(response.data);
         } catch (e) {
             console.log(e);
@@ -147,7 +148,7 @@ export function QuizDetail(){
                                 <div className="col-xl-9" style={{marginTop: '32px'}}>
                                     <div className="row">
                                         <QuizInfo quiz={quiz}/>
-                                        <HistoryTable/>
+                                        <HistoryTable quiz={quiz}/>
                                     </div>
                                 </div>
                                 <div className="col-xl-3" style={{marginTop: '32px'}}>

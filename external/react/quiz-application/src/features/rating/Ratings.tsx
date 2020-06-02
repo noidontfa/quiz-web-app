@@ -8,7 +8,7 @@ interface P {
 }
 
 const Ratings : React.FC<P> = ({defaultValue,readonly,callbackFunction}) => {
-    const [value,setValue] = useState(defaultValue || 0)
+    const [value,setValue] = useState(() => defaultValue || 0)
 
     return (
         <Rating

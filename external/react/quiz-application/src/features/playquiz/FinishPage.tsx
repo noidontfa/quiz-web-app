@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {animated} from "react-spring";
 import ChoiceItem from "./choice-item/ChoiceItem";
 import Ratings from "../rating/Ratings";
@@ -24,6 +24,19 @@ const FinishPage  : React.FC<P> = ({quiz,rightChoices,score}) => {
             console.log(err);
         })
     }
+
+    useEffect(() => {
+        axios.post(`http:/api/histories/`, {
+            userId: 2,
+            quizId: quiz.id,
+            score: score,
+            numberRightAnswers: rightChoices
+        }).then(function (res) {
+            alert("Save cored");
+        }).catch(function (err) {
+            console.log(err);
+        });
+    })
 
 
     return ( <>

@@ -29,7 +29,8 @@ const QuizInfo : React.FC<P> = ({quiz}) => {
                 </div>
                 <div className="col-xl-6">
                     <div className="d-flex justify-content-end align-items-end" style={{height: '100%'}}>
-                        <Ratings defaultValue={quiz.ratings!} readonly={true}/>
+
+                        <Ratings key={quiz.ratings} defaultValue={quiz.ratings!} readonly={true}/>
                     </div>
                 </div>
             </div>

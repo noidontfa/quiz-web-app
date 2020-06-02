@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 type HistoryControl struct {
@@ -16,6 +17,7 @@ type HistoryControl struct {
 type HistoryController interface {
 	SaveHistory(ctx *gin.Context)
 	FindByIdHistory(ctx *gin.Context)
+	FindByDateHistory(ctx *gin.Context)
 }
 
 func NewHistoryController(serv service.HistoryService) HistoryController {
@@ -62,6 +64,27 @@ func (h *HistoryControl) FindByIdHistory(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK,history)
 		return
 	}
+}
+
+
+func (h *HistoryControl) FindByDateHistory(ctx *gin.Context) {
+	date := ctx.DefaultQuery("date","")
+	quizId, _ := strconv.ParseInt(ctx.DefaultQuery("quizid","0"),0,0)
+	if date == "" {
+		ctx.String(http.StatusInternalServerError,"Date not founded")
+		return
+	}
+	_, err := time.Parse("2006-01-02",date)
+	if err != nil {
+		ctx.String(http.StatusInternalServerError,"Invalid Format")
+		return
+	}
+	history ,err := h.HistoryService.FindByDateId(date,uint(quizId))
+	if err != nil {
+		ctx.String(http.StatusInternalServerError,err.Error())
+		return
+	}
+	ctx.JSON(http.StatusOK,history)
 }
 
 

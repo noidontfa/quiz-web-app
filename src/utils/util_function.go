@@ -90,3 +90,14 @@ func ParseUserToUserDTO(user *models.User) models.UserDTO {
 		DayOfBirth: user.DayOfBirth,
 	}
 }
+
+func ParseHistoryToHistoryDTO(history *models.History) models.HistoryDTO {
+	return models.HistoryDTO{
+		ID:                 history.ID,
+		NumberRightAnswers: history.NumberRightAnswers,
+		Score:              history.Score,
+		QuizRefer:          ParseQuizToQuizDTO(&history.QuizRefer),
+		UserRefer:          ParseUserToUserDTO(&history.UserRefer),
+		CreateAt:			history.CreatedAt.Format("2006-01-02"),
+	}
+}
