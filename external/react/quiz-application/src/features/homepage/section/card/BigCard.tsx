@@ -16,7 +16,7 @@ const BigCard: React.FC<P> = ({quiz}) => {
     return (
         <div className="my-card" onClick={quizDetail}>
             <div className="my-big-card-img">
-                <img src="https://picsum.photos/827/180" alt="img big card"/>
+                <img src={'http:' + quiz.image} alt="img big card"/>
             </div>
             <div className="my-big-card-content">
                 <div className="row">
@@ -38,7 +38,7 @@ const BigCard: React.FC<P> = ({quiz}) => {
                         </div>
                         <div className="d-flex align-items-center">
 										<span style={{color: '#348009'}}>
-											15
+                                            {quiz.totalQuestions}
 										</span>
                             <i className="icon-book-open" style={{color: '#348009'}}></i>
                             <span style={{color: '#f7d66d'}}>

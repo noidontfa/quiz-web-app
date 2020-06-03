@@ -89,7 +89,14 @@ func (q *QuizSevc) Save(quiz *models.Quiz) (*models.QuizDTO, error) {
 	if err := tx.Error; err != nil {
 		return nil,err
 	}
-
+	if quiz.FileName != "" {
+		quiz.FileName, err = utils.SaveImage(quiz.FileName,quiz.Image)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		quiz.FileName = "/file/base-image.png"
+	}
 	dbErr := tx.Save(quiz).Error
 	if dbErr == nil {
 		quizId := quiz.ID
@@ -129,7 +136,14 @@ func (q *QuizSevc) Update(id uint, quiz *models.Quiz) (*models.QuizDTO, error) {
 		log.Fatal(err.Error())
 	}
 	defer db.Close()
-
+	if quiz.FileName != "" {
+		quiz.FileName, err = utils.SaveImage(quiz.FileName,quiz.Image)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		quiz.FileName = "/file/base-image.png"
+	}
 	dbErr := db.Model(&models.Quiz{}).Where("id = ?", id).Update(quiz).Find(quiz).Error
 	if dbErr == nil {
 		db.Model(quiz).Related(&quiz.CategoryRefer)

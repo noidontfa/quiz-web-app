@@ -23,6 +23,7 @@ const quizTest : QuizInterface = {
         name:"",
         sec: 5
     },
+    image: "/file/d218450b63766aca-file-text.png",
     questionRefer: [
         {
             id: 45,
@@ -91,7 +92,7 @@ const quizTest : QuizInterface = {
                     image: ""
                 }
             ],
-            image: ""
+
         },
 
     ],
@@ -103,12 +104,11 @@ export function QuizDetail(){
     const [quiz, setQuiz] = useState<QuizInterface>({});
     const [isPlay,setIsPlay] = useState(false);
     const doStuff =  async () => {
-        console.log(quiz);
         try {
-            // const response = await axios.get(`http:/api/quizzes/${quizId}`);
+            const response = await axios.get(`http:/api/quizzes/${quizId}`);
             // console.log(response.data);
-            // setQuiz(response.data);
-            setQuiz(() => quizTest);
+            setQuiz(response.data);
+            // setQuiz(() => quizTest);
             // console.log(response.data);
         } catch (e) {
             console.log(e);

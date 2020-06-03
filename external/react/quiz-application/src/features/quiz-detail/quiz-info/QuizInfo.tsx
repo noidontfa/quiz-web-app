@@ -11,7 +11,7 @@ const QuizInfo : React.FC<P> = ({quiz}) => {
         <div className="col-xl-12">
             <img
                 className="edit-quiz-image"
-                src={quiz.image}
+                src={ "http:"+quiz.image}
                 alt="user-avartar"
             />
         </div>

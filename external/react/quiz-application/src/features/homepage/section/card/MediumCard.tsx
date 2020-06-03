@@ -17,9 +17,8 @@ const MediumCard : React.FC<P> = ({quiz}) => {
         <div className="my-card" onClick={quizDetail}>
             <div className="my-medium-card-img">
                 <img
-                    src="https://picsum.photos/253/180"
+                    src={"http:" + quiz.image}
                     alt="img big card"
-                    style={{height: '100%'}}
                 />
             </div>
             <div className="my-medium-card-content">
@@ -42,7 +41,7 @@ const MediumCard : React.FC<P> = ({quiz}) => {
                         </div>
                         <div className="d-flex align-items-center">
 										<span style={{color: '#348009'}}>
-											15
+                                            {quiz.totalQuestions}
 										</span>
                             <i className="icon-book-open" style={{color: '#348009'}}></i>
                             <span style={{color: '#f7d66d'}}>

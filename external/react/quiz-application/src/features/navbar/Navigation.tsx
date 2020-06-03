@@ -8,9 +8,11 @@ const Navigation = () => {
    return (
            <header className="my-navbar">
                <div className="my-container">
-                   <div className="my-logo">
-                       <img src={logo} alt="logo" />
-                   </div>
+                   <Link to="/">
+                       <div className="my-logo">
+                           <img src={logo} alt="logo" />
+                       </div>
+                   </Link>
                    <div className="my-icons">
                        <Link to="/">
                            <i className="icon-home"></i>

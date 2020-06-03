@@ -17,7 +17,7 @@ const FinishPage  : React.FC<P> = ({quiz,rightChoices,score}) => {
         axios.post(`http:/api/ratings/`, {
             userId: 2,
             quizId: quiz.id,
-            start: value
+            star: value
         }).then(function (res) {
             alert(res.data);
         }).catch(function (err) {

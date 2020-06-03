@@ -11,14 +11,14 @@ const HistoryTable : React.FC<P> = ({quiz}) => {
     const [histories,setHistories] = useState<Array<HistoryInterface>>([])
 
     useEffect(() => {
-        const datenow = new Date();
-        const formatedDate = `${datenow.getFullYear()}-${(datenow.getMonth() + 1).toString().padStart(2,'0')}-${datenow.getDay().toString().padStart(2,'0')}; `
-        axios.get(`http:/api/histories/d?date=${formatedDate}&quizid=${quiz.id}`)
-            .then(function (res) {
-                if(res.data)
-                    setHistories(res.data);
-            })
-    },[])
+           const datenow = new Date();
+           const formatedDate = `${datenow.getFullYear()}-${(datenow.getMonth() + 1).toString().padStart(2,'0')}-${datenow.getDay().toString().padStart(2,'0')}`;
+           axios.get(`http:/api/histories/d?date=${formatedDate}&quizid=${quiz.id}`)
+               .then(function (res) {
+                   if(res.data)
+                       setHistories(res.data);
+               })
+    },[quiz])
 
     return (
         <div className="col-xl-12" style={{marginTop: '75px'}}>

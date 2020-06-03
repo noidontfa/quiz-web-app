@@ -76,6 +76,7 @@ body {
   height: 30vh;
   width: 180px;
   float: right;
+  position: fixed;
 }
 
 .my-sidebar .user-info {
@@ -502,6 +503,19 @@ body {
   border-radius: 10px 0 0 10px;
   overflow: hidden;
   float: left;
+  max-width: 253px;
+  max-height: 180px;
+}
+
+.my-main-content .my-section .my-card .my-medium-card-img img{
+  height: 180px;
+  width: 100%;
+  object-fit: cover;
+}
+.my-main-content .my-section .my-card .my-big-card-img img{
+  height: 180px;
+  width: 100%;
+  object-fit: cover;
 }
 
 .my-main-content .my-section .my-card .my-medium-card-content {
@@ -1161,13 +1175,15 @@ body {
 .quiz-content .content .choice {
   border: solid 1px #373a3c;
   background-color: #00b5ad;
-  height: 332px;
+  min-height: 332px;
+  height: 100%;
   border-radius: 15px;
   position: relative;
   opacity: 1;
+  cursor: pointer;
 }
 .quiz-content .content .choice:hover {
-  opacity: 0.8;
+  opacity: 0.8!important;
 }
 .quiz-content .content .choice.active {
   background-color: #5b88e2;
@@ -1186,6 +1202,9 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  padding-left: 20px;
+  padding-top: 50px;
+  padding-right: 5px;
   color: #fff;
   font-size: 32px;
   -webkit-box-pack: center;

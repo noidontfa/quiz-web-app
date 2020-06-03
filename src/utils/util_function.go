@@ -2,6 +2,10 @@ package utils
 
 import (
 	models "../model"
+	"crypto/rand"
+	"encoding/base64"
+	"fmt"
+	"os"
 )
 
 func ParseQuizToQuizDTO(quiz  *models.Quiz) models.QuizDTO {
@@ -30,7 +34,7 @@ func ParseQuizToQuizDTO(quiz  *models.Quiz) models.QuizDTO {
 		TotalQuestions: len(questions),
 		QuestionRefer: questions,
 		Ratings:       totalRating,
-		Image:         quiz.Image,
+		Image:         quiz.FileName,
 	}
 
 }
@@ -100,4 +104,35 @@ func ParseHistoryToHistoryDTO(history *models.History) models.HistoryDTO {
 		UserRefer:          ParseUserToUserDTO(&history.UserRefer),
 		CreateAt:			history.CreatedAt.Format("2006-01-02"),
 	}
+}
+
+func Random_filename_16_char() (s string, err error) {
+	b := make([]byte, 8)
+	_, err = rand.Read(b)
+	if err != nil {
+		return
+	}
+	s = fmt.Sprintf("%x", b)
+	return
+}
+
+func SaveImage(filename string, dataBase64 string) (string, error) {
+	randFileName,_ := Random_filename_16_char()
+	randFileName += "-" + filename
+	dec, err := base64.StdEncoding.DecodeString(dataBase64)
+	if err != nil {
+		return "",err
+	}
+	f, err := os.Create("./src/public/" + randFileName)
+	if err != nil {
+		return "",err
+	}
+	if _, err := f.Write(dec); err != nil {
+		return  "",err
+	}
+	if err := f.Sync(); err != nil {
+		return  "",err
+	}
+	returnString := "/file/" + randFileName
+	return returnString, nil
 }

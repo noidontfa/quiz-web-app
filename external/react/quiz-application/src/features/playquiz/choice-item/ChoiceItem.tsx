@@ -28,16 +28,14 @@ const ChoiceItem : React.FC<P> = ({choice,index,callBackFunction,showChoices}) =
                     marginTop: '30px',
                     opacity: item ? (choice.isRight ? "1" : "0") : "1"
                 }} onClick={onClickFunction}>
-                    <animated.div key={key} style={props} >
-                            <div className="choice" data-id={choice.id}>
+                            <animated.div key={key} style={props} className="choice" data-id={choice.id}>
                                 <div className="choice-title">
                                     {index}
                                 </div>
                                 <div className="choice-content">
                                     {choice.name}
                                 </div>
-                            </div>
-                    </animated.div>
+                            </animated.div>
                 </div>
             )
         }
