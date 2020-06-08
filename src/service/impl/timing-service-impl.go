@@ -4,6 +4,7 @@ import (
 	models "../../model"
 	"../../repository"
 	"../../service"
+	"../../utils"
 	"log"
 )
 
@@ -16,18 +17,22 @@ func NewTimingService(db *repository.Repo) service.TimingService {
 }
 
 
-func (t *TimingSevc) FindAll() ([]models.Timing, error) {
+func (t *TimingSevc) FindAll() ([]models.TimingDTO, error) {
 	db, err := t.db.GetConnection()
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 	defer db.Close()
 	var timings []models.Timing
-	if dbErr := db.Find(&timings).Error; dbErr == nil {
-		return timings,nil
-	} else {
-		return timings,dbErr
+	var timingsDto []models.TimingDTO
+	if dbErr := db.Find(&timings).Error; dbErr != nil {
+		return timingsDto,dbErr
 	}
+	for i,_ := range timings {
+		timingDto := utils.ParseTimingToTimingDTO(&timings[i])
+		timingsDto = append(timingsDto,timingDto)
+	}
+	return timingsDto,nil
 }
 
 func (t *TimingSevc) FindById(id uint) (*models.Timing, error) {

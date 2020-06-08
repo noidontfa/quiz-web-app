@@ -23,18 +23,19 @@ func ParseQuizToQuizDTO(quiz  *models.Quiz) models.QuizDTO {
 	}
 
 	return models.QuizDTO{
-		ID:            quiz.ID,
-		CreatedAt:     quiz.CreatedAt,
-		Name:          quiz.Name,
-		Description:   quiz.Description,
-		CategoryRefer: ParseCategoryToCategoryDTO(&quiz.CategoryRefer),
-		LanguageRefer: ParseLanguageToLanguageDTO(&quiz.LanguageRefer),
-		TimingRefer:   ParseTimingToTimingDTO(&quiz.TimingRefer),
-		UserRefer:     ParseUserToUserDTO(&quiz.UserRefer),
+		ID:            	quiz.ID,
+		CreatedAt:     	quiz.CreatedAt,
+		Name:          	quiz.Name,
+		Description:   	quiz.Description,
+		CategoryRefer: 	ParseCategoryToCategoryDTO(&quiz.CategoryRefer),
+		LanguageRefer: 	ParseLanguageToLanguageDTO(&quiz.LanguageRefer),
+		TimingRefer:   	ParseTimingToTimingDTO(&quiz.TimingRefer),
+		UserRefer:     	ParseUserToUserDTO(&quiz.UserRefer),
+		StateRefer:		ParseStateToStateDTO(&quiz.StateRefer),
 		TotalQuestions: len(questions),
-		QuestionRefer: questions,
-		Ratings:       totalRating,
-		Image:         quiz.FileName,
+		QuestionRefer: 	questions,
+		Ratings:       	totalRating,
+		Image:         	quiz.FileName,
 	}
 
 }
@@ -103,6 +104,13 @@ func ParseHistoryToHistoryDTO(history *models.History) models.HistoryDTO {
 		QuizRefer:          ParseQuizToQuizDTO(&history.QuizRefer),
 		UserRefer:          ParseUserToUserDTO(&history.UserRefer),
 		CreateAt:			history.CreatedAt.Format("2006-01-02"),
+	}
+}
+
+func ParseStateToStateDTO(state *models.State) models.StateDTO {
+	return models.StateDTO{
+		ID:   state.ID,
+		Name: state.Name,
 	}
 }
 

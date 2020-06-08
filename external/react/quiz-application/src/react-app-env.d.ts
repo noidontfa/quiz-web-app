@@ -5,7 +5,9 @@ interface QuizInterface {
     name? : string;
     description? : string;
     categoryRefer? : CategoryInterface;
+    languageRefer? : LanguageInterface;
     timingRefer? : TimingInterface;
+    stateRefer? : StateInterface;
     userRefer? : UserInterface;
     questionRefer? : Array<QuestionInterface>;
     totalQuestions? : number;
@@ -55,4 +57,14 @@ interface HistoryInterface {
     quizRefer? : QuizInterface;
     userRefer? : UserInterface;
     createAt? : string;
+}
+
+interface LanguageInterface {
+    id? :number;
+    name? : string;
+}
+
+interface StateInterface {
+    id? :number;
+    name? : string;
 }

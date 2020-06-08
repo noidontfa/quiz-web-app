@@ -4,6 +4,7 @@ import (
 	models "../../model"
 	"../../repository"
 	"../../service"
+	"../../utils"
 	"log"
 )
 
@@ -15,18 +16,22 @@ func NewLanguageService(db *repository.Repo) service.LanguageService {
 	return &LanguageSevc{db:db}
 }
 
-func (l *LanguageSevc) FindAll() ([]models.Language, error) {
+func (l *LanguageSevc) FindAll() ([]models.LanguageDTO, error) {
 	db, err := l.db.GetConnection()
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 	defer db.Close()
 	var languages []models.Language
-	if dbErr := db.Find(&languages).Error; dbErr == nil {
-		return languages,nil
-	} else {
-		return languages,dbErr
+	var languagesDTO []models.LanguageDTO
+	if dbErr := db.Find(&languages).Error; dbErr != nil {
+		return languagesDTO,nil
 	}
+	for i,_ := range languages {
+		languageDTO := utils.ParseLanguageToLanguageDTO(&languages[i])
+		languagesDTO = append(languagesDTO,languageDTO)
+	}
+	return languagesDTO,nil
 }
 
 func (l *LanguageSevc) FindById(id uint) (*models.Language, error) {

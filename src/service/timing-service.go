@@ -5,7 +5,7 @@ import (
 )
 
 type TimingService interface {
-	FindAll() ([]models.Timing, error)
+	FindAll() ([]models.TimingDTO, error)
 	FindById(id uint) (*models.Timing, error)
 	Save(timing *models.Timing) (*models.Timing, error)
 	Update(id uint,timing *models.Timing) (*models.Timing, error)

@@ -62,6 +62,8 @@ func (q *QuizSevc) FindById(id uint) (*models.QuizDTO, error) {
 		db.Model(quiz).Related(&quiz.LanguageRefer)
 		db.Model(quiz).Related(&quiz.TimingRefer)
 		db.Model(quiz).Related(&quiz.UserRefer,"CreatedBy")
+		db.Model(quiz).Related(&quiz.StateRefer)
+
 		if dbErr := db.Model(quiz).Association("Questions").Find(&quiz.Questions).Error; dbErr == nil {
 			for i,_ := range quiz.Questions {
 				question := &quiz.Questions[i]
@@ -95,8 +97,9 @@ func (q *QuizSevc) Save(quiz *models.Quiz) (*models.QuizDTO, error) {
 			return nil, err
 		}
 	} else {
-		quiz.FileName = "/file/base-image.png"
+		quiz.FileName = "/file/base-image.jpg"
 	}
+	quiz.StateId = 1 // Private
 	dbErr := tx.Save(quiz).Error
 	if dbErr == nil {
 		quizId := quiz.ID
@@ -122,6 +125,7 @@ func (q *QuizSevc) Save(quiz *models.Quiz) (*models.QuizDTO, error) {
 		db.Model(quiz).Related(&quiz.LanguageRefer)
 		db.Model(quiz).Related(&quiz.TimingRefer)
 		db.Model(quiz).Related(&quiz.UserRefer,"CreatedBy")
+		db.Model(quiz).Related(&quiz.StateRefer)
 	} else {
 		tx.Rollback()
 		return nil,dbErr
@@ -136,20 +140,27 @@ func (q *QuizSevc) Update(id uint, quiz *models.Quiz) (*models.QuizDTO, error) {
 		log.Fatal(err.Error())
 	}
 	defer db.Close()
-	if quiz.FileName != "" {
+	if quiz.FileName != ""{
 		quiz.FileName, err = utils.SaveImage(quiz.FileName,quiz.Image)
 		if err != nil {
 			return nil, err
 		}
+	} else if id > 0 {
+			var currentQuiz models.Quiz
+			db.Model(&models.Quiz{}).Where("id = ?", id).Find(&currentQuiz)
+			quiz.FileName = currentQuiz.Image
 	} else {
-		quiz.FileName = "/file/base-image.png"
+			quiz.FileName = "/file/base-image.jpg"
 	}
+
+
 	dbErr := db.Model(&models.Quiz{}).Where("id = ?", id).Update(quiz).Find(quiz).Error
 	if dbErr == nil {
 		db.Model(quiz).Related(&quiz.CategoryRefer)
 		db.Model(quiz).Related(&quiz.LanguageRefer)
 		db.Model(quiz).Related(&quiz.TimingRefer)
 		db.Model(quiz).Related(&quiz.UserRefer, "CreatedBy")
+		db.Model(quiz).Related(&quiz.StateRefer)
 		if dbErr := db.Model(quiz).Association("Questions").Find(&quiz.Questions).Error; dbErr == nil {
 			for i, _ := range quiz.Questions {
 				question := &quiz.Questions[i]

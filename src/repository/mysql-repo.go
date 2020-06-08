@@ -51,12 +51,15 @@ func (r *Repo) AutoMigration()  {
 	history := models.History{}
 	question := models.Question{}
 	choice := models.Choice{}
+	state := models.State{}
 
-	db.AutoMigrate(user, role, quiz, lang, cate, timing,rating,historyDate,history,question,choice)
+	db.AutoMigrate(user, role, quiz, lang, cate, timing,rating,historyDate,history,question,choice,state)
 	db.Model(quiz).AddForeignKey("created_by", "users(id)", "RESTRICT", "RESTRICT")
 	db.Model(quiz).AddForeignKey("language_id", "languages(id)", "RESTRICT", "RESTRICT")
 	db.Model(quiz).AddForeignKey("category_id", "categories(id)", "RESTRICT", "RESTRICT")
 	db.Model(quiz).AddForeignKey("timing_id", "timings(id)", "RESTRICT", "RESTRICT")
+	db.Model(quiz).AddForeignKey("state_id", "states(id)", "RESTRICT", "RESTRICT")
+
 	db.Model(rating).AddForeignKey("user_id", "users(id)", "RESTRICT", "RESTRICT")
 	db.Model(rating).AddForeignKey("quiz_id", "quizzes(id)", "RESTRICT", "RESTRICT")
 	db.Model(history).AddForeignKey("user_id", "users(id)", "RESTRICT", "RESTRICT")
@@ -64,6 +67,7 @@ func (r *Repo) AutoMigration()  {
 	db.Model(history).AddForeignKey("history_date_id", "history_dates(id)", "RESTRICT", "RESTRICT")
 	db.Model(question).AddForeignKey("quiz_id", "quizzes(id)", "RESTRICT", "RESTRICT")
 	db.Model(choice).AddForeignKey("question_id", "questions(id)", "RESTRICT", "RESTRICT")
+
 	db.Table("user_roles").AddForeignKey("user_id","users(id)","RESTRICT", "RESTRICT")
 	db.Table("user_roles").AddForeignKey("role_id","roles(id)","RESTRICT", "RESTRICT")
 }

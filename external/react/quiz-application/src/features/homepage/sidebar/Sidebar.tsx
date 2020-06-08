@@ -1,10 +1,12 @@
 import React, {useLayoutEffect, useState} from "react";
 import userIcon from "../../../assets/cat.jpg";
+import {useHistory} from "react-router-dom";
 
 
 
 const SideBar = () => {
     const [leftSidebar,setLeftSidebar] = useState('0');
+    const history = useHistory();
 
     useLayoutEffect(() => {
         const mySection = document.getElementById('my-section');
@@ -36,7 +38,7 @@ const SideBar = () => {
                 </div>
             </div>
 
-            <button className="btn-create">
+            <button className="btn-create" onClick={() => {history.push("/quiz/create")}}>
                 <i className="icon-rocket"></i>
                 <span>Create quiz</span>
             </button>

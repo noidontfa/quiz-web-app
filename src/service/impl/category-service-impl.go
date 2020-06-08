@@ -4,6 +4,7 @@ import (
 	models "../../model"
 	"../../repository"
 	"../../service"
+	"../../utils"
 	"log"
 )
 
@@ -17,19 +18,22 @@ func NewCategoryService(db *repository.Repo) service.CategoryService {
 	}
 }
 
-func (s *Sevc) FindAll() ([]models.Category, error) {
+func (s *Sevc) FindAll() ([]models.CategoryDTO, error) {
 	db, err := s.db.GetConnection()
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 	defer db.Close()
 	var categories []models.Category
-	if dbs := db.Find(&categories).Error; dbs == nil {
-		return categories,nil
-	} else {
-		return []models.Category{}, dbs
+	var categoriesDto []models.CategoryDTO
+	if dbs := db.Find(&categories).Error; dbs != nil {
+		return categoriesDto, dbs
 	}
-
+	for i,_ := range categories {
+		categoryDto := utils.ParseCategoryToCategoryDTO(&categories[i])
+		categoriesDto = append(categoriesDto,categoryDto)
+	}
+	return categoriesDto, nil
 }
 
 func (s *Sevc) Save(category *models.Category) (*models.Category,error) {

@@ -15,9 +15,11 @@ type Quiz struct {
 	CategoryId		uint 		`json:"categoryId"`
 	LanguageId  	uint 		`json:"languageId"`
 	TimingId    	uint 		`json:"timingId"`
+	StateId			uint		`json:"stateId"`
 	CategoryRefer 	Category 	`json:"categoryRefer"`
 	LanguageRefer 	Language	`json:"languageRefer"`
 	TimingRefer		Timing		`json:"timingRefer"`
+	StateRefer		State		`json:"stateRefer"`
 	UserRefer		User		`json:"userRefer"`
 	Questions		[]Question 	`gorm:"foreignkey:QuizId" json:"questions"`
 	Ratings			[]Rating 	`gorm:"foreignkey:QuizId" json:"ratings"`
@@ -35,6 +37,7 @@ type QuizDTO struct {
 	LanguageRefer 	LanguageDTO		`json:"languageRefer"`
 	TimingRefer		TimingDTO		`json:"timingRefer"`
 	UserRefer		UserDTO			`json:"userRefer"`
+	StateRefer		StateDTO		`json:"stateRefer"`
 	TotalQuestions	int				`json:"totalQuestions"`
 	QuestionRefer	[]QuestionDTO 	`json:"questionRefer"`
 	Ratings			float32			`json:"ratings"`

@@ -70,6 +70,7 @@ func main() {
 	questionService		:= service.NewQuestionService(repo)
 	ratingService		:= service.NewRatingService(repo)
 	historyService		:= service.NewHistoryService(repo)
+	stateService		:= service.NewStateService(repo)
 	categoryController 	:= controller.NewCategoryController(categoryService)
 	quizController		:= controller.NewQuizController(quizService)
 	languageController	:= controller.NewLanguageController(languageService)
@@ -79,6 +80,7 @@ func main() {
 	questionController	:= controller.NewQuestionController(questionService)
 	ratingController	:= controller.NewRatingController(ratingService)
 	historyController	:= controller.NewHistoryController(historyService)
+	stateController		:= controller.NewStateController(stateService)
 
 	router := gin.New()
 
@@ -136,6 +138,8 @@ func main() {
 		api.GET("/histories/",historyController.FindByIdHistory)
 		api.GET("/histories/d/",historyController.FindByDateHistory)
 		api.POST("/histories/",historyController.SaveHistory)
+
+		api.GET("/states",stateController.FindAllState)
 	}
 
 	log.Fatal(router.Run(fmt.Sprintf("%s:%s",config.HttpServerHost,config.Port)))

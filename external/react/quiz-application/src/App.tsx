@@ -4,6 +4,8 @@ import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
 
 import HomePage from "./features/homepage/HomePage";
 import QuizDetail from "./features/quiz-detail/QuizDetail";
+import CreateQuiz from "./features/createquiz/CreateQuiz";
+import EditQuiz from "./features/createquiz/EditQuiz";
 
 function App() {
   return  (
@@ -18,12 +20,19 @@ function App() {
               <Route path="/dashboard">
                   <Dashboard />
               </Route>
+              <Route exact path="/quiz/edit/:quizId">
+                  <EditQuiz/>
+              </Route>
+              <Route exact path="/quiz/create">
+                  <CreateQuiz/>
+              </Route>
               <Route  exact path="/quiz/:quizId">
                   <QuizDetail/>
               </Route>
               <Route exact path="/quiz/play/:quizId">
                   <PlayQuiz/>
               </Route>
+
           </Switch>
       </BrowserRouter>
   )
