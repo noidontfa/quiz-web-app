@@ -5,6 +5,6 @@ import (
 )
 
 type QuestionService interface {
-	Save(quizId uint,questions []models.Question) ([]models.Question,error)
+	Save(quizId uint,questions []models.Question) ([]models.QuestionDTO,error)
 	Delete(id uint) error
 }

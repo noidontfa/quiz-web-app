@@ -763,6 +763,8 @@ body {
 
 .my-table .table-content .text-table-content {
   margin-right: 20px;
+  flex-grow: 1;
+  cursor: pointer;
 }
 
 .my-table .table-content .text-table-content .table-action {
@@ -799,11 +801,10 @@ body {
 }
 
 .my-table .table-content .table-checkbox {
-  width: 17px;
-  height: 17px;
   border-radius: 4px;
   border: solid 1px #5b88e2;
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .my-table .table-creation {

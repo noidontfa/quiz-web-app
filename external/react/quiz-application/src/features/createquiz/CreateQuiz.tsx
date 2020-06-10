@@ -181,7 +181,7 @@ const CreateQuiz = () => {
                     </div>
                 </div>
             </main>
-            </>
+        </>
     )
 }
 

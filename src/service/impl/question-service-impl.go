@@ -4,6 +4,7 @@ import (
 	models "../../model"
 	"../../repository"
 	"../../service"
+	"../../utils"
 	"log"
 )
 
@@ -15,7 +16,7 @@ func NewQuestionService(db *repository.Repo) service.QuestionService {
 	return &QuestionServ{db:db}
 }
 
-func (q *QuestionServ) Save(quizId uint, questions []models.Question) ([]models.Question, error) {
+func (q *QuestionServ) Save(quizId uint, questions []models.Question) ([]models.QuestionDTO, error) {
 	db, err := q.db.GetConnection()
 	if err != nil {
 		log.Fatal(err.Error())
@@ -28,7 +29,7 @@ func (q *QuestionServ) Save(quizId uint, questions []models.Question) ([]models.
 	}()
 
 	if err := tx.Error; err != nil {
-		return questions,err
+		return nil,err
 	}
 
 	for i, _ := range questions {
@@ -41,13 +42,13 @@ func (q *QuestionServ) Save(quizId uint, questions []models.Question) ([]models.
 			dbErr := tx.Model(question).Update(question).Error
 			if dbErr != nil {
 				tx.Rollback()
-				return questions,dbErr
+				return nil,dbErr
 			}
 		} else {
 			dbErr := tx.Save(&question).Error
 			if dbErr != nil {
 				tx.Rollback()
-				return questions,dbErr
+				return nil,dbErr
 			}
 		}
 		questionId = question.ID
@@ -56,27 +57,35 @@ func (q *QuestionServ) Save(quizId uint, questions []models.Question) ([]models.
 			choice.QuestionId = questionId
 			choiceId := choice.ID
 			if choiceId > 0 {
-				dbErr := tx.Model(choice).Update(choice).Error
+				dbErr := tx.Model(choice).Updates(map[string]interface{} {
+					"Name": choice.Name,
+					"IsRight": choice.IsRight,
+				}).Error
 				if dbErr != nil {
 					tx.Rollback()
-					return questions,dbErr
+					return nil,dbErr
 				}
 			} else {
 				dbErr := tx.Save(&choice).Error
 				if dbErr != nil {
 					tx.Rollback()
-					return questions,dbErr
+					return nil,dbErr
 				}
 			}
 		}
-		dbErr := tx.Model(question).Related(&question.Choices).Error
+		dbErr := tx.Model(&question).Related(&question.Choices).Error
 		if dbErr != nil {
 			tx.Rollback()
-			return questions,dbErr
+			return nil,dbErr
 		}
 	}
+	var questionsDTO []models.QuestionDTO
+	for i,_ := range questions {
+		questionDTO := utils.ParseQuestionTOQuestionDTO(&questions[i])
+		questionsDTO = append(questionsDTO,questionDTO)
+	}
 
-	return questions, tx.Commit().Error
+	return questionsDTO, tx.Commit().Error
 }
 
 func (q *QuestionServ) Delete(id uint) error {

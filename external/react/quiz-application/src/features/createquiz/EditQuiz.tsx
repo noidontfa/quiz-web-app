@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {useParams} from "react-router-dom";
+import {useParams,useHistory} from "react-router-dom";
 import Navigation from "../navbar/Navigation";
 import UserInfo from "./user-info/UserInfo";
 import Breadcrumbs from "../breadcrumb/Breadcrumbs";
@@ -11,6 +11,7 @@ const EditQuiz = () => {
 
 
     const { quizId } = useParams();
+    const history = useHistory();
     const [quizName,setQuizName] = useState('');
     const [description,setDescription] = useState('');
     const [categoryId,setCategoryId] = useState(0);
@@ -153,7 +154,10 @@ const EditQuiz = () => {
                                     Quiz detail
                                 </button>
 
-                                <button className="questions">
+                                <button className="questions" onClick={() => {
+                                    const path=`question/${quizId}`;
+                                    history.push(path);
+                                }}>
                                     Questions
                                 </button>
                             </div>
