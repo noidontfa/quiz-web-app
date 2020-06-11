@@ -71,6 +71,7 @@ func main() {
 	ratingService		:= service.NewRatingService(repo)
 	historyService		:= service.NewHistoryService(repo)
 	stateService		:= service.NewStateService(repo)
+	choiceService		:= service.NewChoiceService(repo)
 	categoryController 	:= controller.NewCategoryController(categoryService)
 	quizController		:= controller.NewQuizController(quizService)
 	languageController	:= controller.NewLanguageController(languageService)
@@ -81,6 +82,7 @@ func main() {
 	ratingController	:= controller.NewRatingController(ratingService)
 	historyController	:= controller.NewHistoryController(historyService)
 	stateController		:= controller.NewStateController(stateService)
+	choiceController	:= controller.NewChoiceController(choiceService)
 
 	router := gin.New()
 
@@ -132,6 +134,9 @@ func main() {
 		api.POST("/users",userController.SaveUser)
 
 		api.POST("/questions/:id",questionController.SaveQuestions)
+		api.DELETE("/questions/:id",questionController.DeleteQuestions)
+
+		api.DELETE("/choices/:id",choiceController.DeleteChoices)
 
 		api.POST("/ratings/",ratingController.SaveRating)
 

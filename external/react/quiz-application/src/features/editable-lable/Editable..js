@@ -8,6 +8,7 @@ const Editable = ({
                       children,
                       childRef,
                       callBackFunction,
+                      callBackDeleteFunction,
                       ...props
                   }) => {
 
@@ -47,11 +48,14 @@ const Editable = ({
             ) : (
                 <div
                     className={`text-table-content `}
-                    onClick={() => setEditing(true)}
+
                 >
-          <span className={`${text ? "text-black" : "text-gray-500"}`}>
+          <span className={`${text ? "text-black" : "text-gray-500"}`}   onClick={() => setEditing(true)}>
             {text || placeholder || "Editable content"}
           </span>
+                    <div className="table-action" onClick={() => {callBackDeleteFunction(); setEditing(false)}}>
+                        <i className="icon-trash"></i>
+                    </div>
                 </div>
             )}
         </span>

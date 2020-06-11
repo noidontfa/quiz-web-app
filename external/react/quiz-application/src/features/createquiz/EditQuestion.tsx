@@ -6,11 +6,20 @@ import {useParams} from "react-router-dom";
 import Breadcrumbs from "../breadcrumb/Breadcrumbs";
 import LinkBreadcrumbs from "../breadcrumb/LinkBreadcrumbs";
 import Editable from "../editable-lable/Editable.";
+import {useHistory} from "react-router-dom";
+
 const EditQuiz = () => {
+    const history = useHistory();
     const inputRef = useRef() as React.MutableRefObject<HTMLTextAreaElement>;
     const { quizId } = useParams();
     const [quizName,setQuizName] = useState('');
     const [questions,setQuestions] = useState<Array<QuestionInterface>>([]);
+
+    const [questionName,setQuestionName] = useState('');
+    const [choiceName,setChoiceName] = useState('');
+    const [choiceIsRight,setChoiceIsRight] = useState(false);
+
+    const [questionId,setQuestionId] = useState(0);
     const doStuff =  async () => {
         try {
             const response = await axios.get(`http:/api/quizzes/${quizId}`);
@@ -20,7 +29,7 @@ const EditQuiz = () => {
             // console.log(response.data);
             setQuizName(quiz.name!);
             setQuestions(quiz.questionRefer!);
-
+            setQuestionId(quiz.questionRefer![0].id!);
         } catch (e) {
             console.log(e);
         }
@@ -35,6 +44,79 @@ const EditQuiz = () => {
             questions
         )
             .catch(err => alert(err));
+    }
+    const onDeleteQuestion = (questionId : Number) => {
+        const ques = questions.filter(e => e.id === questionId)[0];
+        const flag = window.confirm("Are you sure to delete this questions: " + ques.name + " ?");
+        if(flag) {
+            axios.delete(`http:/api/questions/${questionId}`)
+                .then(res => {
+                    const questionF = [...questions].filter(e => e.id !== questionId);
+                    setQuestions(questionF);
+                })
+                .catch(err => alert(err))
+        }
+
+    }
+    const onDeleteChoice = (choice : ChoiceInterface) => {
+        const flag = window.confirm("Are you sure to delete this choice: " + choice.name + " ?");
+        if (flag) {
+            axios.delete(`http:/api/choices/${choice.id}`)
+                .then(res => {
+                    const questionD = [...questions].map(object => {
+                       return {
+                           ...object,
+                           choices: object.choices?.filter(ch => ch.id !== choice.id)
+                       }
+                    })
+                    setQuestions(questionD);
+                })
+                .catch(err => alert(err))
+        }
+    }
+
+    const onCreateQuestion = () => {
+        if (questionName === '') {
+            alert("Question is Null");
+            return
+        }
+        axios.post(`http:/api/questions/${quizId}`, [{
+            name: questionName
+        }]).then(res => {
+                const questionD = [...questions,res.data[0]];
+                setQuestions(questionD);
+            }
+        )
+
+    }
+
+    const onCreateChoice = () => {
+        if (questionId === 0 || choiceName === '') {
+            alert("Not enough field");
+            return;
+        }
+        const data = [{
+            id: questionId,
+            choices: [
+                {
+                    name: choiceName,
+                    isRight: choiceIsRight
+                }
+            ]
+        }];
+        axios.post(`http:/api/questions/${quizId}`, data).then(res => {
+            const ques = res.data[0];
+            const questionD = [...questions].map(q => {
+                if (q.id === questionId) {
+                    return {
+                        ...q,
+                        choices: ques.choices,
+                    }
+                } else
+                    return q;
+            })
+            setQuestions(questionD);
+        })
     }
 
 
@@ -63,7 +145,10 @@ const EditQuiz = () => {
                             </div>
 
                             <div className="col-xl-6 nav-edit-quiz">
-                                <button className="quiz-detail">
+                                <button className="quiz-detail" onClick={() => {
+                                    const path = `/quiz/edit/${quizId}`;
+                                    history.push(path);
+                                }}>
                                     Quiz detail
                                 </button>
 
@@ -75,11 +160,32 @@ const EditQuiz = () => {
                     </div>
 
                     <div className="col-xl-12" style={{marginTop: "15px"}}>
-                        <div className="d-flex justify-content-between">
+                        <div className="d-flex justify-content-start">
+                            <button className="btn-upload"
+                                    style={{ marginRight: "5px"}}
+                                    data-toggle="modal"
+                                    data-target="#questionModel"
+                                    onClick={() => setQuestionName("")}
+                            >
+                                <i className="icon-plus"></i>
+                                <span>Question</span>
+                            </button>
+
+                            <button className="btn-save-changes"
+                                    style={{ marginRight: "5px"}}
+                                    data-toggle="modal"
+                                    data-target="#choiceModal"
+                                    onClick={() => {setChoiceName(""); setChoiceIsRight(false) ; setQuestionId(questions[0]!.id!)}}
+                            >
+                                <i className="icon-plus"></i>
+                                <span>Choice</span>
+                            </button>
+
                             <button className="btn-create">
                                 <i className="icon-folder"></i>
                                 <span>Import csv</span>
                             </button>
+
                         </div>
                     </div>
 
@@ -106,6 +212,7 @@ const EditQuiz = () => {
                                                 type="textarea"
                                                 childRef={inputRef}
                                                 callBackFunction={onSaveQuestion}
+                                                callBackDeleteFunction={() => onDeleteQuestion(q.id!)}
                                             >
                                                 <textarea
                                                     placeholder="Write a task name"
@@ -127,10 +234,6 @@ const EditQuiz = () => {
                                                     ref={inputRef}
                                                 />
                                             </Editable>
-                                            {/*<div className="table-action">*/}
-                                                {/*    <i className="icon-note"></i>*/}
-                                                {/*    <i className="icon-trash"></i>*/}
-                                                {/*</div>*/}
                                             {/*</input>*/}
                                         </div>
                                     </td>
@@ -143,6 +246,7 @@ const EditQuiz = () => {
                                                         type="textarea"
                                                         childRef={inputRef}
                                                         callBackFunction={onSaveQuestion}
+                                                        callBackDeleteFunction={() => onDeleteChoice(e)}
                                                     >
                                                 <textarea
                                                     placeholder="Write a task name"
@@ -198,6 +302,8 @@ const EditQuiz = () => {
                                                         });
                                                         axios.post(`http:/api/questions/${quizId}`,
                                                             questionD
+                                                        ).then(() => setQuestions(questionD)
+
                                                         )
                                                             .catch(err => alert(err));
                                                     }}
@@ -212,6 +318,97 @@ const EditQuiz = () => {
                     </div>
                 </div>
             </div>
+
+
+            <div className="modal fade" id="questionModel" tabIndex={-1} role="dialog"
+                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div className="modal-content">
+                        {/*<div className="modal-header">*/}
+                        {/*    <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>*/}
+                        {/*    <button type="button" className="close" data-dismiss="modal" aria-label="Close">*/}
+                        {/*        <span aria-hidden="true">&times;</span>*/}
+                        {/*    </button>*/}
+                        {/*</div>*/}
+                        <div className="modal-body">
+                            <div className="my-form-group">
+                                <label className="lable" htmlFor="name">Question Name</label>
+                                <textarea
+                                    className="my-form-control"
+                                    id="createQuestion"
+                                    name="name"
+                                    rows={10}
+                                    placeholder="Type..."
+                                    value={questionName}
+                                    onChange={e => setQuestionName(e.target.value)}
+                                />
+                            </div>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn-create" data-dismiss="modal" onClick={onCreateQuestion}>
+                                <i className="icon-plus"></i>
+                                Create
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="modal fade" id="choiceModal" tabIndex={-1} role="dialog"
+                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div className="modal-content">
+                        {/*<div className="modal-header">*/}
+                        {/*    <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>*/}
+                        {/*    <button type="button" className="close" data-dismiss="modal" aria-label="Close">*/}
+                        {/*        <span aria-hidden="true">&times;</span>*/}
+                        {/*    </button>*/}
+                        {/*</div>*/}
+                        <div className="modal-body">
+                            <div className="my-form-group">
+                                <label className="lable">Question</label>
+                                <select
+                                    className="my-form-control"
+                                    value={questionId}
+                                    onChange={e => setQuestionId(Number(e.target.value))}
+                                >
+                                    {
+                                        questions.map((e,i) =>
+                                        <option key={e.id} value={e.id}>{i + 1 +" - " +e.name}</option>
+                                    )}
+                                </select>
+
+                                <label className="lable" htmlFor="#createChoice" style={{marginTop: "5px"}}>Choice Name</label>
+                                <textarea
+                                    className="my-form-control"
+                                    id="createChoice"
+                                    rows={10}
+                                    placeholder="Type..."
+                                    value={choiceName}
+                                    onChange={e => setChoiceName(e.target.value)}
+                                />
+                                <label className="lable" style={{display: "inline"}} >Is right:</label>
+                                <input
+                                    style={{marginLeft: "10px"}}
+                                    type="checkbox"
+                                    checked={choiceIsRight}
+                                    className="table-checkbox"
+                                    onChange={c => {
+                                        setChoiceIsRight(!choiceIsRight);
+                                    }}
+                                />
+                            </div>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn-create" data-dismiss="modal" onClick={onCreateChoice}>
+                                <i className="icon-plus"></i>
+                                Create
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </>
 }

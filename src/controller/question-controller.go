@@ -23,7 +23,17 @@ func NewQuestionController(serv service.QuestionService) QuestionController {
 
 
 func (q *QuestionControl) DeleteQuestions(ctx *gin.Context) {
-	panic("implement me")
+	questionId, err1 := strconv.ParseInt(ctx.Param("id"),0,0)
+	if err1 != nil {
+		ctx.String(http.StatusInternalServerError, err1.Error())
+		return
+	}
+	err := q.QuestionService.Delete(uint(questionId))
+	if err != nil {
+		ctx.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+	ctx.String(http.StatusOK,"Deleted")
 }
 
 func (q *QuestionControl) SaveQuestions(ctx *gin.Context) {
