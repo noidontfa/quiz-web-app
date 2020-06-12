@@ -18,6 +18,7 @@ const EditQuiz = () => {
     const [questionName,setQuestionName] = useState('');
     const [choiceName,setChoiceName] = useState('');
     const [choiceIsRight,setChoiceIsRight] = useState(false);
+    const [csvValue,setCSVValue] = useState('');
 
     const [questionId,setQuestionId] = useState(0);
     const doStuff =  async () => {
@@ -119,6 +120,38 @@ const EditQuiz = () => {
         })
     }
 
+    const onCreateMultiData = () => {
+        const lines = csvValue.split('\n');
+        let questionsQ : Array<any> = [];
+        lines.forEach(line => {
+            const datas = line.split('\t');
+            const question = datas[0];
+            let choices = [];
+            for(let i = 1 ; i < datas.length - 1; i++) {
+                const choice = datas[i];
+                const isRight = datas[i+1] === '1' ? true : false;
+                i++;
+                choices.push({
+                    name: choice,
+                    isRight
+                })
+            }
+            if (line.length) {
+                questionsQ.push({
+                    name: question,
+                    choices
+                })
+            }
+        })
+        if (questionsQ.length) {
+            axios.post(`http:/api/questions/${quizId}`, questionsQ).then(res => {
+                    const questionD = [...questions,...res.data];
+                    setQuestions(questionD);
+                }
+            )
+        }
+    }
+
 
 
     return <>
@@ -181,9 +214,12 @@ const EditQuiz = () => {
                                 <span>Choice</span>
                             </button>
 
-                            <button className="btn-create">
+                            <button className="btn-create"
+                                    data-toggle="modal"
+                                    data-target="#csvModal"
+                            >
                                 <i className="icon-folder"></i>
-                                <span>Import csv</span>
+                                <span>Import</span>
                             </button>
 
                         </div>
@@ -403,6 +439,44 @@ const EditQuiz = () => {
                             <button type="button" className="btn-create" data-dismiss="modal" onClick={onCreateChoice}>
                                 <i className="icon-plus"></i>
                                 Create
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="modal fade" id="csvModal" tabIndex={-1} role="dialog"
+                 aria-labelledby="csvModal" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div className="modal-content">
+                        {/*<div className="modal-header">*/}
+                        {/*    <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>*/}
+                        {/*    <button type="button" className="close" data-dismiss="modal" aria-label="Close">*/}
+                        {/*        <span aria-hidden="true">&times;</span>*/}
+                        {/*    </button>*/}
+                        {/*</div>*/}
+                        <div className="modal-body">
+                            <div className="my-form-group">
+                                <label className="label">Rule: 1 is true, 0 is false</label>
+                                <label className="label">Example: question choice1 1 choice2 0 choice3 0 choice4 0</label>
+                                <label className="label" htmlFor="name">Copy csv format here:</label>
+                                <textarea
+                                    className="my-form-control"
+                                    id="createQuestion"
+                                    name="name"
+                                    rows={10}
+                                    placeholder="Type..."
+                                    value={csvValue}
+                                    onChange={e => {
+                                        setCSVValue(e.target.value);
+                                    }}
+                                />
+                            </div>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn-create" data-dismiss="modal" onClick={onCreateMultiData}>
+                                <i className="icon-folder   "></i>
+                                Import
                             </button>
                         </div>
                     </div>
