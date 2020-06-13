@@ -3,6 +3,7 @@ package main
 import (
 	"./config"
 	"./controller"
+	"./middlewares"
 	"./model"
 	"./repository"
 	service "./service/impl"
@@ -72,6 +73,8 @@ func main() {
 	historyService		:= service.NewHistoryService(repo)
 	stateService		:= service.NewStateService(repo)
 	choiceService		:= service.NewChoiceService(repo)
+	loginService 		:= service.NewLoginService(repo)
+	jwtService			:= service.NewJWTService()
 	categoryController 	:= controller.NewCategoryController(categoryService)
 	quizController		:= controller.NewQuizController(quizService)
 	languageController	:= controller.NewLanguageController(languageService)
@@ -83,6 +86,7 @@ func main() {
 	historyController	:= controller.NewHistoryController(historyService)
 	stateController		:= controller.NewStateController(stateService)
 	choiceController	:= controller.NewChoiceController(choiceService)
+	loginController		:= controller.NewLoginController(loginService,jwtService)
 
 	router := gin.New()
 
@@ -94,6 +98,17 @@ func main() {
 	})
 	router.POST("/upload", upload)
 	router.StaticFS("/file", http.Dir("./src/public"))
+
+	router.POST("/login",loginController.Login)
+
+	testAuthor := router.Group("/test", middlewares.AuthorizeJWT())
+	{
+		testAuthor.GET("/hello", func(ctx *gin.Context) {
+			ctx.JSON(http.StatusOK, gin.H{
+				"Value": "Hello world",
+			})
+		})
+	}
 
 	api := router.Group("/api")
 	{
