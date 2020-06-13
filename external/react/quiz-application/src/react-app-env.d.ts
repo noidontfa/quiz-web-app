@@ -1,7 +1,7 @@
 /// <reference types="react-scripts" />
 interface QuizInterface {
     id? : number;
-    createAt? : string;
+    createdAt? : string;
     name? : string;
     description? : string;
     categoryRefer? : CategoryInterface;

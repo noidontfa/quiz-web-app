@@ -7,6 +7,7 @@ import QuizDetail from "./features/quiz-detail/QuizDetail";
 import CreateQuiz from "./features/createquiz/CreateQuiz";
 import EditQuiz from "./features/createquiz/EditQuiz";
 import EditQuestion from "./features/createquiz/EditQuestion";
+import MyQuiz from "./features/myquiz/MyQuiz";
 function App() {
   return  (
       <BrowserRouter>
@@ -19,6 +20,9 @@ function App() {
               </Route>
               <Route path="/dashboard">
                   <Dashboard />
+              </Route>
+              <Route exact path="/quiz/my">
+                  <MyQuiz/>
               </Route>
               <Route exact path="/quiz/edit/question/:quizId">
                   <EditQuestion/>

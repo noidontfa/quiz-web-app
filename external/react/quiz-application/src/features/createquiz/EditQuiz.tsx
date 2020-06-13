@@ -131,8 +131,8 @@ const EditQuiz = () => {
                             <div className="col-xl-6 d-flex align-items-center">
                                 <Breadcrumbs>
                                     <LinkBreadcrumbs to={'/'} active={true} name={'Home'}/>
-                                    <LinkBreadcrumbs to={'/'} active={true} name={'My quizzes'}/>
-                                    <LinkBreadcrumbs active={false} name={'Quiz Application 1'}/>
+                                    <LinkBreadcrumbs to={'/quiz/my'} active={true} name={'My quizzes'}/>
+                                    <LinkBreadcrumbs active={false} name={quizName}/>
                                 </Breadcrumbs>
                             </div>
                             <div className="col-xl-6 nav-edit-quiz">

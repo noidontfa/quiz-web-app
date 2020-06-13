@@ -12,6 +12,7 @@ type QuizSevc struct {
 }
 
 
+
 func NewQuizService(db *repository.Repo) service.QuizService {
 	return &QuizSevc{
 		db: db,
@@ -184,6 +185,36 @@ func (q *QuizSevc) Delete(id uint) error {
 	} else {
 		return dbErr
 	}
+}
+
+func (q *QuizSevc) FindByUserId(userId uint) ([]models.QuizDTO, error) {
+	db, err := q.db.GetConnection()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	defer db.Close()
+	var quizzesDto []models.QuizDTO
+	var quizzes []models.Quiz
+	dbErr := db.Where("created_by = ?", userId).Find(&quizzes).Error
+	if dbErr == nil {
+		for i,_ := range quizzes {
+			db.Model(quizzes[i]).Related(&quizzes[i].CategoryRefer)
+			db.Model(quizzes[i]).Related(&quizzes[i].LanguageRefer)
+			db.Model(quizzes[i]).Related(&quizzes[i].TimingRefer)
+			db.Model(quizzes[i]).Related(&quizzes[i].UserRefer,"CreatedBy")
+			db.Model(quizzes[i]).Association("Ratings").Find(&quizzes[i].Ratings)
+			if dbErr := db.Model(quizzes[i]).Association("Questions").Find(&quizzes[i].Questions).Error; dbErr == nil {
+				for j,_ := range quizzes[i].Questions {
+					question := &quizzes[i].Questions[j]
+					db.Model(question).Association("Choices").Find(&question.Choices)
+				}
+			}
+		}
+		for _,e := range quizzes {
+			quizzesDto = append(quizzesDto,utils.ParseQuizToQuizDTO(&e))
+		}
+	}
+	return quizzesDto, dbErr
 }
 
 

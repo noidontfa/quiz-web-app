@@ -21,10 +21,10 @@ func ParseQuizToQuizDTO(quiz  *models.Quiz) models.QuizDTO {
 	for _,e := range quiz.Questions {
 		questions = append(questions, ParseQuestionTOQuestionDTO(&e))
 	}
-
+	timeFormater := "2006/01/02"
 	return models.QuizDTO{
 		ID:            	quiz.ID,
-		CreatedAt:     	quiz.CreatedAt,
+		CreatedAt:     	quiz.CreatedAt.Format(timeFormater),
 		Name:          	quiz.Name,
 		Description:   	quiz.Description,
 		CategoryRefer: 	ParseCategoryToCategoryDTO(&quiz.CategoryRefer),

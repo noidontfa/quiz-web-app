@@ -8,7 +8,7 @@ body {
 
 .my-navbar {
   height: 54px;
-  width: 100%;
+  width: 100vw;
   -webkit-box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
   border: solid 1px rgba(83, 83, 83, 0.16);
@@ -74,7 +74,7 @@ body {
 
 .my-sidebar {
   height: 30vh;
-  width: 180px;
+  width: 162px;
   float: right;
   position: fixed;
 }
@@ -140,6 +140,15 @@ body {
   font-stretch: normal;
   font-style: normal;
   line-height: 1.36;
+}
+.my-sidebar .side-link:hover {
+  border-left: 2px solid #5b88e2;
+}
+.my-sidebar .side-link:hover i{
+  color: #5b88e2;
+}
+.my-sidebar .side-link:hover span{
+  color: #5b88e2;
 }
 
 .my-sidebar .side-link.active {
@@ -297,6 +306,7 @@ body {
 }
 
 .btn-upload {
+  cursor: pointer;
   border-radius: 5px;
   border: solid 1px #348009;
   padding: 9px 14px;
@@ -427,6 +437,7 @@ body {
   max-width: 827px;
   margin-right: 54px;
   float: left;
+  margin-left: 15px;
   width: 100%;
 }
 
@@ -438,6 +449,12 @@ body {
   border-radius: 10px;
   border: solid 1px rgba(83, 83, 83, 0.3);
   margin-bottom: 10px;
+  cursor: pointer;
+  transition: 0.5s transform;
+}
+
+.my-main-content .my-section .my-card:hover {
+ transform: rotate(0.5deg);
 }
 
 .my-main-content .my-section .my-card .my-big-card-img {
@@ -694,13 +711,18 @@ body {
 .my-table .my-table-icon {
   padding-top: 3px;
 }
+.my-table .my-table-icon a {
+  text-decoration: none;
+  color: #212529;
+}
 
-.my-table .my-table-icon i:not(:last-child) {
+
+.my-table .my-table-icon a:not(:last-child) {
   margin-right: 20px;
   font-size: 16px;
 }
 
-.my-table .my-table-icon i:hover {
+.my-table .my-table-icon a:hover {
   color: #5b88e2;
   cursor: pointer;
 }

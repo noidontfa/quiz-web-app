@@ -1,6 +1,7 @@
 import React, {useLayoutEffect, useState} from "react";
 import userIcon from "../../../assets/cat.jpg";
 import {useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 
 
@@ -10,9 +11,9 @@ const SideBar = () => {
 
     useLayoutEffect(() => {
         const mySection = document.getElementById('my-section');
-        setLeftSidebar((mySection!.getBoundingClientRect().right + 83 ) + 'px');
+        setLeftSidebar((mySection!.getBoundingClientRect().right + 82 ) + 'px');
         const onResize = () => {
-            setLeftSidebar((mySection!.getBoundingClientRect().right + 83 ) + 'px');
+            setLeftSidebar( (mySection!.getBoundingClientRect().right + 92 ) + 'px');
             console.log(window.innerWidth);
         }
         window.addEventListener('resize',onResize)
@@ -54,12 +55,12 @@ const SideBar = () => {
 
             <div className="content-header">User interface</div>
 
-            <a className="side-link" href="#">
+            <Link className="side-link" to="/quiz/my">
                 <i className="icon-puzzle"></i>
                 <span>
                                 My quiz
                             </span>
-            </a>
+            </Link>
             <a className="side-link" href="#">
                 <i className="icon-cup"></i>
                 <span>

@@ -104,6 +104,7 @@ func main() {
 		api.POST("/categories",categoryController.SaveCategory)
 
 		api.GET("/quizzes",quizController.FindAllQuizzes)
+		api.GET("/quizzes/:id/my",quizController.FindByUserId)
 		api.GET("/quizzes/:id",quizController.FindByIdQuiz)
 		api.PUT("/quizzes/:id",quizController.UpdateQuiz)
 		api.DELETE("/quizzes/:id",quizController.DeleteQuiz)

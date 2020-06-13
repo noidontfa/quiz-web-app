@@ -30,7 +30,7 @@ type Quiz struct {
 
 type QuizDTO struct {
 	ID        		uint 			`json:"id"`
-	CreatedAt 		time.Time 		`json:"createdAt"`
+	CreatedAt 		string 		`json:"createdAt"`
 	Name			string 			`json:"name"`
 	Description 	string 			`json:"description"`
 	CategoryRefer 	CategoryDTO 	`json:"categoryRefer"`

@@ -171,7 +171,7 @@ const EditQuiz = () => {
                             <div className="col-xl-6">
                                 <Breadcrumbs>
                                     <LinkBreadcrumbs to={'/'} active={true} name={'Home'}/>
-                                    <LinkBreadcrumbs to={'/'} active={true} name={'My quizzes'}/>
+                                    <LinkBreadcrumbs to={'/quiz/my'} active={true} name={'My quizzes'}/>
                                     <LinkBreadcrumbs to={`/quiz/edit/${quizId}`} active={true} name={quizName}/>
                                     <LinkBreadcrumbs active={false} name={'Question list'}/>
                                 </Breadcrumbs>

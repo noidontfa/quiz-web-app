@@ -18,6 +18,7 @@ type QuizController interface {
 	UpdateQuiz(ctx *gin.Context)
 	DeleteQuiz(ctx *gin.Context)
 	SaveQuiz(ctx *gin.Context)
+	FindByUserId(ctx *gin.Context)
 }
 
 func NewQuizController(serv service.QuizService) QuizController {
@@ -94,4 +95,18 @@ func (q *QControl) SaveQuiz(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusOK,quizResult)
+}
+
+func (q *QControl) FindByUserId(ctx *gin.Context) {
+	quizId, err := strconv.ParseInt(ctx.Param("id"),0,0)
+	if err != nil {
+		ctx.String(http.StatusBadRequest, err.Error())
+		return
+	}
+	quizzes, err1 := q.quizService.FindByUserId(uint(quizId))
+	if err1 != nil {
+		ctx.String(http.StatusInternalServerError, err.Error())
+		return
+	}
+	ctx.JSON(http.StatusOK, quizzes)
 }

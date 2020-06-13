@@ -17,7 +17,7 @@ const Navigation = () => {
                        <Link to="/">
                            <i className="icon-home"></i>
                        </Link>
-                       <Link to="/dashboard">
+                       <Link to="/quiz/my">
                            <i className="icon-puzzle"></i>
                        </Link>
                        <Link to="/acm">

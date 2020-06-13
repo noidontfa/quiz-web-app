@@ -74,7 +74,7 @@ const CreateQuiz = () => {
                         <div className="col-xl-12">
                             <Breadcrumbs>
                                 <LinkBreadcrumbs to={'/'} active={true} name={'Home'}/>
-                                <LinkBreadcrumbs to={'/'} active={true} name={'My quizzes'}/>
+                                <LinkBreadcrumbs to={'/quiz/my'} active={true} name={'My quizzes'}/>
                                 <LinkBreadcrumbs active={false} name={'Create quiz'}/>
                             </Breadcrumbs>
                         </div>
