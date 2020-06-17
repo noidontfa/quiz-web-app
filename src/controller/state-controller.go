@@ -5,10 +5,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
+
 type StateControl struct {
 	StateService service.StateService
 }
-
 
 type StateController interface {
 	FindAllState(ctx *gin.Context)
@@ -16,7 +16,7 @@ type StateController interface {
 
 func NewStateController(serv service.StateService) StateController {
 	return &StateControl{
-		StateService:serv,
+		StateService: serv,
 	}
 }
 
@@ -26,5 +26,5 @@ func (s *StateControl) FindAllState(ctx *gin.Context) {
 		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK,states)
+	ctx.JSON(http.StatusOK, states)
 }

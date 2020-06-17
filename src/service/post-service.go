@@ -5,6 +5,6 @@ import (
 )
 
 type PostService interface {
-	Create(post *model.Post ) (*model.Post, error)
+	Create(post *model.Post) (*model.Post, error)
 	FindAll() ([]model.Post, error)
 }

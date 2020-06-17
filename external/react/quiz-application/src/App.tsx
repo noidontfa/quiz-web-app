@@ -8,6 +8,7 @@ import CreateQuiz from "./features/createquiz/CreateQuiz";
 import EditQuiz from "./features/createquiz/EditQuiz";
 import EditQuestion from "./features/createquiz/EditQuestion";
 import MyQuiz from "./features/myquiz/MyQuiz";
+import Login from "./features/login/Login";
 function App() {
   return  (
       <BrowserRouter>
@@ -17,6 +18,9 @@ function App() {
               </Route>
               <Route path="/about">
                   <About />
+              </Route>
+              <Route path="/login">
+                  <Login/>
               </Route>
               <Route path="/dashboard">
                   <Dashboard />

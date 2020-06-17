@@ -11,9 +11,8 @@ type CServ struct {
 	db *repository.Repo
 }
 
-
 func NewChoiceService(db *repository.Repo) service.ChoiceService {
-	return &CServ{db:db}
+	return &CServ{db: db}
 }
 
 func (c *CServ) Delete(id uint) error {
@@ -27,5 +26,3 @@ func (c *CServ) Delete(id uint) error {
 
 	return dbErr
 }
-
-

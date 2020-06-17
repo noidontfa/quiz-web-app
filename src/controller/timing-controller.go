@@ -21,35 +21,34 @@ type TimingController interface {
 }
 
 func NewTimingController(serv service.TimingService) TimingController {
-	return &TControl{TimingService:serv}
+	return &TControl{TimingService: serv}
 }
-
 
 func (t *TControl) FindAllTimings(ctx *gin.Context) {
 	timings, err := t.TimingService.FindAll()
 	if err != nil {
-		ctx.String(http.StatusInternalServerError,err.Error())
+		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK,timings)
+	ctx.JSON(http.StatusOK, timings)
 }
 
 func (t *TControl) FindByIdTiming(ctx *gin.Context) {
-	id, err1 := strconv.ParseInt(ctx.Param("id"),0,0)
+	id, err1 := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err1 != nil {
 		ctx.String(http.StatusInternalServerError, err1.Error())
 		return
 	}
 	timing, err := t.TimingService.FindById(uint(id))
 	if err != nil {
-		ctx.String(http.StatusInternalServerError,err.Error())
+		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK,timing)
+	ctx.JSON(http.StatusOK, timing)
 }
 
 func (t *TControl) UpdateTiming(ctx *gin.Context) {
-	id, err1 := strconv.ParseInt(ctx.Param("id"),0,0)
+	id, err1 := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err1 != nil {
 		ctx.String(http.StatusInternalServerError, err1.Error())
 		return
@@ -59,16 +58,16 @@ func (t *TControl) UpdateTiming(ctx *gin.Context) {
 		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	timingResult, err := t.TimingService.Update(uint(id),&timing)
+	timingResult, err := t.TimingService.Update(uint(id), &timing)
 	if err != nil {
 		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK,timingResult)
+	ctx.JSON(http.StatusOK, timingResult)
 }
 
 func (t *TControl) DeleteTiming(ctx *gin.Context) {
-	id, err1 := strconv.ParseInt(ctx.Param("id"),0,0)
+	id, err1 := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err1 != nil {
 		ctx.String(http.StatusInternalServerError, err1.Error())
 		return
@@ -94,5 +93,3 @@ func (t *TControl) SaveTiming(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, timingResult)
 }
-
-

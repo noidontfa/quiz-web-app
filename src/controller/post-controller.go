@@ -10,7 +10,6 @@ import (
 )
 
 type controller struct {
-
 }
 
 var (
@@ -22,10 +21,9 @@ type PostController interface {
 	AddPost(resp http.ResponseWriter, req *http.Request)
 }
 
-func NewPostController() PostController  {
+func NewPostController() PostController {
 	return &controller{}
 }
-
 
 func (*controller) GetPosts(resp http.ResponseWriter, req *http.Request) {
 	resp.Header().Set("Content-type", "application/json")

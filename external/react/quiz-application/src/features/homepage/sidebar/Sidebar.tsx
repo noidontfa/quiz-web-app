@@ -3,9 +3,11 @@ import userIcon from "../../../assets/cat.jpg";
 import {useHistory} from "react-router-dom";
 import {Link} from "react-router-dom";
 
+interface P {
+    user? : UserInterface;
+}
 
-
-const SideBar = () => {
+const SideBar : React.FC<P> = ({user}) => {
     const [leftSidebar,setLeftSidebar] = useState('0');
     const history = useHistory();
 
@@ -24,20 +26,22 @@ const SideBar = () => {
 
     return (
         <div className="my-sidebar" id="my-sidebar" style={{left: leftSidebar}}>
-            <div className="user-info">
-                <div className="my-user-icon" style={{height: '32px', width: '32px'}}>
-                    <img
-                        src={userIcon}
-                        className="my-user-icon"
-                        alt="author"
-                        style={{marginRight: '10px'}}
-                    />
+            {user &&
+                <div className="user-info">
+                    <div className="my-user-icon" style={{height: '32px', width: '32px'}}>
+                        <img
+                            src={user.image}
+                            className="my-user-icon"
+                            alt="author"
+                            style={{marginRight: '10px'}}
+                        />
+                    </div>
+                    <div className="my-user-name">
+                        <div className="username">{user.username}</div>
+                        <div className="fullname">{user.firstName + " " + user.lastName}</div>
+                    </div>
                 </div>
-                <div className="my-user-name">
-                    <div className="username">thinhntg</div>
-                    <div className="fullname">Ngo Tran Gia Thinh</div>
-                </div>
-            </div>
+            }
 
             <button className="btn-create" onClick={() => {history.push("/quiz/create")}}>
                 <i className="icon-rocket"></i>

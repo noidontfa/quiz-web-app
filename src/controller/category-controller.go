@@ -7,10 +7,10 @@ import (
 	"net/http"
 	"strconv"
 )
+
 type Control struct {
 	CategoryService service.CategoryService
 }
-
 
 type CategoryController interface {
 	FindAllCategories(ctx *gin.Context)
@@ -33,12 +33,11 @@ func (c *Control) FindAllCategories(ctx *gin.Context) {
 		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK,categories)
+	ctx.JSON(http.StatusOK, categories)
 }
 
-
 func (c *Control) FindByIdCategory(ctx *gin.Context) {
-	id, err1 := strconv.ParseInt(ctx.Param("id"),0,0)
+	id, err1 := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err1 != nil {
 		//log.Fatal(err1.Error())
 		ctx.String(http.StatusInternalServerError, err1.Error())
@@ -50,22 +49,22 @@ func (c *Control) FindByIdCategory(ctx *gin.Context) {
 		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK,category)
+	ctx.JSON(http.StatusOK, category)
 }
 
 func (c *Control) UpdateCategory(ctx *gin.Context) {
-	id, err1 := strconv.ParseInt(ctx.Param("id"),0,0)
+	id, err1 := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err1 != nil {
 		ctx.String(http.StatusInternalServerError, err1.Error())
 		return
 	}
 	var category models.Category
 	if err := ctx.ShouldBindJSON(&category); err != nil {
-		ctx.String(http.StatusNoContent,err.Error())
+		ctx.String(http.StatusNoContent, err.Error())
 		return
 	}
 
-	categoryResult, err := c.CategoryService.Update(uint(id),&category)
+	categoryResult, err := c.CategoryService.Update(uint(id), &category)
 	if err != nil {
 		ctx.String(http.StatusInternalServerError, err.Error())
 		return
@@ -74,7 +73,7 @@ func (c *Control) UpdateCategory(ctx *gin.Context) {
 }
 
 func (c *Control) DeleteCategory(ctx *gin.Context) {
-	id, err1 := strconv.ParseInt(ctx.Param("id"),0,0)
+	id, err1 := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err1 != nil {
 		ctx.String(http.StatusInternalServerError, err1.Error())
 		return
@@ -87,19 +86,16 @@ func (c *Control) DeleteCategory(ctx *gin.Context) {
 	ctx.String(http.StatusOK, "Deleted")
 }
 
-
 func (c *Control) SaveCategory(ctx *gin.Context) {
 	var category models.Category
 	if err := ctx.ShouldBindJSON(&category); err != nil {
-		ctx.String(http.StatusInternalServerError,err.Error())
+		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
 	categoryResult, err := c.CategoryService.Save(&category)
 	if err != nil {
-		ctx.String(http.StatusInternalServerError,err.Error())
+		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK,categoryResult)
+	ctx.JSON(http.StatusOK, categoryResult)
 }
-
-

@@ -13,7 +13,7 @@ type LanguageSevc struct {
 }
 
 func NewLanguageService(db *repository.Repo) service.LanguageService {
-	return &LanguageSevc{db:db}
+	return &LanguageSevc{db: db}
 }
 
 func (l *LanguageSevc) FindAll() ([]models.LanguageDTO, error) {
@@ -25,13 +25,13 @@ func (l *LanguageSevc) FindAll() ([]models.LanguageDTO, error) {
 	var languages []models.Language
 	var languagesDTO []models.LanguageDTO
 	if dbErr := db.Find(&languages).Error; dbErr != nil {
-		return languagesDTO,nil
+		return languagesDTO, nil
 	}
-	for i,_ := range languages {
+	for i, _ := range languages {
 		languageDTO := utils.ParseLanguageToLanguageDTO(&languages[i])
-		languagesDTO = append(languagesDTO,languageDTO)
+		languagesDTO = append(languagesDTO, languageDTO)
 	}
-	return languagesDTO,nil
+	return languagesDTO, nil
 }
 
 func (l *LanguageSevc) FindById(id uint) (*models.Language, error) {
@@ -47,11 +47,11 @@ func (l *LanguageSevc) FindById(id uint) (*models.Language, error) {
 			db.Model(quiz).Related(&quiz.CategoryRefer)
 			db.Model(quiz).Related(&quiz.TimingRefer)
 			db.Model(quiz).Related(&quiz.LanguageRefer)
-			db.Model(quiz).Related(&quiz.UserRefer,"createdBy")
+			db.Model(quiz).Related(&quiz.UserRefer, "createdBy")
 		}
-		return &language,nil
+		return &language, nil
 	} else {
-		return &language,dbErr
+		return &language, dbErr
 	}
 }
 
@@ -62,9 +62,9 @@ func (l *LanguageSevc) Save(language *models.Language) (*models.Language, error)
 	}
 	defer db.Close()
 	if dbErr := db.Save(language).Error; dbErr == nil {
-		return language,nil
+		return language, nil
 	} else {
-		return language,dbErr
+		return language, dbErr
 	}
 }
 
@@ -75,9 +75,9 @@ func (l *LanguageSevc) Update(id uint, language *models.Language) (*models.Langu
 	}
 	defer db.Close()
 	if dbErr := db.Model(language).Where("id = ?", id).Update(&language).Find(&language).Error; dbErr == nil {
-		return language,nil
+		return language, nil
 	} else {
-		return language,dbErr
+		return language, dbErr
 	}
 }
 
@@ -93,4 +93,3 @@ func (l *LanguageSevc) Delete(id uint) error {
 		return dbErr
 	}
 }
-

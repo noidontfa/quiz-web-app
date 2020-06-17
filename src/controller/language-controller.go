@@ -8,7 +8,6 @@ import (
 	"strconv"
 )
 
-
 type LangControl struct {
 	LanguageService service.LanguageService
 }
@@ -21,8 +20,8 @@ type LanguageController interface {
 	SaveLanguage(ctx *gin.Context)
 }
 
-func NewLanguageController(sevc service.LanguageService) LanguageController{
-	return &LangControl{LanguageService:sevc}
+func NewLanguageController(sevc service.LanguageService) LanguageController {
+	return &LangControl{LanguageService: sevc}
 }
 
 func (l *LangControl) FindAllLanguages(ctx *gin.Context) {
@@ -31,11 +30,11 @@ func (l *LangControl) FindAllLanguages(ctx *gin.Context) {
 		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK,languages)
+	ctx.JSON(http.StatusOK, languages)
 }
 
 func (l *LangControl) FindByIdLanguage(ctx *gin.Context) {
-	id, err1 := strconv.ParseInt(ctx.Param("id"),0,0)
+	id, err1 := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err1 != nil {
 		ctx.String(http.StatusInternalServerError, err1.Error())
 		return
@@ -45,22 +44,22 @@ func (l *LangControl) FindByIdLanguage(ctx *gin.Context) {
 		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK,language)
+	ctx.JSON(http.StatusOK, language)
 }
 
 func (l *LangControl) UpdateLanguage(ctx *gin.Context) {
-	id, err1 := strconv.ParseInt(ctx.Param("id"),0,0)
+	id, err1 := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err1 != nil {
 		ctx.String(http.StatusInternalServerError, err1.Error())
 		return
 	}
 	var language models.Language
 	if err := ctx.ShouldBindJSON(&language); err != nil {
-		ctx.String(http.StatusNoContent,err.Error())
+		ctx.String(http.StatusNoContent, err.Error())
 		return
 	}
 
-	languageResult, err := l.LanguageService.Update(uint(id),&language)
+	languageResult, err := l.LanguageService.Update(uint(id), &language)
 	if err != nil {
 		ctx.String(http.StatusInternalServerError, err.Error())
 		return
@@ -69,7 +68,7 @@ func (l *LangControl) UpdateLanguage(ctx *gin.Context) {
 }
 
 func (l *LangControl) DeleteLanguage(ctx *gin.Context) {
-	id, err1 := strconv.ParseInt(ctx.Param("id"),0,0)
+	id, err1 := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err1 != nil {
 		ctx.String(http.StatusInternalServerError, err1.Error())
 		return
@@ -85,14 +84,13 @@ func (l *LangControl) DeleteLanguage(ctx *gin.Context) {
 func (l *LangControl) SaveLanguage(ctx *gin.Context) {
 	var language models.Language
 	if err := ctx.ShouldBindJSON(&language); err != nil {
-		ctx.String(http.StatusInternalServerError,err.Error())
+		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
 	languageResult, err := l.LanguageService.Save(&language)
 	if err != nil {
-		ctx.String(http.StatusInternalServerError,err.Error())
+		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK,languageResult)
+	ctx.JSON(http.StatusOK, languageResult)
 }
-

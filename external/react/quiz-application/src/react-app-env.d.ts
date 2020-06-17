@@ -31,6 +31,7 @@ interface UserInterface {
     id? : number;
     firstName?: string;
     lastName? : string;
+    username? : string;
     email? : string;
     dayOfBirth? : string;
     image? : string;
@@ -67,4 +68,8 @@ interface LanguageInterface {
 interface StateInterface {
     id? :number;
     name? : string;
+}
+
+interface TokenInterface {
+    token : string;
 }

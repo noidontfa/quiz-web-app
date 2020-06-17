@@ -31,11 +31,11 @@ func (q *QControl) FindAllQuizzes(ctx *gin.Context) {
 		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK,quizzes)
+	ctx.JSON(http.StatusOK, quizzes)
 }
 
 func (q *QControl) FindByIdQuiz(ctx *gin.Context) {
-	id, err := strconv.ParseInt(ctx.Param("id"),0,0)
+	id, err := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err != nil {
 		ctx.String(http.StatusBadRequest, err.Error())
 		return
@@ -49,18 +49,18 @@ func (q *QControl) FindByIdQuiz(ctx *gin.Context) {
 }
 
 func (q *QControl) UpdateQuiz(ctx *gin.Context) {
-	id, err1 := strconv.ParseInt(ctx.Param("id"),0,0)
+	id, err1 := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err1 != nil {
 		ctx.String(http.StatusInternalServerError, err1.Error())
 		return
 	}
 	var quiz models.Quiz
 	if err := ctx.ShouldBindJSON(&quiz); err != nil {
-		ctx.String(http.StatusInternalServerError,err.Error())
+		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	quizResult, err := q.quizService.Update(uint(id),&quiz)
+	quizResult, err := q.quizService.Update(uint(id), &quiz)
 	if err != nil {
 		ctx.String(http.StatusInternalServerError, err.Error())
 		return
@@ -70,7 +70,7 @@ func (q *QControl) UpdateQuiz(ctx *gin.Context) {
 }
 
 func (q *QControl) DeleteQuiz(ctx *gin.Context) {
-	id, err1 := strconv.ParseInt(ctx.Param("id"),0,0)
+	id, err1 := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err1 != nil {
 		ctx.String(http.StatusBadRequest, err1.Error())
 		return
@@ -86,19 +86,19 @@ func (q *QControl) DeleteQuiz(ctx *gin.Context) {
 func (q *QControl) SaveQuiz(ctx *gin.Context) {
 	var quiz models.Quiz
 	if err := ctx.ShouldBindJSON(&quiz); err != nil {
-		ctx.String(http.StatusInternalServerError,err.Error())
+		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
 	quizResult, err := q.quizService.Save(&quiz)
 	if err != nil {
-		ctx.String(http.StatusInternalServerError,err.Error())
+		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK,quizResult)
+	ctx.JSON(http.StatusOK, quizResult)
 }
 
 func (q *QControl) FindByUserId(ctx *gin.Context) {
-	quizId, err := strconv.ParseInt(ctx.Param("id"),0,0)
+	quizId, err := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err != nil {
 		ctx.String(http.StatusBadRequest, err.Error())
 		return

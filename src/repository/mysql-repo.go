@@ -12,15 +12,14 @@ type Repo struct {
 	config *config.DatabaseConfigurations
 }
 
-
-func NewMySqlRepository(cf *config.DatabaseConfigurations) *Repo  {
+func NewMySqlRepository(cf *config.DatabaseConfigurations) *Repo {
 	return &Repo{
 		config: cf,
 	}
 }
 
 func (r *Repo) GetConnection() (*gorm.DB, error) {
-	connection := fmt.Sprintf("%s:%s@/%s?charset=utf8&parseTime=True&loc=Local",r.config.DBUser,r.config.DBPassword,r.config.DBName)
+	connection := fmt.Sprintf("%s:%s@/%s?charset=utf8&parseTime=True&loc=Local", r.config.DBUser, r.config.DBPassword, r.config.DBName)
 	db, err := gorm.Open("mysql", connection)
 	if err != nil {
 		panic("failed to connect database" + err.Error())
@@ -33,7 +32,7 @@ func (r *Repo) GetConnection() (*gorm.DB, error) {
 	return db, nil
 }
 
-func (r *Repo) AutoMigration()  {
+func (r *Repo) AutoMigration() {
 	db, err := r.GetConnection()
 	if err != nil {
 		panic(err.Error())
@@ -53,7 +52,7 @@ func (r *Repo) AutoMigration()  {
 	choice := models.Choice{}
 	state := models.State{}
 
-	db.AutoMigrate(user, role, quiz, lang, cate, timing,rating,historyDate,history,question,choice,state)
+	db.AutoMigrate(user, role, quiz, lang, cate, timing, rating, historyDate, history, question, choice, state)
 	db.Model(quiz).AddForeignKey("created_by", "users(id)", "RESTRICT", "RESTRICT")
 	db.Model(quiz).AddForeignKey("language_id", "languages(id)", "RESTRICT", "RESTRICT")
 	db.Model(quiz).AddForeignKey("category_id", "categories(id)", "RESTRICT", "RESTRICT")
@@ -68,6 +67,6 @@ func (r *Repo) AutoMigration()  {
 	db.Model(question).AddForeignKey("quiz_id", "quizzes(id)", "RESTRICT", "RESTRICT")
 	db.Model(choice).AddForeignKey("question_id", "questions(id)", "RESTRICT", "RESTRICT")
 
-	db.Table("user_roles").AddForeignKey("user_id","users(id)","RESTRICT", "RESTRICT")
-	db.Table("user_roles").AddForeignKey("role_id","roles(id)","RESTRICT", "RESTRICT")
+	db.Table("user_roles").AddForeignKey("user_id", "users(id)", "RESTRICT", "RESTRICT")
+	db.Table("user_roles").AddForeignKey("role_id", "roles(id)", "RESTRICT", "RESTRICT")
 }

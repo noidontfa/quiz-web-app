@@ -21,7 +21,7 @@ type RoleController interface {
 }
 
 func NewRoleController(sevc service.RoleService) RoleController {
-	return &RoleControl{RoleService:sevc}
+	return &RoleControl{RoleService: sevc}
 }
 
 func (r *RoleControl) FindAllRoles(ctx *gin.Context) {
@@ -30,11 +30,11 @@ func (r *RoleControl) FindAllRoles(ctx *gin.Context) {
 		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK,roles)
+	ctx.JSON(http.StatusOK, roles)
 }
 
 func (r *RoleControl) FindByIdRole(ctx *gin.Context) {
-	id, err := strconv.ParseInt(ctx.Param("id"),0,0)
+	id, err := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err != nil {
 		ctx.String(http.StatusInternalServerError, err.Error())
 		return
@@ -44,30 +44,30 @@ func (r *RoleControl) FindByIdRole(ctx *gin.Context) {
 		ctx.String(http.StatusInternalServerError, err1.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK,role)
+	ctx.JSON(http.StatusOK, role)
 }
 
 func (r *RoleControl) UpdateRole(ctx *gin.Context) {
-	id, err := strconv.ParseInt(ctx.Param("id"),0,0)
+	id, err := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err != nil {
 		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
 	var role models.Role
 	if err := ctx.ShouldBindJSON(&role); err != nil {
-		ctx.String(http.StatusInternalServerError,err.Error())
+		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	roleResult, err1 := r.RoleService.Update(uint(id),&role)
+	roleResult, err1 := r.RoleService.Update(uint(id), &role)
 	if err1 != nil {
 		ctx.String(http.StatusInternalServerError, err1.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK,roleResult)
+	ctx.JSON(http.StatusOK, roleResult)
 }
 
 func (r *RoleControl) DeleteRole(ctx *gin.Context) {
-	id, err := strconv.ParseInt(ctx.Param("id"),0,0)
+	id, err := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err != nil {
 		ctx.String(http.StatusInternalServerError, err.Error())
 		return
@@ -77,22 +77,19 @@ func (r *RoleControl) DeleteRole(ctx *gin.Context) {
 		ctx.String(http.StatusInternalServerError, err1.Error())
 		return
 	}
-	ctx.String(http.StatusOK,"Deleted")
+	ctx.String(http.StatusOK, "Deleted")
 }
 
 func (r *RoleControl) SaveRole(ctx *gin.Context) {
 	var role models.Role
 	if err := ctx.ShouldBindJSON(&role); err != nil {
-		ctx.String(http.StatusInternalServerError,err.Error())
+		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
 	roleResult, err := r.RoleService.Save(&role)
 	if err != nil {
-		ctx.String(http.StatusInternalServerError,err.Error())
+		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK,roleResult)
+	ctx.JSON(http.StatusOK, roleResult)
 }
-
-
-

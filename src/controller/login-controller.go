@@ -9,10 +9,8 @@ import (
 
 type LoginControl struct {
 	LoginService service.LoginService
-	JWTService service.JWTService
+	JWTService   service.JWTService
 }
-
-
 
 type LoginController interface {
 	Login(ctx *gin.Context)
@@ -20,8 +18,8 @@ type LoginController interface {
 
 func NewLoginController(sevc service.LoginService, jwtSevc service.JWTService) LoginController {
 	return &LoginControl{
-		LoginService:sevc,
-		JWTService:jwtSevc,
+		LoginService: sevc,
+		JWTService:   jwtSevc,
 	}
 }
 
@@ -29,16 +27,20 @@ func (l *LoginControl) Login(ctx *gin.Context) {
 	var credentials models.User
 	err := ctx.ShouldBindJSON(&credentials)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest,err.Error())
+		ctx.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
-	isAuthenticated := l.LoginService.Login(credentials.Username,credentials.Password)
+	isAuthenticated := l.LoginService.Login(credentials.Username, credentials.Password)
 	if !isAuthenticated {
 		ctx.JSON(http.StatusUnauthorized, nil)
 		return
 	}
-	token := l.JWTService.GenerateToken(credentials.Username)
-	ctx.JSON(http.StatusOK,gin.H{
+
+	token := l.JWTService.GetRedisToken(credentials.Username)
+	if token == "" {
+		token = l.JWTService.GenerateToken(credentials.Username)
+	}
+	ctx.JSON(http.StatusOK, gin.H{
 		"token": token,
 	})
 }

@@ -5,7 +5,6 @@ import (
 	"../../repository"
 )
 
-
 type repo struct {
 }
 
@@ -13,7 +12,7 @@ func NewPostRepository() repository.PostRepository {
 	return &repo{}
 }
 
-func (r *repo)Save(post *model.Post) (*model.Post,error) {
+func (r *repo) Save(post *model.Post) (*model.Post, error) {
 	panic("Me Save")
 }
 

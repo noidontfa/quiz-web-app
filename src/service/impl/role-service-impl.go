@@ -12,7 +12,7 @@ type RoleSevc struct {
 }
 
 func NewRoleService(db *repository.Repo) service.RoleService {
-	return &RoleSevc{db:db}
+	return &RoleSevc{db: db}
 }
 
 func (r *RoleSevc) FindAll() ([]models.Role, error) {
@@ -23,9 +23,9 @@ func (r *RoleSevc) FindAll() ([]models.Role, error) {
 	defer db.Close()
 	var roles []models.Role
 	if dbErr := db.Find(&roles).Error; dbErr == nil {
-		return roles,nil
+		return roles, nil
 	} else {
-		return roles,dbErr
+		return roles, dbErr
 	}
 }
 
@@ -38,7 +38,7 @@ func (r *RoleSevc) FindById(id uint) (*models.Role, error) {
 	var role models.Role
 	dbErr := db.Where("id = ?", id).Find(&role).Error
 
-	return &role,dbErr
+	return &role, dbErr
 }
 
 func (r *RoleSevc) Save(role *models.Role) (*models.Role, error) {
@@ -48,7 +48,7 @@ func (r *RoleSevc) Save(role *models.Role) (*models.Role, error) {
 	}
 	defer db.Close()
 	dbErr := db.Save(&role).Error
-	return role,dbErr
+	return role, dbErr
 }
 
 func (r *RoleSevc) Update(id uint, role *models.Role) (*models.Role, error) {
@@ -58,7 +58,7 @@ func (r *RoleSevc) Update(id uint, role *models.Role) (*models.Role, error) {
 	}
 	defer db.Close()
 	dbErr := db.Model(role).Where("id = ?", id).Update(&role).Find(&role).Error
-	return role,dbErr
+	return role, dbErr
 }
 
 func (r *RoleSevc) Delete(id uint) error {
@@ -70,4 +70,3 @@ func (r *RoleSevc) Delete(id uint) error {
 	dbErr := db.Where("id = ?", id).Delete(models.Role{}).Error
 	return dbErr
 }
-

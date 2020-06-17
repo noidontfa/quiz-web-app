@@ -5,15 +5,15 @@ import (
 )
 
 type Language struct {
-	ID        		uint 		`gorm:"primary_key" json:"id"`
-	CreatedAt 		time.Time 	`json:"-"`
-	UpdatedAt 		time.Time 	`json:"-"`
-	DeletedAt 		*time.Time 	`sql:"index" json:"-"`
-	Name			string 		`gorm:"not null" json:"name"`
-	Quizzes 		[]Quiz 		`gorm:"foreignkey:LanguageId" json:"quizzes"`
+	ID        uint       `gorm:"primary_key" json:"id"`
+	CreatedAt time.Time  `json:"-"`
+	UpdatedAt time.Time  `json:"-"`
+	DeletedAt *time.Time `sql:"index" json:"-"`
+	Name      string     `gorm:"not null" json:"name"`
+	Quizzes   []Quiz     `gorm:"foreignkey:LanguageId" json:"quizzes"`
 }
 
 type LanguageDTO struct {
-	ID        		uint 		`json:"id"`
-	Name			string 		`json:"name"`
+	ID   uint   `json:"id"`
+	Name string `json:"name"`
 }

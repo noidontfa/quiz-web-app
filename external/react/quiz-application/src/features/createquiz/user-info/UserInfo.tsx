@@ -1,12 +1,17 @@
 import React from "react";
 import userIcon from "../../../assets/cat.jpg";
-const UserInfo = () => {
+
+interface P {
+    user? : UserInterface;
+}
+
+const UserInfo : React.FC<P> = ({user}) => {
 
     return <>
         <div className="col-xl-2">
             <img
                 className="user-interface-avatar"
-                src={userIcon}
+                src={user?.image}
                 alt="user-avartar"
             />
         </div>
@@ -26,37 +31,37 @@ const UserInfo = () => {
                     <span className="label">Firstname:</span>
                 </div>
                 <div className="col-xl-2">
-                    <span className="field">Gia Thinh</span>
+                    <span className="field">{user?.firstName}</span>
                 </div>
                 <div className="col-xl-2">
                     <span className="label">Lastname:</span>
                 </div>
                 <div className="col-xl-6">
-                    <span className="field">Ngo Tran</span>
+                    <span className="field">{user?.lastName}</span>
                 </div>
                 <div className="col-xl-2">
                     <span className="label">Fullname:</span>
                 </div>
                 <div className="col-xl-2">
-                    <span className="field">Ngo Tran Gia Thinh</span>
+                    <span className="field">{user?.lastName + " " + user?.lastName}</span>
                 </div>
                 <div className="col-xl-2">
                     <span className="label">Birthday:</span>
                 </div>
                 <div className="col-xl-6">
-                    <span className="field">19/11/1998</span>
+                    <span className="field">{user?.dayOfBirth}</span>
                 </div>
                 <div className="col-xl-2">
                     <span className="label">Username:</span>
                 </div>
                 <div className="col-xl-2">
-                    <span className="field">thinhntg</span>
+                    <span className="field">{user?.username}</span>
                 </div>
                 <div className="col-xl-2">
                     <span className="label">Join Date:</span>
                 </div>
                 <div className="col-xl-6">
-                    <span className="field">19/11/1998</span>
+                    <span className="field">{user?.dayOfBirth}</span>
                 </div>
             </div>
         </div>

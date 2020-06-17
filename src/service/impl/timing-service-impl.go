@@ -13,9 +13,8 @@ type TimingSevc struct {
 }
 
 func NewTimingService(db *repository.Repo) service.TimingService {
-	return &TimingSevc{db:db}
+	return &TimingSevc{db: db}
 }
-
 
 func (t *TimingSevc) FindAll() ([]models.TimingDTO, error) {
 	db, err := t.db.GetConnection()
@@ -26,13 +25,13 @@ func (t *TimingSevc) FindAll() ([]models.TimingDTO, error) {
 	var timings []models.Timing
 	var timingsDto []models.TimingDTO
 	if dbErr := db.Find(&timings).Error; dbErr != nil {
-		return timingsDto,dbErr
+		return timingsDto, dbErr
 	}
-	for i,_ := range timings {
+	for i, _ := range timings {
 		timingDto := utils.ParseTimingToTimingDTO(&timings[i])
-		timingsDto = append(timingsDto,timingDto)
+		timingsDto = append(timingsDto, timingDto)
 	}
-	return timingsDto,nil
+	return timingsDto, nil
 }
 
 func (t *TimingSevc) FindById(id uint) (*models.Timing, error) {
@@ -48,11 +47,11 @@ func (t *TimingSevc) FindById(id uint) (*models.Timing, error) {
 			db.Model(quiz).Related(&quiz.CategoryRefer)
 			db.Model(quiz).Related(&quiz.TimingRefer)
 			db.Model(quiz).Related(&quiz.LanguageRefer)
-			db.Model(quiz).Related(&quiz.UserRefer,"createdBy")
+			db.Model(quiz).Related(&quiz.UserRefer, "createdBy")
 		}
-		return &timing,nil
+		return &timing, nil
 	} else {
-		return &timing,dbErr
+		return &timing, dbErr
 	}
 }
 
@@ -63,9 +62,9 @@ func (t *TimingSevc) Save(timing *models.Timing) (*models.Timing, error) {
 	}
 	defer db.Close()
 	if dbErr := db.Save(timing).Error; dbErr == nil {
-		return timing,nil
+		return timing, nil
 	} else {
-		return timing,dbErr
+		return timing, dbErr
 	}
 }
 
@@ -76,9 +75,9 @@ func (t *TimingSevc) Update(id uint, timing *models.Timing) (*models.Timing, err
 	}
 	defer db.Close()
 	if dbErr := db.Model(timing).Where("id = ?", id).Update(&timing).Find(&timing).Error; dbErr == nil {
-		return timing,nil
+		return timing, nil
 	} else {
-		return timing,dbErr
+		return timing, dbErr
 	}
 
 }
@@ -95,4 +94,3 @@ func (t *TimingSevc) Delete(id uint) error {
 		return dbErr
 	}
 }
-

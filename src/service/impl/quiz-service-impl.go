@@ -7,11 +7,10 @@ import (
 	"../../utils"
 	"log"
 )
+
 type QuizSevc struct {
 	db *repository.Repo
 }
-
-
 
 func NewQuizService(db *repository.Repo) service.QuizService {
 	return &QuizSevc{
@@ -27,26 +26,26 @@ func (q *QuizSevc) FindAll() ([]models.QuizDTO, error) {
 	defer db.Close()
 	var quizzes []models.Quiz
 	if dbErr := db.Find(&quizzes).Error; dbErr == nil {
-		for i,_ := range quizzes {
+		for i, _ := range quizzes {
 			db.Model(quizzes[i]).Related(&quizzes[i].CategoryRefer)
 			db.Model(quizzes[i]).Related(&quizzes[i].LanguageRefer)
 			db.Model(quizzes[i]).Related(&quizzes[i].TimingRefer)
-			db.Model(quizzes[i]).Related(&quizzes[i].UserRefer,"CreatedBy")
+			db.Model(quizzes[i]).Related(&quizzes[i].UserRefer, "CreatedBy")
 			db.Model(quizzes[i]).Association("Ratings").Find(&quizzes[i].Ratings)
 			if dbErr := db.Model(quizzes[i]).Association("Questions").Find(&quizzes[i].Questions).Error; dbErr == nil {
-				for j,_ := range quizzes[i].Questions {
+				for j, _ := range quizzes[i].Questions {
 					question := &quizzes[i].Questions[j]
 					db.Model(question).Association("Choices").Find(&question.Choices)
 				}
 			}
 		}
 		var quizzesDto []models.QuizDTO
-		for _,e := range quizzes {
-			quizzesDto = append(quizzesDto,utils.ParseQuizToQuizDTO(&e))
+		for _, e := range quizzes {
+			quizzesDto = append(quizzesDto, utils.ParseQuizToQuizDTO(&e))
 		}
-		return quizzesDto,nil
+		return quizzesDto, nil
 	} else {
-		return []models.QuizDTO{},dbErr
+		return []models.QuizDTO{}, dbErr
 	}
 }
 
@@ -62,11 +61,11 @@ func (q *QuizSevc) FindById(id uint) (*models.QuizDTO, error) {
 		db.Model(quiz).Related(&quiz.CategoryRefer)
 		db.Model(quiz).Related(&quiz.LanguageRefer)
 		db.Model(quiz).Related(&quiz.TimingRefer)
-		db.Model(quiz).Related(&quiz.UserRefer,"CreatedBy")
+		db.Model(quiz).Related(&quiz.UserRefer, "CreatedBy")
 		db.Model(quiz).Related(&quiz.StateRefer)
 
 		if dbErr := db.Model(quiz).Association("Questions").Find(&quiz.Questions).Error; dbErr == nil {
-			for i,_ := range quiz.Questions {
+			for i, _ := range quiz.Questions {
 				question := &quiz.Questions[i]
 				db.Model(question).Association("Choices").Find(&question.Choices)
 			}
@@ -90,10 +89,10 @@ func (q *QuizSevc) Save(quiz *models.Quiz) (*models.QuizDTO, error) {
 	}()
 
 	if err := tx.Error; err != nil {
-		return nil,err
+		return nil, err
 	}
 	if quiz.FileName != "" {
-		quiz.FileName, err = utils.SaveImage(quiz.FileName,quiz.Image)
+		quiz.FileName, err = utils.SaveImage(quiz.FileName, quiz.Image)
 		if err != nil {
 			return nil, err
 		}
@@ -119,17 +118,17 @@ func (q *QuizSevc) Save(quiz *models.Quiz) (*models.QuizDTO, error) {
 				}
 			} else {
 				tx.Rollback()
-				return nil,dbErr
+				return nil, dbErr
 			}
 		}
 		db.Model(quiz).Related(&quiz.CategoryRefer)
 		db.Model(quiz).Related(&quiz.LanguageRefer)
 		db.Model(quiz).Related(&quiz.TimingRefer)
-		db.Model(quiz).Related(&quiz.UserRefer,"CreatedBy")
+		db.Model(quiz).Related(&quiz.UserRefer, "CreatedBy")
 		db.Model(quiz).Related(&quiz.StateRefer)
 	} else {
 		tx.Rollback()
-		return nil,dbErr
+		return nil, dbErr
 	}
 	quizDto := utils.ParseQuizToQuizDTO(quiz)
 	return &quizDto, tx.Commit().Error
@@ -141,19 +140,18 @@ func (q *QuizSevc) Update(id uint, quiz *models.Quiz) (*models.QuizDTO, error) {
 		log.Fatal(err.Error())
 	}
 	defer db.Close()
-	if quiz.FileName != ""{
-		quiz.FileName, err = utils.SaveImage(quiz.FileName,quiz.Image)
+	if quiz.FileName != "" {
+		quiz.FileName, err = utils.SaveImage(quiz.FileName, quiz.Image)
 		if err != nil {
 			return nil, err
 		}
 	} else if id > 0 {
-			var currentQuiz models.Quiz
-			db.Model(&models.Quiz{}).Where("id = ?", id).Find(&currentQuiz)
-			quiz.FileName = currentQuiz.Image
+		var currentQuiz models.Quiz
+		db.Model(&models.Quiz{}).Where("id = ?", id).Find(&currentQuiz)
+		quiz.FileName = currentQuiz.Image
 	} else {
-			quiz.FileName = "/file/base-image.jpg"
+		quiz.FileName = "/file/base-image.jpg"
 	}
-
 
 	dbErr := db.Model(&models.Quiz{}).Where("id = ?", id).Update(quiz).Find(quiz).Error
 	if dbErr == nil {
@@ -171,7 +169,7 @@ func (q *QuizSevc) Update(id uint, quiz *models.Quiz) (*models.QuizDTO, error) {
 
 	}
 	quizDto := utils.ParseQuizToQuizDTO(quiz)
-	return &quizDto,dbErr
+	return &quizDto, dbErr
 }
 
 func (q *QuizSevc) Delete(id uint) error {
@@ -197,24 +195,22 @@ func (q *QuizSevc) FindByUserId(userId uint) ([]models.QuizDTO, error) {
 	var quizzes []models.Quiz
 	dbErr := db.Where("created_by = ?", userId).Find(&quizzes).Error
 	if dbErr == nil {
-		for i,_ := range quizzes {
+		for i, _ := range quizzes {
 			db.Model(quizzes[i]).Related(&quizzes[i].CategoryRefer)
 			db.Model(quizzes[i]).Related(&quizzes[i].LanguageRefer)
 			db.Model(quizzes[i]).Related(&quizzes[i].TimingRefer)
-			db.Model(quizzes[i]).Related(&quizzes[i].UserRefer,"CreatedBy")
+			db.Model(quizzes[i]).Related(&quizzes[i].UserRefer, "CreatedBy")
 			db.Model(quizzes[i]).Association("Ratings").Find(&quizzes[i].Ratings)
 			if dbErr := db.Model(quizzes[i]).Association("Questions").Find(&quizzes[i].Questions).Error; dbErr == nil {
-				for j,_ := range quizzes[i].Questions {
+				for j, _ := range quizzes[i].Questions {
 					question := &quizzes[i].Questions[j]
 					db.Model(question).Association("Choices").Find(&question.Choices)
 				}
 			}
 		}
-		for _,e := range quizzes {
-			quizzesDto = append(quizzesDto,utils.ParseQuizToQuizDTO(&e))
+		for _, e := range quizzes {
+			quizzesDto = append(quizzesDto, utils.ParseQuizToQuizDTO(&e))
 		}
 	}
 	return quizzesDto, dbErr
 }
-
-

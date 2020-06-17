@@ -4,7 +4,11 @@ import logo from "../../assets/Group 622.png";
 import userIcon from "../../assets/cat.jpg";
 import HomePage from "../homepage/HomePage";
 
-const Navigation = () => {
+interface P {
+    user? : UserInterface;
+}
+
+const Navigation : React.FC<P> = ({user}) => {
    return (
            <header className="my-navbar">
                <div className="my-container">
@@ -23,9 +27,12 @@ const Navigation = () => {
                        <Link to="/acm">
                            <i className="icon-cup"></i>
                        </Link>
-                       <Link to="/about">
-                           <img className="my-user-icon" src={userIcon} alt="user-avartar" />
-                       </Link>
+                       {
+                           user &&
+                           <Link to="/about">
+                               <img className="my-user-icon" src={user?.image} alt="user-avartar" />
+                           </Link>
+                       }
                    </div>
                </div>
            </header>

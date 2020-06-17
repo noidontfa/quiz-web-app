@@ -1,18 +1,17 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
 	"../controller"
+	"github.com/gin-gonic/gin"
 )
 
 var (
 	categoryController = controller.NewCategoryController()
 )
 
-
-func register(router *gin.Engine)  {
+func register(router *gin.Engine) {
 	api := router.Group("/api")
 	{
-		api.GET("/category",categoryController.GetCategories)
+		api.GET("/category", categoryController.GetCategories)
 	}
 }

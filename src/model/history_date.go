@@ -7,6 +7,6 @@ import (
 
 type HistoryDate struct {
 	gorm.Model
-	InDate 		time.Time `gorm:"not null"`
-	Histories	[]History `gorm:"foreignkey:HistoryDateId`
+	InDate    time.Time `gorm:"not null"`
+	Histories []History `gorm:"foreignkey:HistoryDateId`
 }

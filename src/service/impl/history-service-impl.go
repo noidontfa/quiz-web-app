@@ -14,7 +14,7 @@ type HistoryServ struct {
 }
 
 func NewHistoryService(db *repository.Repo) service.HistoryService {
-	return &HistoryServ{db:db}
+	return &HistoryServ{db: db}
 }
 
 func (h *HistoryServ) FindByQuizId(id uint) ([]models.HistoryDTO, error) {
@@ -28,14 +28,14 @@ func (h *HistoryServ) FindByQuizId(id uint) ([]models.HistoryDTO, error) {
 	var histories []models.History
 	dbErr := db.Where("quiz_id = ?", id).Find(&histories).Error
 	if dbErr == nil {
-		for i,_ := range histories {
+		for i, _ := range histories {
 			history := &histories[i]
 			db.Model(history).Related(&history.UserRefer)
 			db.Model(history).Related(&history.QuizRefer)
-			historiesDTO = append(historiesDTO,utils.ParseHistoryToHistoryDTO(history))
+			historiesDTO = append(historiesDTO, utils.ParseHistoryToHistoryDTO(history))
 		}
 	}
-	return historiesDTO,dbErr
+	return historiesDTO, dbErr
 }
 
 func (h *HistoryServ) FindByUserId(id uint) ([]models.HistoryDTO, error) {
@@ -49,17 +49,16 @@ func (h *HistoryServ) FindByUserId(id uint) ([]models.HistoryDTO, error) {
 	var histories []models.History
 	dbErr := db.Where("user_id = ?", id).Find(&histories).Error
 	if dbErr == nil {
-		for i,_ := range histories {
+		for i, _ := range histories {
 			history := &histories[i]
 			db.Model(history).Related(&history.UserRefer)
 			db.Model(history).Related(&history.QuizRefer)
-			historiesDTO = append(historiesDTO,utils.ParseHistoryToHistoryDTO(history))
+			historiesDTO = append(historiesDTO, utils.ParseHistoryToHistoryDTO(history))
 		}
 	}
 
-	return historiesDTO,dbErr
+	return historiesDTO, dbErr
 }
-
 
 func (h *HistoryServ) Save(history *models.History) (*models.HistoryDTO, error) {
 	db, err := h.db.GetConnection()
@@ -76,9 +75,8 @@ func (h *HistoryServ) Save(history *models.History) (*models.HistoryDTO, error) 
 
 	historyDTO := utils.ParseHistoryToHistoryDTO(history)
 
-	return &historyDTO,dbErr
+	return &historyDTO, dbErr
 }
-
 
 func (h *HistoryServ) FindByDateId(date string, quizId uint) ([]models.HistoryDTO, error) {
 	db, err := h.db.GetConnection()
@@ -87,7 +85,7 @@ func (h *HistoryServ) FindByDateId(date string, quizId uint) ([]models.HistoryDT
 	}
 	defer db.Close()
 	var histories []models.History
-	dataf := fmt.Sprintf("quiz_id = %d AND created_at LIKE '%s'", quizId, date + "%")
+	dataf := fmt.Sprintf("quiz_id = %d AND created_at LIKE '%s'", quizId, date+"%")
 	dbErr := db.Where(dataf).Find(&histories).Error
 	if dbErr != nil {
 		log.Fatal(err.Error())
@@ -99,7 +97,5 @@ func (h *HistoryServ) FindByDateId(date string, quizId uint) ([]models.HistoryDT
 		db.Model(history).Related(&history.QuizRefer)
 		historiesDTO = append(historiesDTO, utils.ParseHistoryToHistoryDTO(history))
 	}
-	return historiesDTO,err
+	return historiesDTO, err
 }
-
-

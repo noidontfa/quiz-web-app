@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-func ParseQuizToQuizDTO(quiz  *models.Quiz) models.QuizDTO {
+func ParseQuizToQuizDTO(quiz *models.Quiz) models.QuizDTO {
 	var totalRating float32 = 0
 	for _, e := range quiz.Ratings {
 		totalRating += e.Star
@@ -18,24 +18,24 @@ func ParseQuizToQuizDTO(quiz  *models.Quiz) models.QuizDTO {
 	}
 
 	var questions []models.QuestionDTO
-	for _,e := range quiz.Questions {
+	for _, e := range quiz.Questions {
 		questions = append(questions, ParseQuestionTOQuestionDTO(&e))
 	}
 	timeFormater := "2006/01/02"
 	return models.QuizDTO{
-		ID:            	quiz.ID,
-		CreatedAt:     	quiz.CreatedAt.Format(timeFormater),
-		Name:          	quiz.Name,
-		Description:   	quiz.Description,
-		CategoryRefer: 	ParseCategoryToCategoryDTO(&quiz.CategoryRefer),
-		LanguageRefer: 	ParseLanguageToLanguageDTO(&quiz.LanguageRefer),
-		TimingRefer:   	ParseTimingToTimingDTO(&quiz.TimingRefer),
-		UserRefer:     	ParseUserToUserDTO(&quiz.UserRefer),
-		StateRefer:		ParseStateToStateDTO(&quiz.StateRefer),
+		ID:             quiz.ID,
+		CreatedAt:      quiz.CreatedAt.Format(timeFormater),
+		Name:           quiz.Name,
+		Description:    quiz.Description,
+		CategoryRefer:  ParseCategoryToCategoryDTO(&quiz.CategoryRefer),
+		LanguageRefer:  ParseLanguageToLanguageDTO(&quiz.LanguageRefer),
+		TimingRefer:    ParseTimingToTimingDTO(&quiz.TimingRefer),
+		UserRefer:      ParseUserToUserDTO(&quiz.UserRefer),
+		StateRefer:     ParseStateToStateDTO(&quiz.StateRefer),
 		TotalQuestions: len(questions),
-		QuestionRefer: 	questions,
-		Ratings:       	totalRating,
-		Image:         	quiz.FileName,
+		QuestionRefer:  questions,
+		Ratings:        totalRating,
+		Image:          quiz.FileName,
 	}
 
 }
@@ -43,7 +43,7 @@ func ParseQuizToQuizDTO(quiz  *models.Quiz) models.QuizDTO {
 func ParseQuestionTOQuestionDTO(question *models.Question) models.QuestionDTO {
 	var choices []models.ChoiceDTO
 	for _, e := range question.Choices {
-		choices = append(choices,ParseChoiceToChoiceDTO(&e))
+		choices = append(choices, ParseChoiceToChoiceDTO(&e))
 	}
 
 	return models.QuestionDTO{
@@ -70,7 +70,7 @@ func ParseCategoryToCategoryDTO(category *models.Category) models.CategoryDTO {
 	}
 }
 
-func ParseLanguageToLanguageDTO(language *models.Language) models.LanguageDTO  {
+func ParseLanguageToLanguageDTO(language *models.Language) models.LanguageDTO {
 	return models.LanguageDTO{
 		ID:   language.ID,
 		Name: language.Name,
@@ -86,13 +86,17 @@ func ParseTimingToTimingDTO(timing *models.Timing) models.TimingDTO {
 }
 
 func ParseUserToUserDTO(user *models.User) models.UserDTO {
+	timeFormater := "2006/01/02"
 	return models.UserDTO{
 		ID:         user.ID,
 		Username:   user.Username,
 		FirstName:  user.FirstName,
 		LastName:   user.LastName,
 		Email:      user.Email,
-		DayOfBirth: user.DayOfBirth,
+		DayOfBirth: user.DayOfBirth.Format(timeFormater),
+		Image: 		user.Filename,
+		JoinDate:	user.CreatedAt.Format(timeFormater),
+
 	}
 }
 
@@ -103,7 +107,7 @@ func ParseHistoryToHistoryDTO(history *models.History) models.HistoryDTO {
 		Score:              history.Score,
 		QuizRefer:          ParseQuizToQuizDTO(&history.QuizRefer),
 		UserRefer:          ParseUserToUserDTO(&history.UserRefer),
-		CreateAt:			history.CreatedAt.Format("2006-01-02"),
+		CreateAt:           history.CreatedAt.Format("2006-01-02"),
 	}
 }
 
@@ -125,21 +129,21 @@ func Random_filename_16_char() (s string, err error) {
 }
 
 func SaveImage(filename string, dataBase64 string) (string, error) {
-	randFileName,_ := Random_filename_16_char()
+	randFileName, _ := Random_filename_16_char()
 	randFileName += "-" + filename
 	dec, err := base64.StdEncoding.DecodeString(dataBase64)
 	if err != nil {
-		return "",err
+		return "", err
 	}
 	f, err := os.Create("./src/public/" + randFileName)
 	if err != nil {
-		return "",err
+		return "", err
 	}
 	if _, err := f.Write(dec); err != nil {
-		return  "",err
+		return "", err
 	}
 	if err := f.Sync(); err != nil {
-		return  "",err
+		return "", err
 	}
 	returnString := "/file/" + randFileName
 	return returnString, nil

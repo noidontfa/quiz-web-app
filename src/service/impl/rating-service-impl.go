@@ -12,7 +12,7 @@ type RatingServ struct {
 }
 
 func NewRatingService(db *repository.Repo) service.RatingService {
-	return &RatingServ{db:db}
+	return &RatingServ{db: db}
 }
 
 func (r *RatingServ) Save(rating *models.Rating) (*models.Rating, error) {
@@ -24,11 +24,9 @@ func (r *RatingServ) Save(rating *models.Rating) (*models.Rating, error) {
 
 	if rating.ID > 0 {
 		dbErr := db.Model(rating).Update(rating).Error
-		return rating,dbErr
+		return rating, dbErr
 	} else {
 		dbErr := db.Save(rating).Error
-		return rating,dbErr
+		return rating, dbErr
 	}
 }
-
-

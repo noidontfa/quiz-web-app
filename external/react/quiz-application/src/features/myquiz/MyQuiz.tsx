@@ -7,12 +7,13 @@ import axios from "axios";
 import logo from "../../assets/Group 622.png";
 import {Link} from "react-router-dom";
 import {useHistory} from "react-router-dom";
-
+import Cookies  from 'universal-cookie';
 
 const MyQuiz = () => {
     const history = useHistory();
+    const cookies = new Cookies();
     const [quizzes,setQuizzes] = useState<Array<QuizInterface>>([])
-
+    const [user,setUser] = useState<UserInterface>({});
     useEffect(() => {
         axios.get(`http:/api/quizzes/${2}/my`)
             .then(res => {
@@ -20,16 +21,28 @@ const MyQuiz = () => {
                 console.log(data);
                 setQuizzes(data);
             })
+        const token = cookies.get('token');
+        if (token != undefined) {
+            axios.get("http:/api/user/info", {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            }).then(res => {
+                console.log(res.data);
+                setUser(res.data);
+            })
+        }
+
     },[])
 
 
     return <>
-        <Navigation/>
+        <Navigation user={user}/>
 
         <main className="my-main-content">
             <div className="my-container">
                 <div className="row">
-                    <UserInfo/>
+                    <UserInfo user={user}/>
                     <div className="col-xl-12" style={{margin: "40px 0 20px 0"}}>
                         <div className="seprator"></div>
                     </div>

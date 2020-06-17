@@ -18,37 +18,38 @@ type UserController interface {
 	UpdateUser(ctx *gin.Context)
 	DeleteUser(ctx *gin.Context)
 	SaveUser(ctx *gin.Context)
+	GetUserInfo(ctx *gin.Context)
 }
 
-func NewUserController(serv service.UserService) UserController  {
-	return &UserControl{UserService:serv}
+func NewUserController(serv service.UserService) UserController {
+	return &UserControl{UserService: serv}
 }
 
 func (u *UserControl) FindAllUsers(ctx *gin.Context) {
 	users, err := u.UserService.FindAll()
 	if err != nil {
-		ctx.String(http.StatusInternalServerError,err.Error())
+		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK,users)
+	ctx.JSON(http.StatusOK, users)
 }
 
 func (u *UserControl) FindByIdUser(ctx *gin.Context) {
-	id, err1 := strconv.ParseInt(ctx.Param("id"),0,0)
+	id, err1 := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err1 != nil {
 		ctx.String(http.StatusInternalServerError, err1.Error())
 		return
 	}
 	user, err := u.UserService.FindById(uint(id))
 	if err != nil {
-		ctx.String(http.StatusInternalServerError,err.Error())
+		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	ctx.JSON(http.StatusOK,user)
+	ctx.JSON(http.StatusOK, user)
 }
 
 func (u *UserControl) UpdateUser(ctx *gin.Context) {
-	id, err1 := strconv.ParseInt(ctx.Param("id"),0,0)
+	id, err1 := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err1 != nil {
 		ctx.String(http.StatusInternalServerError, err1.Error())
 		return
@@ -58,7 +59,7 @@ func (u *UserControl) UpdateUser(ctx *gin.Context) {
 		ctx.String(http.StatusInternalServerError, err.Error())
 		return
 	}
-	userResult, err := u.UserService.Update(uint(id),&user)
+	userResult, err := u.UserService.Update(uint(id), &user)
 	if err != nil {
 		ctx.String(http.StatusInternalServerError, err.Error())
 		return
@@ -67,7 +68,7 @@ func (u *UserControl) UpdateUser(ctx *gin.Context) {
 }
 
 func (u *UserControl) DeleteUser(ctx *gin.Context) {
-	id, err1 := strconv.ParseInt(ctx.Param("id"),0,0)
+	id, err1 := strconv.ParseInt(ctx.Param("id"), 0, 0)
 	if err1 != nil {
 		ctx.String(http.StatusInternalServerError, err1.Error())
 		return
@@ -93,3 +94,15 @@ func (u *UserControl) SaveUser(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, userResult)
 }
 
+func (u *UserControl) GetUserInfo(ctx *gin.Context) {
+	const BEARER_SCHEMA = "Bearer "
+	authHeader := ctx.GetHeader("Authorization")
+	tokenString := authHeader[len(BEARER_SCHEMA):]
+
+	user, err := u.UserService.FindByToken(tokenString)
+	if err != nil {
+		ctx.String(http.StatusBadRequest, err.Error())
+		return
+	}
+	ctx.JSON(http.StatusOK, user)
+}

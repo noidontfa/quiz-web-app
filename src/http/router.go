@@ -7,4 +7,3 @@ type Router interface {
 	POST(uri string, f func(resp http.ResponseWriter, req *http.Request))
 	SERVE(port string)
 }
-

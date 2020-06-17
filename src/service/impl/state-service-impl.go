@@ -12,9 +12,8 @@ type StateSevc struct {
 	db *repository.Repo
 }
 
-
 func NewStateService(db *repository.Repo) service.StateService {
-	return &StateSevc{db:db}
+	return &StateSevc{db: db}
 }
 
 func (r StateSevc) FindAll() ([]models.StateDTO, error) {
@@ -26,11 +25,11 @@ func (r StateSevc) FindAll() ([]models.StateDTO, error) {
 	var states []models.State
 	var statesDTO []models.StateDTO
 	if dbErr := db.Find(&states).Error; dbErr != nil {
-		return statesDTO,dbErr
+		return statesDTO, dbErr
 	}
-	for i,_ := range states {
+	for i, _ := range states {
 		stateDto := utils.ParseStateToStateDTO(&states[i])
-		statesDTO = append(statesDTO,stateDto)
+		statesDTO = append(statesDTO, stateDto)
 	}
-	return statesDTO,nil
+	return statesDTO, nil
 }
