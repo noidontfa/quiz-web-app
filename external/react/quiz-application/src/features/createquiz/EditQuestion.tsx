@@ -7,13 +7,16 @@ import Breadcrumbs from "../breadcrumb/Breadcrumbs";
 import LinkBreadcrumbs from "../breadcrumb/LinkBreadcrumbs";
 import Editable from "../editable-lable/Editable.";
 import {useHistory} from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 const EditQuiz = () => {
     const history = useHistory();
+    const cookies = new Cookies();
     const inputRef = useRef() as React.MutableRefObject<HTMLTextAreaElement>;
     const { quizId } = useParams();
     const [quizName,setQuizName] = useState('');
     const [questions,setQuestions] = useState<Array<QuestionInterface>>([]);
+    const [user,setUser] = useState<UserInterface>({});
 
     const [questionName,setQuestionName] = useState('');
     const [choiceName,setChoiceName] = useState('');
@@ -38,6 +41,18 @@ const EditQuiz = () => {
 
     useEffect(() => {
         doStuff();
+
+        const token = cookies.get("token");
+        if ( token != undefined ){
+            axios.get("http:/api/user/info", {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            }).then(res => {
+                console.log(res.data);
+                setUser(res.data);
+            })
+        }
     },[])
 
     const onSaveQuestion = () => {
@@ -155,12 +170,12 @@ const EditQuiz = () => {
 
 
     return <>
-        <Navigation/>
+        <Navigation user={user}/>
 
         <main className="my-main-content">
             <div className="my-container">
                 <div className="row">
-                    <UserInfo/>
+                    <UserInfo user={user}/>
 
                     <div className="col-xl-12" style={{margin: "40px 0 20px 0"}}>
                         <div className="seprator"></div>

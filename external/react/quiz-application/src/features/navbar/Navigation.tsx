@@ -28,10 +28,14 @@ const Navigation : React.FC<P> = ({user}) => {
                            <i className="icon-cup"></i>
                        </Link>
                        {
-                           user &&
-                           <Link to="/about">
-                               <img className="my-user-icon" src={user?.image} alt="user-avartar" />
-                           </Link>
+                           user?.username &&
+                               <Link to="/about">
+                                   <img className="my-user-icon" src={user?.image} alt="user-avartar" />
+                               </Link>
+                           ||
+                               <Link to="/login">
+                                   <span className="active">Login</span>
+                               </Link>
                        }
                    </div>
                </div>

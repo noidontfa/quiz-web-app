@@ -14,25 +14,29 @@ const MyQuiz = () => {
     const cookies = new Cookies();
     const [quizzes,setQuizzes] = useState<Array<QuizInterface>>([])
     const [user,setUser] = useState<UserInterface>({});
-    useEffect(() => {
-        axios.get(`http:/api/quizzes/${2}/my`)
-            .then(res => {
-                const data = res.data;
-                console.log(data);
-                setQuizzes(data);
-            })
-        const token = cookies.get('token');
-        if (token != undefined) {
-            axios.get("http:/api/user/info", {
-                headers: {
-                    Authorization: 'Bearer ' + token
-                }
-            }).then(res => {
-                console.log(res.data);
-                setUser(res.data);
-            })
-        }
+    const doStuff =  async () => {
+        try {
+            const token = cookies.get('token');
+            if (token != undefined) {
+                let response = await axios.get("http:/api/user/info", {
+                    headers: {
+                        Authorization: 'Bearer ' + token
+                    }
+                });
+                const user : UserInterface = response.data;
+                setUser(user);
+                response = await  axios.get(`http:/api/quizzes/${user.id}/my`);
+                const quiz : Array<QuizInterface> = response.data;
+                setQuizzes(quiz);
+            }
 
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    useEffect(() => {
+        doStuff();
     },[])
 
 

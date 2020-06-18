@@ -5,11 +5,11 @@ import Navigation from "../navbar/Navigation";
 import UserInfo from "./user-info/UserInfo";
 import Breadcrumbs from "../breadcrumb/Breadcrumbs";
 import LinkBreadcrumbs from "../breadcrumb/LinkBreadcrumbs";
-
+import Cookies  from 'universal-cookie';
 
 const EditQuiz = () => {
 
-
+    const cookies = new Cookies();
     const { quizId } = useParams();
     const history = useHistory();
     const [quizName,setQuizName] = useState('');
@@ -20,7 +20,7 @@ const EditQuiz = () => {
     const [stateId,setStateId] = useState(0);
     const [image,setImage] = useState("");
     const [filename,setFilename] = useState("");
-
+    const [user,setUser] = useState<UserInterface>({});
 
     const [dataCategories,setDataCategories] = useState<Array<CategoryInterface>>([]);
     const [dataTimings,setDataTimings] = useState<Array<TimingInterface>>([]);
@@ -70,6 +70,18 @@ const EditQuiz = () => {
         })
             .catch(err => console.log(err));
 
+        const token = cookies.get("token");
+        if ( token != undefined ){
+            axios.get("http:/api/user/info", {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            }).then(res => {
+                console.log(res.data);
+                setUser(res.data);
+            })
+        }
+
     },[])
 
     const toBase64 = (file : any) => new Promise((resolve, reject) => {
@@ -113,12 +125,12 @@ const EditQuiz = () => {
     }
 
     return <>
-        <Navigation/>
+        <Navigation user={user}/>
 
         <main className="my-main-content">
             <div className="my-container">
                 <div className="row">
-                    <UserInfo/>
+                    <UserInfo user={user}/>
 
                     <div className="col-xl-12" style={{margin: "40px 0 20px 0"}}>
                         <div className="seprator"></div>

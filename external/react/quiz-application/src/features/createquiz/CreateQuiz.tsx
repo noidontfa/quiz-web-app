@@ -5,21 +5,38 @@ import Breadcrumbs from "../breadcrumb/Breadcrumbs";
 import LinkBreadcrumbs from "../breadcrumb/LinkBreadcrumbs";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
+import Cookies  from 'universal-cookie';
 
 
 const CreateQuiz = () => {
     const history = useHistory();
+    const cookies = new Cookies();
     const [quizName,setQuizName] = useState('');
     const [description,setDescription] = useState('');
     const [categoryId,setCategoryId] = useState(0);
     const [timingId,setTimingId] = useState(0);
     const [languageId,setLanguageId] = useState(0);
+    const [user,setUser] = useState<UserInterface>({});
 
     const [dataCategories,setDataCategories] = useState<Array<CategoryInterface>>([]);
     const [dataTimings,setDataTimings] = useState<Array<TimingInterface>>([]);
     const [dataLanguages,setDataLanguages] = useState<Array<LanguageInterface>>([]);
 
     useEffect(() => {
+
+        const token = cookies.get("token");
+        if ( token != undefined ){
+            axios.get("http:/api/user/info", {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            }).then(res => {
+                console.log(res.data);
+                setUser(res.data);
+            })
+        }
+
+
         axios.get("http:/api/categories").then(res => {
             setDataCategories(res.data);
             setCategoryId(res.data[0].id)
@@ -50,7 +67,7 @@ const CreateQuiz = () => {
                 categoryId,
                 timingId,
                 languageId,
-                createdBy: 2,
+                createdBy: user.id,
             }).then(res => {
                 console.log(res.data);
                 const path = `edit/${res.data.id}`
@@ -61,11 +78,11 @@ const CreateQuiz = () => {
 
     return (
         <>
-            <Navigation/>
+            <Navigation user={user}/>
             <main className="my-main-content">
                 <div className="my-container">
                     <div className="row">
-                        <UserInfo/>
+                        <UserInfo user={user}/>
 
                         <div className="col-xl-12" style={{margin: "40px 0 20px 0"}}>
                             <div className="seprator"></div>

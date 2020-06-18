@@ -1,21 +1,22 @@
-import React, {useEffect} from "react";
-import {animated} from "react-spring";
-import ChoiceItem from "./choice-item/ChoiceItem";
+import React, {useEffect, useState} from "react";
 import Ratings from "../rating/Ratings";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
-import createHistory from 'history/createBrowserHistory';
+
 interface P {
     quiz : QuizInterface;
     rightChoices: number;
     score : number;
+    user? : UserInterface
 }
 
-const FinishPage  : React.FC<P> = ({quiz,rightChoices,score}) => {
+const FinishPage  : React.FC<P> = ({quiz,rightChoices,score,user}) => {
     const history = useHistory();
+
     const onRatingQuiz = (value : number) => {
+
         axios.post(`http:/api/ratings/`, {
-            userId: 2,
+            userId: user?.id,
             quizId: quiz.id,
             star: value
         }).then(function (res) {
@@ -26,8 +27,9 @@ const FinishPage  : React.FC<P> = ({quiz,rightChoices,score}) => {
     }
 
     useEffect(() => {
+
         axios.post(`http:/api/histories/`, {
-            userId: 2,
+            userId: user?.id,
             quizId: quiz.id,
             score: score,
             numberRightAnswers: rightChoices

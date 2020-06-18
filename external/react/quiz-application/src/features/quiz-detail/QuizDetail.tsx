@@ -10,6 +10,7 @@ import HistoryTable from "./history-table/HistoryTable";
 import PlayQuiz from "../playquiz/PlayQuiz";
 import "../../style.css";
 import {useTransition, animated} from "react-spring";
+import Cookies  from 'universal-cookie';
 
 
 
@@ -101,15 +102,26 @@ const quizTest : QuizInterface = {
 
 export function QuizDetail(){
     const { quizId } = useParams();
+    const cookies = new Cookies();
     const [quiz, setQuiz] = useState<QuizInterface>({});
     const [isPlay,setIsPlay] = useState(false);
+    const [user,setUser] = useState<UserInterface>({});
     const doStuff =  async () => {
         try {
-            const response = await axios.get(`http:/api/quizzes/${quizId}`);
+            let response = await axios.get(`http:/api/quizzes/${quizId}`);
             // console.log(response.data);
             setQuiz(response.data);
             // setQuiz(() => quizTest);
             // console.log(response.data);
+            const token = cookies.get("token");
+            if ( token != undefined ){
+                response = await axios.get("http:/api/user/info", {
+                    headers: {
+                        Authorization: 'Bearer ' + token
+                    }
+                });
+                setUser(response.data)
+            }
         } catch (e) {
             console.log(e);
         }
@@ -136,7 +148,7 @@ export function QuizDetail(){
                     <main className="my-main-content">
                         <div className="my-container">
                             <div className="row">
-                                <Navigation/>
+                                <Navigation user={user}/>
                                 <div className="col-xl-12">
                                     <Breadcrumbs>
                                         <LinkBreadcrumbs to={'/'} active={true} name={'Home'}/>
