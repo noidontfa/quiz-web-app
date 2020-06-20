@@ -106,13 +106,27 @@ export function QuizDetail(){
     const [quiz, setQuiz] = useState<QuizInterface>({});
     const [isPlay,setIsPlay] = useState(false);
     const [user,setUser] = useState<UserInterface>({});
+
+    const shuffle = (a : Array<any>) => {
+        const copy = [...a];
+        copy.sort(function(){
+            return 0.5 - Math.random();
+        });
+        return copy;
+    }
+
     const doStuff =  async () => {
         try {
             let response = await axios.get(`http:/api/quizzes/${quizId}`);
-            // console.log(response.data);
-            setQuiz(response.data);
-            // setQuiz(() => quizTest);
-            // console.log(response.data);
+            const baseQuiz : QuizInterface = response.data;
+            baseQuiz.questionRefer = shuffle(baseQuiz.questionRefer!);
+            baseQuiz.questionRefer = baseQuiz.questionRefer.map(e => {
+                return {
+                    ...e,
+                    choices: shuffle(e.choices!)
+                }
+            });
+            setQuiz(baseQuiz);
             const token = cookies.get("token");
             if ( token != undefined ){
                 response = await axios.get("http:/api/user/info", {

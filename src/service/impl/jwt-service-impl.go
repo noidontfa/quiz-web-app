@@ -68,3 +68,9 @@ func (J *JWTSevc) GetRedisToken(username string) string {
 	token,_ := J.client.Get(ctx,username).Result()
 	return token
 }
+
+func (J *JWTSevc) DeleteRedisToken(username string) error {
+	ctx := context.Background()
+	_, err := J.client.Del(ctx,username).Result()
+	return  err
+}

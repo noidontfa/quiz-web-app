@@ -21,9 +21,12 @@ const Navigation : React.FC<P> = ({user}) => {
                        <Link to="/">
                            <i className="icon-home"></i>
                        </Link>
-                       <Link to="/quiz/my">
-                           <i className="icon-puzzle"></i>
-                       </Link>
+                       {
+                           user?.username &&
+                           <Link to="/quiz/my">
+                               <i className="icon-puzzle"></i>
+                           </Link>
+                       }
                        <Link to="/acm">
                            <i className="icon-cup"></i>
                        </Link>

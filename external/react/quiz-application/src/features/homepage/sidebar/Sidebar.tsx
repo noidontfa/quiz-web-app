@@ -1,7 +1,8 @@
 import React, {useLayoutEffect, useState} from "react";
-import userIcon from "../../../assets/cat.jpg";
 import {useHistory} from "react-router-dom";
 import {Link} from "react-router-dom";
+import axios from "axios";
+import Cookies  from 'universal-cookie';
 
 interface P {
     user? : UserInterface;
@@ -10,7 +11,7 @@ interface P {
 const SideBar : React.FC<P> = ({user}) => {
     const [leftSidebar,setLeftSidebar] = useState('0');
     const history = useHistory();
-
+    const cookies = new Cookies();
     useLayoutEffect(() => {
         const mySection = document.getElementById('my-section');
         setLeftSidebar((mySection!.getBoundingClientRect().right + 82 ) + 'px');
@@ -23,6 +24,21 @@ const SideBar : React.FC<P> = ({user}) => {
             window.removeEventListener('resize',onResize);
         }
     },[])
+
+
+    const onLogout = () => {
+        const token =  cookies.get("token");
+        if (token != undefined) {
+            axios.post("http:/logout/", {},{
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            }).then(() => {
+                cookies.remove("token",{path: "/"});
+                window.location.reload();
+            }).catch(err => console.log(err))
+        }
+    }
 
     return (
         <div className="my-sidebar" id="my-sidebar" style={{left: leftSidebar}}>
@@ -83,7 +99,7 @@ const SideBar : React.FC<P> = ({user}) => {
                                 Settings
                             </span>
                         </a>
-                        <a className="side-link" href="#">
+                        <a className="side-link"  onClick={onLogout} href="#">
                             <i className="icon-share"></i>
                             <span>
                                 Log out

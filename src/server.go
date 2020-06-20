@@ -100,7 +100,7 @@ func main() {
 	historyController := controller.NewHistoryController(historyService)
 	stateController := controller.NewStateController(stateService)
 	choiceController := controller.NewChoiceController(choiceService)
-	loginController := controller.NewLoginController(loginService, jwtService)
+	loginController := controller.NewLoginController(loginService, jwtService,userService)
 
 	router := gin.New()
 
@@ -114,6 +114,8 @@ func main() {
 	router.StaticFS("/file", http.Dir("./src/public"))
 
 	router.POST("/login", loginController.Login)
+	router.POST("/logout", loginController.Logout)
+
 
 	testAuthor := router.Group("/test", middlewares.AuthorizeJWT(client))
 	{
