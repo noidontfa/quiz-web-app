@@ -25,7 +25,7 @@ func (q *QuizSevc) FindAll() ([]models.QuizDTO, error) {
 	}
 	defer db.Close()
 	var quizzes []models.Quiz
-	if dbErr := db.Find(&quizzes).Error; dbErr == nil {
+	if dbErr := db.Where("state_id = ?",2).Find(&quizzes).Error; dbErr == nil {
 		for i, _ := range quizzes {
 			db.Model(quizzes[i]).Related(&quizzes[i].CategoryRefer)
 			db.Model(quizzes[i]).Related(&quizzes[i].LanguageRefer)

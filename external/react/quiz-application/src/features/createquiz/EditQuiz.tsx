@@ -116,11 +116,22 @@ const EditQuiz = () => {
                 image: image.split(',')[1],
                 createdBy: 2
             }).then(res => {
-                console.log(res.data);
-                alert("Me log")
                 window.location.reload();
             }).catch(err => console.log(err));
             console.log(quizName);
+        }
+    }
+
+    const onDeleteQuiz = (e : React.SyntheticEvent) => {
+        e.preventDefault();
+        const flag = window.confirm("Are you sure to delete this quiz: " + quizName + " ?");
+        if (flag) {
+            axios.delete(`http:/api/quizzes/${quizId}`)
+                .then(res => {
+                    const path = "/quiz/my"
+                    history.push(path);
+                })
+                .catch(err => console.log(err))
         }
     }
 
@@ -289,7 +300,7 @@ const EditQuiz = () => {
                                         </label>
                                     </div>
                                     <div className="col-xl-12 d-flex justify-content-center">
-                                        <button type="submit" className="btn-delete">
+                                        <button type="submit" className="btn-delete" onClick={onDeleteQuiz}>
                                             <i className="icon-trash"></i>
                                             <span>Delete quiz</span>
                                         </button>

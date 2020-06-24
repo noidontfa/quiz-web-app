@@ -1,12 +1,7 @@
 import React, {useEffect} from "react";
 import ChoiceItem from "../choice-item/ChoiceItem";
-import {ButtonBaseActions} from "@material-ui/core";
 import {animated, useTransition} from "react-spring";
-import Navigation from "../../navbar/Navigation";
-import Breadcrumbs from "../../breadcrumb/Breadcrumbs";
-import LinkBreadcrumbs from "../../breadcrumb/LinkBreadcrumbs";
-import QuizInfo from "../../quiz-detail/quiz-info/QuizInfo";
-import HistoryTable from "../../quiz-detail/history-table/HistoryTable";
+
 
 interface P {
     question : QuestionInterface;

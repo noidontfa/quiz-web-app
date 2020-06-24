@@ -26,13 +26,13 @@ const Section = () => {
 
         <div className="my-section" id="my-section">
             {
-                quizData
+                quizData && quizData
                     .filter((e,i) => i === 0)
                     .map(e => (<BigCard key={e.id} quiz={e}/>))
             }
             {
 
-                quizData.map((e,i) => {
+                quizData && quizData.map((e,i) => {
                     if(i !== 0) {
                         return  (<MediumCard key= {e.id} quiz={e}/>)
                     }
